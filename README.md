@@ -18,24 +18,59 @@
 ## webpack
 
 ### 1. thread-loader
+多进程打包
 
 ### 2. image-webpack-loader
 压缩图片
 
+### 3. 配置 babel-loader 缓存
+```javascript
+{
+  test: /\.js$/,
+  use: [
+    {
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true
+      }
+    }
+  ]
+}
+```
 
-### 3. DLLPlugin
+### 4. DLLPlugin
 
-### 4. terser-webpack-plugin
+### 5. terser-webpack-plugin
 压缩 js
+```javascript
+const TerserPlugin = require("terser-webpack-plugin");
 
-### 5. mini-css-extract-plugin
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
+  }
+}
+```
+
+### 6. mini-css-extract-plugin
 压缩 css
+```javascript
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-### 6. compression-webpack-plugin
+module.exports = {
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
+  ]
+}
+```
+
+### 7. compression-webpack-plugin
 gzip 压缩
 
-### 7. splitChunks
-代码分割
+### 8. splitChunks
 
 
 ## HTTP 缓存
