@@ -17,9 +17,25 @@
 
 ## webpack
 
-### 1. DLLPlugin
+### 1. thread-loader
 
-### 2. thread-loader
+### 2. image-webpack-loader
+压缩图片
+
+
+### 3. DLLPlugin
+
+### 4. terser-webpack-plugin
+压缩 js
+
+### 5. mini-css-extract-plugin
+压缩 css
+
+### 6. compression-webpack-plugin
+gzip 压缩
+
+### 7. splitChunks
+代码分割
 
 
 ## HTTP 缓存
