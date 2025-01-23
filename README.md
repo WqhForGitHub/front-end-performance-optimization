@@ -107,6 +107,15 @@ module.exports = {
 ```
 
 ### 8. splitChunks
+```javascript
+module.exports = {
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
+  }
+}
+```
 
 
 ## HTTP 缓存
