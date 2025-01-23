@@ -1,38 +1,38 @@
 ## HTML
-**`图片优化`** 
+### 1. 图片优化
 
 ## CSS
-**`回流和重绘`**
+### 1. 回流和重绘
 
 ## JavaScript
 
-**`lazy-load`**
+### 1. lazy-load
 
-**`DOM`**
+### 2. DOM
 
-**`防抖和节流`**
+### 3. 防抖和节流
 
 ## Vue
-**`路由懒加载`**
+### 1. 路由懒加载
 
 ## webpack
 
-**`DLLPlugin`** 
+### 1. DLLPlugin
 
-**`thread-loader`**
+### 2. thread-loader
 
 
 ## HTTP 缓存
-**`强缓存`**
+### 1. 强缓存
 
-**`协商缓存`**
+### 2. 协商缓存
 
 ## 服务端渲染
-**`ssr`** 
+### 1. ssr 
 
 
 ## 可视面板分析
 
-**`performance`** 
+### 1. performance
 
-**`lightHouse`** 
+### 2. lightHouse
