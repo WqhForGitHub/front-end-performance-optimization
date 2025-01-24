@@ -42,6 +42,31 @@ prefetch
 
 ### 2. css sprites 
 减少图像请求数量
+```css
+.icon-1 {
+  width: 20px;
+  height: 20px;
+  background-image: url("sprite.png");
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+.icon-2 {
+  width: 20px;
+  height: 20px;
+  background-image: url("sprite.png");
+  background-position: -20px 0;
+  background-repeat: no-repeat;
+}
+
+.icon-3 {
+  width: 20px;
+  height: 20px;
+  background-image: url("sprite.png");
+  background-position: -40px 0;
+  background-repeat: no-repeat;
+}
+```
 
 ## JavaScript
 
@@ -59,6 +84,36 @@ function isInViewPortOne(el) {
 ### 2. DOM
 
 ### 3. 防抖和节流
+
+**防抖**
+
+```javascript
+function debounce(func, wait) {
+  let timeout;
+
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, arguments);
+    }, wait);
+  }
+}
+```
+
+**节流**
+
+```javascript
+function throttle(func, apply) {
+  let lastTime = 0;
+  return function() {
+    const now = Date.now();
+    if (now - lastTime >= wait) {
+      lastTime = now;
+      func.apply(this, arguments);
+    }
+  }
+}
+```
 
 ### 4. 使用文档片段
 使用文档片段（documentFragment）减少 DOM 操作
@@ -83,6 +138,30 @@ list.appendChild(fragment);
 
 ## Vue
 ### 1. 路由懒加载
+```javascript
+import { createRouter, createWebHistory } from 'vue-router';
+
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('./views/Home.vue')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('./views/About.vue')
+  },
+  // 其他路由配置
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
 
 ### 2. keep-alive
 使用 keep-alive 缓存组件
@@ -179,11 +258,27 @@ module.exports = {
 ```
 
 ### 8. splitChunks
+
+它能自动识别和提取公共模块，并将其打包成单独的 chunk，减少重复代码，从而优化你的应用性能。
+
 ```javascript
 module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/, // 匹配 node_modules 中的模块
+          name: 'vendors', // 自定义 chunk 名称
+          chunks: 'all',
+          priority: 1 // 优先级，更高的优先级会优先被应用
+        },
+        default: {
+          minChunks: 2, // 至少被两个 chunk 共享的模块才会被提取
+          reuseExistingChunk: true, // 重用已存在的 chunk
+          name: 'common' // 自定义 chunk 名称
+        }
+      }
     }
   }
 }
