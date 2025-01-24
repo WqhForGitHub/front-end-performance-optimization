@@ -6,6 +6,23 @@
 
 使用场景：**JPG 适用于呈现色彩丰富的图片，大的背景图、轮播图**
 
+**`PNG-8 与 PNG-24`**
+
+关键字：**无损压缩、质量高、体积大、支持透明**
+
+使用场景：**呈现小的 logo，颜色简单而且对比强烈的图片或背景**
+
+**`SVG`**
+
+关键字：**文本文件、体积小、不失真、兼容性好**
+
+**`Base 64`**
+
+关键字：**文本文件、依赖编码、小图标解决方案**
+
+使用场景：**小图标**
+
+
 ### 2. 预加载
 preload
 ```html
@@ -29,6 +46,15 @@ prefetch
 ## JavaScript
 
 ### 1. lazy-load
+```javascript
+function isInViewPortOne(el) {
+  const viewPortHeight = window.innerHeight;
+  const offsetTop = el.offsetTop;
+  const scrollTop = document.documentElement.scrollTop;
+  const top = offset - scrollTop;
+  return top <= viewPortHeight;
+}
+```
 
 ### 2. DOM
 
@@ -36,6 +62,23 @@ prefetch
 
 ### 4. 使用文档片段
 使用文档片段（documentFragment）减少 DOM 操作
+```html
+<ul id="list"></ul>
+```
+```javascript
+const list = document.querySelector("#list");
+const fruits = ["Apple", "Orange", "Banana", "Melon"];
+
+const fragment = new DocumentFragment();
+
+fruits.forEach((fruit) => {
+  const li = document.createElement("li");
+  li.textContent = fruit;
+  fragment.appendChild(li);
+});
+
+list.appendChild(fragment);
+```
 
 
 ## Vue
