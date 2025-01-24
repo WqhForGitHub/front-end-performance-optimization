@@ -1,9 +1,23 @@
 ## HTML
 ### 1. 图片优化
+**`JPEG/JPG`**
+
+关键字：**有损压缩、体积小、加载快、不支持透明**
+
+使用场景：**JPG 适用于呈现色彩丰富的图片，大的背景图、轮播图**
 
 ### 2. 预加载
+preload
 ```html
-<link rel="preload">
+<link rel="preload" href="style.css" />
+<link rel="preload" href="main.js" />
+```
+
+### 3. 预提取
+prefetch
+```html
+<link rel="prefetch" href="style.css" />
+<link rel="prefetch" href="main.js" />
 ```
 
 ## CSS
@@ -26,13 +40,14 @@
 
 ## Vue
 ### 1. 路由懒加载
+
 ### 2. keep-alive
 使用 keep-alive 缓存组件
 
 ### 3. v-if 和 v-for 结合使用
 **`v-for`** 的优先级高于 **`v-if`**，将 **`v-if`** 抽到 **`v-for`** 外部
 ```html
-<template v-if="someCondition">
+template v-if="someCondition">
   <div v-for="item in items" :key="item.id">
     {{ item.name }}
   </div>
@@ -46,6 +61,20 @@
 
 ### 1. thread-loader
 多进程打包
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [
+          'thread-loader'
+        ]
+      }
+    ]
+  }
+}
+```
 
 ### 2. image-webpack-loader
 压缩图片
