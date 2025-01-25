@@ -37,10 +37,33 @@ prefetch
 <link rel="prefetch" href="main.js" />
 ```
 
-## CSS
-### 1. 回流和重绘
+### 4. `defer` 属性
 
-### 2. css sprites 
+```javascript
+<script src="script.js" defer></script>
+```
+
+* **行为**： **`defer`** 属性表示脚本将在文档解析完成后（即 **`DOMContentLoaded`** 事件之前）异步执行。这种方式不会阻塞 HTML 文档的解析，脚本会按顺序执行。
+
+### 5. `async` 属性
+
+```javascript
+<script src="script.js" async></script>
+```
+
+* **行为**： **`async`** 属性也用于异步加载脚本，但它会在脚本下载完成完成后立即执行，不考虑页面的解析进度。
+
+无 **`async`** 或 **`defer`** 属性的 **`script`** 标签会阻塞 HTML 的解析，进而也会阻塞渲染。
+
+## CSS
+
+### 1. css 文件放在 `head` 头部
+
+虽然将 css 文件放在 **`<head>`** 部分会阻塞渲染，但它是保证页面样式准确加载的必要方式。要确保在 **`<head>`** 部分中尽量精简和优化 css 以减少阻塞时间。
+
+### 2. 回流和重绘
+
+### 3. css sprites 
 减少图像请求数量
 ```css
 .icon-1 {
