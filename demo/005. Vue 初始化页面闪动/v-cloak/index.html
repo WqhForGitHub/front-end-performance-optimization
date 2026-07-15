@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-cloak 指令 - 解决 Vue 初始化闪动</title>
+    <!-- 关键：v-cloak 的 CSS 规则必须在 Vue 加载前就生效 -->
+    <style>
+      [v-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- v-cloak 指令放在根元素上，Vue 挂载后会自动移除该属性 -->
+    <div id="app" v-cloak></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

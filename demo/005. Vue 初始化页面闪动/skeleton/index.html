@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>骨架屏 - 解决 Vue 初始化闪动</title>
+    <style>
+      /* 骨架屏样式 - 在 Vue 挂载前就显示，提供良好的用户体验 */
+      .skeleton-container {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .skeleton-title {
+        height: 28px;
+        width: 60%;
+        background: #f0f0f0;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        animation: shimmer 1.5s infinite;
+      }
+      .skeleton-card {
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .skeleton-card-title {
+        height: 16px;
+        width: 120px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        margin-bottom: 12px;
+        animation: shimmer 1.5s infinite;
+      }
+      .skeleton-row {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+      }
+      .skeleton-label {
+        height: 14px;
+        width: 60px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        margin-right: 12px;
+        animation: shimmer 1.5s infinite;
+      }
+      .skeleton-value {
+        height: 14px;
+        flex: 1;
+        max-width: 200px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        animation: shimmer 1.5s infinite;
+      }
+      .skeleton-list-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .skeleton-item-name {
+        height: 14px;
+        width: 180px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        animation: shimmer 1.5s infinite;
+      }
+      .skeleton-item-price {
+        height: 14px;
+        width: 60px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        animation: shimmer 1.5s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background: #f0f0f0;
+        }
+        50% {
+          background: #e0e0e0;
+        }
+        100% {
+          background: #f0f0f0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 骨架屏：Vue 挂载前显示的占位内容 -->
+    <!-- Vue 挂载后会自动替换 #app 的内容 -->
+    <div id="app">
+      <div class="skeleton-container">
+        <div class="skeleton-title"></div>
+        <div class="skeleton-card">
+          <div class="skeleton-card-title"></div>
+          <div class="skeleton-row">
+            <div class="skeleton-label"></div>
+            <div class="skeleton-value"></div>
+          </div>
+          <div class="skeleton-row">
+            <div class="skeleton-label"></div>
+            <div class="skeleton-value"></div>
+          </div>
+          <div class="skeleton-row">
+            <div class="skeleton-label"></div>
+            <div class="skeleton-value"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-card-title"></div>
+          <div class="skeleton-list-item">
+            <div class="skeleton-item-name"></div>
+            <div class="skeleton-item-price"></div>
+          </div>
+          <div class="skeleton-list-item">
+            <div class="skeleton-item-name"></div>
+            <div class="skeleton-item-price"></div>
+          </div>
+          <div class="skeleton-list-item">
+            <div class="skeleton-item-name"></div>
+            <div class="skeleton-item-price"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

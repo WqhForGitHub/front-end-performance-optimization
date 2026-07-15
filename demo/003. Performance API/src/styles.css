@@ -1,0 +1,352 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.container h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.container > p.subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* 卡片通用样式 */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+  border-left: 4px solid #1677ff;
+  padding-left: 10px;
+}
+
+.card .desc {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+/* 指标卡片网格 */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.metric-card {
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 14px;
+  background: #fafafa;
+}
+
+.metric-card .metric-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.metric-card .metric-value {
+  font-size: 22px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.metric-card .metric-unit {
+  font-size: 13px;
+  color: #999;
+  margin-left: 2px;
+}
+
+.metric-card .metric-desc {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.rating-good .metric-value {
+  color: #52c41a;
+}
+.rating-needs-improvement .metric-value {
+  color: #faad14;
+}
+.rating-poor .metric-value {
+  color: #ff4d4f;
+}
+.rating-info .metric-value {
+  color: #1677ff;
+}
+
+/* 时间线 */
+.timeline {
+  position: relative;
+  padding-left: 0;
+}
+
+.timeline-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.timeline-bar .phase-label {
+  width: 130px;
+  text-align: right;
+  padding-right: 12px;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.timeline-bar .phase-bar-wrapper {
+  flex: 1;
+  position: relative;
+  height: 28px;
+  background: #f5f5f5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.timeline-bar .phase-bar {
+  height: 100%;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  min-width: 2px;
+  transition: width 0.3s ease;
+}
+
+.timeline-bar .phase-desc {
+  width: 100%;
+  font-size: 11px;
+  color: #aaa;
+  padding-left: 142px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+/* 绘制时间点 */
+.paint-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.paint-item {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 14px;
+  background: #fafafa;
+}
+
+.paint-item .paint-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.paint-item .paint-time {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  color: #1677ff;
+}
+
+.paint-item .paint-unit {
+  font-size: 13px;
+  color: #999;
+  margin-left: 2px;
+}
+
+.paint-item .paint-desc {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 6px;
+}
+
+/* LCP 区域 */
+.lcp-display {
+  text-align: center;
+  padding: 20px;
+}
+
+.lcp-display .lcp-value {
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+
+.lcp-display .lcp-unit {
+  font-size: 16px;
+  color: #999;
+}
+
+.lcp-display .lcp-info {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* 资源表格 */
+.resource-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.resource-table th {
+  text-align: left;
+  padding: 8px 12px;
+  background: #fafafa;
+  border-bottom: 2px solid #e8e8e8;
+  color: #666;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.resource-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  white-space: nowrap;
+}
+
+.resource-table td.url-cell {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 用户计时 */
+.user-timing-list {
+  list-style: none;
+}
+
+.user-timing-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.user-timing-list li:last-child {
+  border-bottom: none;
+}
+
+.user-timing-list .ut-name {
+  color: #333;
+}
+
+.user-timing-list .ut-duration {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #1677ff;
+}
+
+/* 按钮 */
+.btn {
+  padding: 8px 20px;
+  background: #1677ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #4096ff;
+}
+
+.btn:active {
+  background: #0958d9;
+}
+
+/* 评级图例 */
+.legend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #888;
+  margin-top: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.good {
+  background: #52c41a;
+}
+.legend-dot.needs-improvement {
+  background: #faad14;
+}
+.legend-dot.poor {
+  background: #ff4d4f;
+}
+
+/* 提示信息 */
+.info-banner {
+  background: #e6f4ff;
+  border: 1px solid #91caff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #003a8c;
+}
+
+.info-banner code {
+  background: #bae0ff;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
