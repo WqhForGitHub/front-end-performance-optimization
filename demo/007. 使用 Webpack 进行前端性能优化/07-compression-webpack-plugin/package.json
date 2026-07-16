@@ -1,0 +1,25 @@
+{
+  "name": "compression-webpack-plugin-demo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "webpack --config webpack.config.ts",
+    "dev": "webpack serve --config webpack.config.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^20.14.10",
+    "compression-webpack-plugin": "^10.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  }
+}
