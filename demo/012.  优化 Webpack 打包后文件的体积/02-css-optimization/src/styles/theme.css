@@ -1,0 +1,53 @@
+/* 主题样式文件 - theme.css */
+
+/* 卡片主题 */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* 卡片标题 */
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2196f3;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+/* 主题色变量演示（压缩后会被精简） */
+:root {
+  --primary-color: #2196f3;
+  --secondary-color: #4caf50;
+  --text-color: #333333;
+  --background-color: #ffffff;
+  --border-color: #e0e0e0;
+}
+
+/* 响应式布局 */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+}

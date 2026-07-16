@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>条件 externals 配置</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!--
+      生产环境通过 CDN 引入 lodash，配合 webpack externals 不打包 lodash。
+      这里为了演示同时兼容两种情况，使用了条件加载脚本。
+    -->
+    <script>
+      // 仅在生产构建里需要 CDN lodash；开发构建里 lodash 已被打包进 bundle。
+      // 生产构建会注入 window.__USE_LODASH_CDN__ = true
+      if (window.__USE_LODASH_CDN__) {
+        document.write('<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"><\/script>')
+      }
+    </script>
+  </body>
+</html>

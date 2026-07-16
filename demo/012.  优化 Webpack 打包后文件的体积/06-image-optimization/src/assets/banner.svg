@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#21CBF3;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="120" rx="12" fill="url(#bgGradient)"/>
+  <text x="200" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#FFFFFF">Webpack 图片优化</text>
+  <text x="200" y="80" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#E3F2FD">image-webpack-loader 演示</text>
+  <circle cx="30" cy="30" r="8" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="370" cy="90" r="6" fill="#FFFFFF" opacity="0.4"/>
+  <rect x="50" y="100" width="300" height="2" rx="1" fill="#FFFFFF" opacity="0.3"/>
+  <metadata>演示用 SVG Banner，构建时会被 svgo 移除此 metadata 标签</metadata>
+</svg>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>externals + CDN 优化</title>
+    <!--
+      通过 CDN 加载 lodash，避免将其打包进产物
+      externals 配置将 lodash 映射为全局变量 _
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
