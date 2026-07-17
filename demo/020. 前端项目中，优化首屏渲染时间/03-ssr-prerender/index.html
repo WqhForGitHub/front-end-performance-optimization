@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSR / 预渲染 - 优化首屏渲染时间</title>
+    <!--
+      在真正的预渲染方案中，构建工具会在 build 阶段把首屏 HTML 渲染好并写入 index.html，
+      浏览器拿到 HTML 立即就能看到首屏内容，不必等待 JS 下载 + 执行 + render。
+      下面这段注释位置就是构建期被替换为真实首屏 DOM 的地方。
+    -->
+    <style>
+      :root {
+        --bg: #0f1115;
+        --panel: #1a1d24;
+        --text: #e8eaf0;
+        --muted: #8b94a5;
+        --accent: #4ade80;
+        --warn: #fbbf24;
+        --danger: #f87171;
+        --info: #60a5fa;
+        --border: #2a2f3a;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        min-height: 100vh;
+      }
+      #root {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px 20px 80px;
+      }
+      .app-header {
+        padding: 24px 0 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .app-header h1 {
+        font-size: 22px;
+        margin: 0 0 6px;
+        font-weight: 700;
+      }
+      .app-header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      /*
+        关键：在 CSR 中，#root 初始为空，必须等 JS 加载完才会出现内容。
+        在 SSR/预渲染中，#root 已经包含服务端/构建期渲染好的 DOM。
+      */
+    </style>
+  </head>
+  <body>
+    <div id="root"><!-- 预渲染产物会被注入到这里 --></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

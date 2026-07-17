@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>方案二：资源预取与预连接 - SPA 首屏优化</title>
+    <!--
+      预连接策略：
+      1. dns-prefetch：仅做 DNS 解析，体积小，可对低优先级域名使用
+      2. preconnect：完成 DNS + TCP + TLS，对关键 API 域名使用
+      3. preload：当前页面必须的关键资源（如字体）
+    -->
+    <link rel="dns-prefetch" href="https://cdn.example.com" />
+    <link rel="dns-prefetch" href="https://stats.example.com" />
+    <link rel="preconnect" href="https://api.example.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.example.com" />
+    <!-- 预加载关键字体（演示） -->
+    <link
+      rel="preload"
+      href="https://cdn.example.com/fonts/inter.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
