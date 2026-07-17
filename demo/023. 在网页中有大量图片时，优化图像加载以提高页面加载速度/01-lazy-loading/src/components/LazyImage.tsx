@@ -2,6 +2,8 @@ import { useState, useCallback, useEffect, CSSProperties } from 'react'
 import { useIntersectionLazy } from '../hooks/useLazyImage'
 
 interface LazyImageProps {
+  /** React 列表 key（fallback 类型不自动剥离 key，需显式声明） */
+  key?: string | number
   src: string
   alt: string
   width: number
