@@ -41,9 +41,7 @@ export function renderLineChart(points: ChartPoint[]): string {
   const grid: string[] = []
   for (let row = 5; row >= 0; row--) {
     const threshold = min + (range * row) / 5
-    const line = points
-      .map((p) => (p.value >= threshold ? '\u25CF' : '\u00B7'))
-      .join(' ')
+    const line = points.map((p) => (p.value >= threshold ? '\u25CF' : '\u00B7')).join(' ')
     grid.push(`${String(Math.round(threshold)).padStart(4)} | ${line}`)
   }
   return grid.join('\n')

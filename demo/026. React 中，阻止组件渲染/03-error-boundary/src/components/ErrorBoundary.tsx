@@ -98,9 +98,7 @@ export class ErrorBoundary extends Component {
         <div className="error-fallback">
           <div className="error-icon">!</div>
           <h3>组件渲染出错</h3>
-          <p className="error-message">
-            {this.state.error?.message || '未知错误'}
-          </p>
+          <p className="error-message">{this.state.error?.message || '未知错误'}</p>
           {this.state.errorInfo && (
             <details className="error-details">
               <summary>组件堆栈</summary>

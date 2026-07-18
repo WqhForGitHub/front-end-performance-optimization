@@ -170,15 +170,15 @@ function HashBasedCachingDemo() {
   }
 
   const lastBuild = builds[builds.length - 1]
-  const isCacheHit = lastBuild && builds.length > 1
-    ? builds[builds.length - 2].hash === lastBuild.hash
-    : false
+  const isCacheHit =
+    lastBuild && builds.length > 1 ? builds[builds.length - 2].hash === lastBuild.hash : false
 
   return (
     <div style={styles.page}>
       <h1 style={styles.title}>方案一：基于内容哈希的缓存策略</h1>
       <p style={styles.subtitle}>
-        通过在文件名中注入内容哈希（content hash），让浏览器能够精确区分「内容已变更」与「内容未变更」，
+        通过在文件名中注入内容哈希（content
+        hash），让浏览器能够精确区分「内容已变更」与「内容未变更」，
         从而实现长期强缓存（immutable）与即时更新之间的平衡。
       </p>
 
@@ -226,7 +226,8 @@ Cache-Control: public, max-age=31536000, immutable`}</pre>
             模拟构建
           </button>
           <span style={{ fontSize: 13, color: '#6b7280' }}>
-            当前哈希：<code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
+            当前哈希：
+            <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
               {currentHash}
             </code>
           </span>
@@ -333,7 +334,8 @@ export default defineConfig({
           </tbody>
         </table>
         <p style={{ fontSize: 13, color: '#6b7280', marginTop: 12 }}>
-          注：Vite/Rollup 默认使用 [hash]，其内部已基于 chunk 内容计算；Webpack 中推荐使用 [contenthash]。
+          注：Vite/Rollup 默认使用 [hash]，其内部已基于 chunk 内容计算；Webpack 中推荐使用
+          [contenthash]。
         </p>
       </div>
 

@@ -24,7 +24,7 @@ export function ResponsiveImage({
   alt,
   widths,
   aspect,
-  sizes = '(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw'
+  sizes = '(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw',
 }: ResponsiveImageProps) {
   const [loaded, setLoaded] = useState(false)
   // 默认 src 使用中等宽度，作为不支持 srcset 的浏览器降级
@@ -33,7 +33,7 @@ export function ResponsiveImage({
   const defaultSrc = buildPicUrl(seed, defaultWidth, aspect)
 
   const wrapperStyle: CSSProperties = {
-    aspectRatio: `${aspect}`
+    aspectRatio: `${aspect}`,
   }
 
   return (

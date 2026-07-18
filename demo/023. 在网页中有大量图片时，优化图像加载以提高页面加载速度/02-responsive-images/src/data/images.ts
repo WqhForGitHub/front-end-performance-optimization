@@ -19,10 +19,16 @@ export interface ResponsiveImage {
  * 浏览器会根据视口与 DPR 选择最合适的尺寸。
  */
 export const responsiveImages: ResponsiveImage[] = [
-  { id: 1, seed: 'mountain', alt: '山景照片', widths: [400, 800, 1200, 1600, 2000], aspect: 16 / 9 },
+  {
+    id: 1,
+    seed: 'mountain',
+    alt: '山景照片',
+    widths: [400, 800, 1200, 1600, 2000],
+    aspect: 16 / 9,
+  },
   { id: 2, seed: 'forest', alt: '森林照片', widths: [400, 800, 1200, 1600, 2000], aspect: 4 / 3 },
   { id: 3, seed: 'ocean', alt: '海洋照片', widths: [400, 800, 1200, 1600, 2000], aspect: 16 / 9 },
-  { id: 4, seed: 'desert', alt: '沙漠照片', widths: [400, 800, 1200, 1600, 2000], aspect: 4 / 3 }
+  { id: 4, seed: 'desert', alt: '沙漠照片', widths: [400, 800, 1200, 1600, 2000], aspect: 4 / 3 },
 ]
 
 /**
@@ -41,7 +47,5 @@ export function buildPicUrl(seed: string, width: number, aspect: number): string
  * 形如："/seed/x/400/225 400w, /seed/x/800/450 800w, ..."
  */
 export function buildSrcset(seed: string, widths: number[], aspect: number): string {
-  return widths
-    .map((w) => `${buildPicUrl(seed, w, aspect)} ${w}w`)
-    .join(', ')
+  return widths.map((w) => `${buildPicUrl(seed, w, aspect)} ${w}w`).join(', ')
 }

@@ -26,7 +26,7 @@ export function PictureArtDirection({ seed, alt }: PictureArtDirectionProps) {
   const fallbackSrc = buildPicUrl(seed, 800, 4 / 3)
 
   const wrapperStyle: CSSProperties = {
-    aspectRatio: '4 / 3'
+    aspectRatio: '4 / 3',
   }
 
   return (
@@ -35,20 +35,11 @@ export function PictureArtDirection({ seed, alt }: PictureArtDirectionProps) {
         <div className={`placeholder ${loaded ? 'hidden' : ''}`}>加载中...</div>
         <picture>
           {/* 宽屏：>= 1024px 使用 16:9 构图 */}
-          <source
-            media="(min-width: 1024px)"
-            srcSet={wideSrc}
-          />
+          <source media="(min-width: 1024px)" srcSet={wideSrc} />
           {/* 平板：640px ~ 1023px 使用 4:3 构图 */}
-          <source
-            media="(min-width: 640px)"
-            srcSet={tabletSrc}
-          />
+          <source media="(min-width: 640px)" srcSet={tabletSrc} />
           {/* 手机：< 640px 使用 1:1 裁切，突出主体 */}
-          <source
-            media="(max-width: 639px)"
-            srcSet={mobileSrc}
-          />
+          <source media="(max-width: 639px)" srcSet={mobileSrc} />
           <img
             src={fallbackSrc}
             alt={alt}

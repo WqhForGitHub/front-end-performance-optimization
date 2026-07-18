@@ -38,17 +38,23 @@ onDeactivated(() => {
       <span class="color-label">Beta</span>
     </div>
     <p class="desc">
-      本组件名为 <code>BetaComp</code>。尝试用 <code>include="AlphaComp,BetaComp"</code>
-      或 <code>include=/^Beta/</code> 来缓存它，或用 <code>exclude="BetaComp"</code> 来排除它。
+      本组件名为 <code>BetaComp</code>。尝试用 <code>include="AlphaComp,BetaComp"</code> 或
+      <code>include=/^Beta/</code> 来缓存它，或用 <code>exclude="BetaComp"</code> 来排除它。
     </p>
     <div class="counter-box">
       <span class="num">{{ counter }}</span>
       <button @click="counter++">+1</button>
     </div>
     <ul class="info">
-      <li>首次挂载时间：<b>{{ mountedAt || '-' }}</b></li>
-      <li>累计激活次数：<b>{{ activatedTimes }}</b></li>
-      <li>最近事件：<b class="event">{{ lastEvent }}</b></li>
+      <li>
+        首次挂载时间：<b>{{ mountedAt || '-' }}</b>
+      </li>
+      <li>
+        累计激活次数：<b>{{ activatedTimes }}</b>
+      </li>
+      <li>
+        最近事件：<b class="event">{{ lastEvent }}</b>
+      </li>
     </ul>
   </div>
 </template>

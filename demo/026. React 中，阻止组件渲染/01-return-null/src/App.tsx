@@ -62,8 +62,9 @@ const App: FC = () => {
             什么是 <code>return null</code>？
           </h2>
           <p>
-            在组件函数体内根据业务条件直接 <code>return null</code>，React 不会为该组件创建任何 DOM 节点。
-            这是组件"自己决定不出现"的最直接方式，与父组件用 <code>{'{false && <Comp/>}'}</code> 把它挡在外面是两种不同的视角。
+            在组件函数体内根据业务条件直接 <code>return null</code>，React 不会为该组件创建任何 DOM
+            节点。 这是组件"自己决定不出现"的最直接方式，与父组件用{' '}
+            <code>{'{false && <Comp/>}'}</code> 把它挡在外面是两种不同的视角。
           </p>
           <pre className="code-block">{`function Modal({ open }: { open: boolean }) {
   if (!open) return null     // 不输出任何 DOM
@@ -93,8 +94,8 @@ const ModalSection: FC = () => {
         场景 1 · 隐藏的 Modal <span className="tag tag-good">常见</span>
       </h2>
       <p>
-        Modal 默认关闭。组件内部用 <code>if (!open) return null</code> 直接阻止渲染，
-        关闭时 DOM 中不会残留任何遮罩/弹层节点。
+        Modal 默认关闭。组件内部用 <code>if (!open) return null</code> 直接阻止渲染， 关闭时 DOM
+        中不会残留任何遮罩/弹层节点。
       </p>
 
       <div className="row">
@@ -113,8 +114,12 @@ const ModalSection: FC = () => {
       </HiddenModal>
 
       <div className="kv">
-        <div><b>open:</b> {String(open)}</div>
-        <div><b>DOM 节点:</b> {open ? '渲染 modal-root 容器' : '无（被 return null 拦截）'}</div>
+        <div>
+          <b>open:</b> {String(open)}
+        </div>
+        <div>
+          <b>DOM 节点:</b> {open ? '渲染 modal-root 容器' : '无（被 return null 拦截）'}
+        </div>
       </div>
     </div>
   )
@@ -134,13 +139,17 @@ const ListSection: FC = () => {
         场景 2 · 空列表状态 <span className="tag tag-good">推荐</span>
       </h2>
       <p>
-        列表为空时，<code>EmptyList</code> 组件内部判断 <code>items.length === 0</code> 直接 return null，
-        不渲染空 ul 骨架，DOM 更干净。
+        列表为空时，<code>EmptyList</code> 组件内部判断 <code>items.length === 0</code> 直接 return
+        null， 不渲染空 ul 骨架，DOM 更干净。
       </p>
 
       <div className="row">
-        <button className="btn-primary" onClick={add}>追加一项</button>
-        <button className="btn-secondary" onClick={clear}>清空</button>
+        <button className="btn-primary" onClick={add}>
+          追加一项
+        </button>
+        <button className="btn-secondary" onClick={clear}>
+          清空
+        </button>
         <button
           className={'btn-ghost' + (filter === 'all' ? ' active' : '')}
           onClick={() => setFilter('all')}
@@ -158,9 +167,9 @@ const ListSection: FC = () => {
       <EmptyList items={items} showEmptyHint={filter === 'all'} />
 
       <div className="note">
-        当 <code>filter = 'all'</code> 且 <code>items</code> 为空时，EmptyList 会渲染"暂无数据"提示；
-        当 <code>filter = 'non-empty'</code> 时，组件内部 return null，DOM 中无任何节点。
-        两种策略由组件自己根据 props 决定，父组件无需关心。
+        当 <code>filter = 'all'</code> 且 <code>items</code> 为空时，EmptyList
+        会渲染"暂无数据"提示； 当 <code>filter = 'non-empty'</code> 时，组件内部 return null，DOM
+        中无任何节点。 两种策略由组件自己根据 props 决定，父组件无需关心。
       </div>
     </div>
   )

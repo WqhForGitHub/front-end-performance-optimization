@@ -11,16 +11,16 @@ export default defineConfig({
     open: true,
     // 开发阶段 Vite 默认对源码不开启强缓存，便于热更新
     headers: {
-      'Cache-Control': 'no-cache'
-    }
+      'Cache-Control': 'no-cache',
+    },
   },
   preview: {
     port: 5234,
     // 预览阶段模拟真实静态资源服务器的缓存策略
     headers: {
       // HTML 文档：始终协商缓存，保证用户拿到最新入口
-      'Cache-Control': 'no-cache'
-    }
+      'Cache-Control': 'no-cache',
+    },
   },
   build: {
     // 产物文件名带 hash，配合长缓存策略
@@ -28,8 +28,8 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    }
-  }
+        assetFileNames: 'assets/[name].[hash].[ext]',
+      },
+    },
+  },
 })

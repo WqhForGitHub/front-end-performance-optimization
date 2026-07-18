@@ -10,7 +10,10 @@ interface InteractionPanelProps {
  * 1. 主线程阻塞按钮 - 触发长任务，影响 INP
  * 2. 布局偏移按钮 - 注入无尺寸元素，影响 CLS
  */
-export default function InteractionPanel({ onTriggerLayoutShift, shiftInjected }: InteractionPanelProps) {
+export default function InteractionPanel({
+  onTriggerLayoutShift,
+  shiftInjected,
+}: InteractionPanelProps) {
   const [blockCount, setBlockCount] = useState(0)
   const [blocking, setBlocking] = useState(false)
 
@@ -78,18 +81,14 @@ export default function InteractionPanel({ onTriggerLayoutShift, shiftInjected }
     <div style={wrapperStyle}>
       <h3 style={titleStyle}>交互触发器（影响 INP / CLS）</h3>
       <p style={descStyle}>
-        点击下面的按钮会真实地产生性能事件。PerformanceObserver 会捕获这些事件并更新上方指标。
-        INP 通过点击「主线程阻塞」按钮触发；CLS 通过「注入布局偏移」按钮触发。
+        点击下面的按钮会真实地产生性能事件。PerformanceObserver 会捕获这些事件并更新上方指标。 INP
+        通过点击「主线程阻塞」按钮触发；CLS 通过「注入布局偏移」按钮触发。
       </p>
       <div style={btnRowStyle}>
         <button style={btnStyle('#ff9800')} onClick={handleBlock} disabled={blocking}>
           {blocking ? '阻塞中…' : '主线程阻塞 300ms（INP）'}
         </button>
-        <button
-          style={btnStyle('#f44336')}
-          onClick={onTriggerLayoutShift}
-          disabled={shiftInjected}
-        >
+        <button style={btnStyle('#f44336')} onClick={onTriggerLayoutShift} disabled={shiftInjected}>
           {shiftInjected ? '已注入偏移' : '注入布局偏移（CLS）'}
         </button>
       </div>

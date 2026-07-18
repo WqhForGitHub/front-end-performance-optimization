@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 - Critical CSS 关键 CSS 提取与内联</title>
+    <style>
+      /* 模拟内联到 HTML 头部的 Critical CSS（首屏关键样式） */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      .critical-inline-hero {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        padding: 24px;
+        color: #fff;
+      }
+      .critical-inline-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

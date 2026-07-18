@@ -160,8 +160,8 @@ export default function App() {
       <div style={descStyle}>
         <strong>原理：</strong>用模块级全局 <code>cache</code> 按 key 缓存数据 + in-flight Promise。
         相同 key 的并发调用复用同一个 Promise（首屏只 1 次请求）；有缓存时先返回旧数据（stale），
-        同时后台发起新请求（revalidate），完成后静默更新。点击“后台刷新”可观察卡片右上角
-        “验证中 → 已缓存”的切换，且数据不会闪空。
+        同时后台发起新请求（revalidate），完成后静默更新。点击“后台刷新”可观察卡片右上角 “验证中 →
+        已缓存”的切换，且数据不会闪空。
       </div>
 
       <div style={gridStyle} key={reloadKey}>

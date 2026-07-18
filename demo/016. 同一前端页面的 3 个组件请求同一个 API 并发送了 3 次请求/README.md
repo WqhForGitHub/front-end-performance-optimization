@@ -23,11 +23,11 @@
 
 ## 方法总览
 
-| 序号 | 目录 | 方案 | 核心思想 | 适用场景 |
-|------|------|------|----------|----------|
-| 01 | `01-request-promise-sharing` | Promise 共享 / 请求去重 | 缓存进行中的 Promise，相同 key 复用同一个 Promise | 组件各自独立请求、无法改动组件层级 |
-| 02 | `02-context-state-lifting` | Context 状态提升 | 请求提升到 Provider 顶层只发 1 次，子组件通过 Context 共享 | 数据可由共同父级统一管理 |
-| 03 | `03-swrv-data-cache` | SWR 数据缓存 | 模块级全局缓存 + in-flight 去重，stale-while-revalidate | 需要缓存复用、跨页面/跨组件共享 |
+| 序号 | 目录                         | 方案                    | 核心思想                                                   | 适用场景                           |
+| ---- | ---------------------------- | ----------------------- | ---------------------------------------------------------- | ---------------------------------- |
+| 01   | `01-request-promise-sharing` | Promise 共享 / 请求去重 | 缓存进行中的 Promise，相同 key 复用同一个 Promise          | 组件各自独立请求、无法改动组件层级 |
+| 02   | `02-context-state-lifting`   | Context 状态提升        | 请求提升到 Provider 顶层只发 1 次，子组件通过 Context 共享 | 数据可由共同父级统一管理           |
+| 03   | `03-swrv-data-cache`         | SWR 数据缓存            | 模块级全局缓存 + in-flight 去重，stale-while-revalidate    | 需要缓存复用、跨页面/跨组件共享    |
 
 ## 通用约定
 
@@ -45,11 +45,11 @@
 
 ### 端口分配
 
-| 子项目 | 端口 |
-|--------|------|
+| 子项目                     | 端口 |
+| -------------------------- | ---- |
 | 01-request-promise-sharing | 5228 |
-| 02-context-state-lifting | 5229 |
-| 03-swrv-data-cache | 5230 |
+| 02-context-state-lifting   | 5229 |
+| 03-swrv-data-cache         | 5230 |
 
 ### 模拟 API
 
@@ -71,10 +71,7 @@
 // src/utils/requestPromise.ts
 const inflightCache = new Map<string, Promise<unknown>>()
 
-export function createRequestPromise<T>(
-  key: string,
-  requestFn: () => Promise<T>,
-): Promise<T> {
+export function createRequestPromise<T>(key: string, requestFn: () => Promise<T>): Promise<T> {
   // 1. 缓存命中：已有进行中的 Promise，直接复用
   const existing = inflightCache.get(key)
   if (existing) {
@@ -105,9 +102,14 @@ export function useSharedRequest<T>(key: string, requestFn: () => Promise<T>) {
     setLoading(true)
     // 关键：通过 createRequestPromise 复用进行中的 Promise
     createRequestPromise<T>(key, requestFn).then((result) => {
-      if (!cancelled) { setData(result); setLoading(false) }
+      if (!cancelled) {
+        setData(result)
+        setLoading(false)
+      }
     })
-    return () => { cancelled = true }
+    return () => {
+      cancelled = true
+    }
   }, [key])
 
   return { data, loading }
@@ -115,6 +117,7 @@ export function useSharedRequest<T>(key: string, requestFn: () => Promise<T>) {
 ```
 
 **特点：**
+
 - 改造成本低，组件仍各自独立请求，只需把 `requestFn()` 换成 `createRequestPromise(key, requestFn)`；
 - 只去重“同时进行中”的请求，不缓存已完成的结果，因此每次重新挂载仍会重新请求；
 - 不需要改动组件层级结构。
@@ -166,6 +169,7 @@ export default function UserProfile() {
 ```
 
 **特点：**
+
 - 数据来源单一，天然去重，无重复请求；
 - 集中处理 loading / error / refresh，子组件逻辑更简单；
 - 需要合理规划 Provider 的层级（放在 3 个组件的共同祖先上）。
@@ -195,8 +199,7 @@ export function useSWR<T>(key: string, fetcher: () => Promise<T>, options?: SWRO
     const now = Date.now()
 
     // 需要重新验证：无缓存，或缓存过期且无 in-flight Promise
-    const needsRevalidate =
-      !entry || (!entry.promise && now - entry.timestamp > dedupingInterval)
+    const needsRevalidate = !entry || (!entry.promise && now - entry.timestamp > dedupingInterval)
 
     if (needsRevalidate && entry && !entry.promise) {
       // 关键：复用 in-flight Promise，相同 key 并发只发 1 次请求
@@ -213,7 +216,7 @@ export function useSWR<T>(key: string, fetcher: () => Promise<T>, options?: SWRO
 
   const entry = cache.get(key)
   return {
-    data: entry?.data,         // 有缓存立即返回旧数据（stale）
+    data: entry?.data, // 有缓存立即返回旧数据（stale）
     loading: !entry?.data && !entry?.error,
     isValidating: !!entry?.isValidating, // 后台正在重新验证
   }
@@ -221,6 +224,7 @@ export function useSWR<T>(key: string, fetcher: () => Promise<T>, options?: SWRO
 ```
 
 **特点：**
+
 - 既能去重并发请求，又能缓存复用（跨组件、跨页面共享）；
 - stale-while-revalidate 让界面“先有数据、后台更新”，体验更流畅；
 - 思路与 [SWR](https://swr.vercel.app/) / [React Query](https://tanstack.com/query) 等库一致，本项目用最小实现演示原理。
@@ -231,15 +235,15 @@ export function useSWR<T>(key: string, fetcher: () => Promise<T>, options?: SWRO
 
 ## 三种方案对比
 
-| 维度 | 01 Promise 共享 | 02 Context 提升 | 03 SWR 缓存 |
-|------|----------------|-----------------|-------------|
-| 去重范围 | 同时进行的请求 | Provider 子树 | 全局（模块级缓存） |
-| 是否缓存结果 | 否（完成即清除） | 是（保存在 state） | 是（保存在全局 cache） |
-| 改造成本 | 低（替换请求函数） | 中（需加 Provider） | 中（接入 Hook） |
-| 跨页面共享 | 否 | 否 | 是 |
-| 后台刷新 | 否 | 需手动 refresh | 内置 revalidate |
-| 第三方库 | 无 | 无 | SWR / React Query |
-| 适用场景 | 组件无法改层级 | 数据由父级统一管理 | 需要缓存复用、跨组件共享 |
+| 维度         | 01 Promise 共享    | 02 Context 提升     | 03 SWR 缓存              |
+| ------------ | ------------------ | ------------------- | ------------------------ |
+| 去重范围     | 同时进行的请求     | Provider 子树       | 全局（模块级缓存）       |
+| 是否缓存结果 | 否（完成即清除）   | 是（保存在 state）  | 是（保存在全局 cache）   |
+| 改造成本     | 低（替换请求函数） | 中（需加 Provider） | 中（接入 Hook）          |
+| 跨页面共享   | 否                 | 否                  | 是                       |
+| 后台刷新     | 否                 | 需手动 refresh      | 内置 revalidate          |
+| 第三方库     | 无                 | 无                  | SWR / React Query        |
+| 适用场景     | 组件无法改层级     | 数据由父级统一管理  | 需要缓存复用、跨组件共享 |
 
 ## 目录结构
 

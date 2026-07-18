@@ -66,7 +66,10 @@ function switchTab(tab: Tab) {
 function changeCategory(cat: Category) {
   const old = category.value
   category.value = cat
-  pushLog('App', `分类变化：${old} -> ${cat}（watch 策略${useWatchProp.value ? '已开启，将触发刷新' : '已关闭，不触发刷新'}）`)
+  pushLog(
+    'App',
+    `分类变化：${old} -> ${cat}（watch 策略${useWatchProp.value ? '已开启，将触发刷新' : '已关闭，不触发刷新'}）`,
+  )
 }
 </script>
 
@@ -75,7 +78,8 @@ function changeCategory(cat: Category) {
     <header class="app-header">
       <h1>缓存组件的更新策略</h1>
       <p class="subtitle">
-        KeepAlive 缓存的组件再次激活时不会重新执行 onMounted。本 Demo 展示 4 种让缓存组件更新数据的方式：
+        KeepAlive 缓存的组件再次激活时不会重新执行 onMounted。本 Demo 展示 4
+        种让缓存组件更新数据的方式：
         <code>onActivated</code>、<code>watch</code>、<code>:key</code> 强制重建、手动刷新。
       </p>
     </header>
@@ -92,7 +96,7 @@ function changeCategory(cat: Category) {
           </div>
           <p class="ctrl-desc">组件从缓存恢复时自动拉取最新数据</p>
           <label class="switch-row">
-            <input type="checkbox" v-model="useActivatedRefresh" />
+            <input v-model="useActivatedRefresh" type="checkbox" />
             <span>{{ useActivatedRefresh ? '已开启' : '已关闭' }}</span>
           </label>
         </div>
@@ -104,7 +108,7 @@ function changeCategory(cat: Category) {
           </div>
           <p class="ctrl-desc">父组件 prop 变化时触发刷新</p>
           <label class="switch-row">
-            <input type="checkbox" v-model="useWatchProp" />
+            <input v-model="useWatchProp" type="checkbox" />
             <span>{{ useWatchProp ? '已开启' : '已关闭' }}</span>
           </label>
         </div>

@@ -22,7 +22,7 @@ export const routes: RouteConfig[] = [
   { path: '/', label: '首页 Home', sync: true, component: Home },
   { path: '/about', label: '关于 About', sync: true, component: About },
   { path: '/dashboard', label: '仪表盘 Dashboard', component: Dashboard },
-  { path: '/settings', label: '设置 Settings', component: Settings }
+  { path: '/settings', label: '设置 Settings', component: Settings },
 ]
 
 // 极简的 hash router hook（不依赖 react-router-dom）
@@ -56,12 +56,12 @@ export interface ChunkInfo {
 }
 
 export const singleBundleChunks: ChunkInfo[] = [
-  { name: 'main.js（含所有路由）', sizeKB: 320, lazy: false }
+  { name: 'main.js（含所有路由）', sizeKB: 320, lazy: false },
 ]
 
 export const splitBundleChunks: ChunkInfo[] = [
   { name: 'main.js（runtime + Home + About）', sizeKB: 80, lazy: false },
   { name: 'Dashboard-[hash].js', sizeKB: 95, lazy: true },
   { name: 'Settings-[hash].js', sizeKB: 60, lazy: true },
-  { name: 'vendor.js（react 等）', sizeKB: 140, lazy: false }
+  { name: 'vendor.js（react 等）', sizeKB: 140, lazy: false },
 ]

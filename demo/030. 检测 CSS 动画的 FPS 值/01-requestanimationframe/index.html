@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>检测 CSS 动画的 FPS 值 - requestAnimationFrame 方式</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: #fff;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      h1 {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+      .subtitle {
+        opacity: 0.8;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .controls {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.1s,
+          background 0.2s;
+      }
+      button:active {
+        transform: scale(0.96);
+      }
+      .start {
+        background: #4caf50;
+        color: #fff;
+      }
+      .stop {
+        background: #f44336;
+        color: #fff;
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .metric {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 14px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .metric-label {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-bottom: 4px;
+      }
+      .metric-value {
+        font-size: 24px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .metric-value.good {
+        color: #4caf50;
+      }
+      .metric-value.warn {
+        color: #ff9800;
+      }
+      .metric-value.bad {
+        color: #f44336;
+      }
+      canvas {
+        width: 100%;
+        height: 200px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        display: block;
+      }
+      .stage {
+        height: 120px;
+        position: relative;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        margin-top: 12px;
+      }
+      .ball {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        margin-top: -25px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #fff, #ffeb3b, #ff9800);
+        box-shadow: 0 0 20px rgba(255, 235, 59, 0.6);
+        animation: bounce 2s linear infinite;
+      }
+      .spinner {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #ffeb3b;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes bounce {
+        0% {
+          left: 0;
+        }
+        50% {
+          left: calc(100% - 50px);
+        }
+        100% {
+          left: 0;
+        }
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .note {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>检测 CSS 动画的 FPS 值</h1>
+      <p class="subtitle">方式一：使用 requestAnimationFrame 循环测量帧间隔，FPS = 1000 / delta</p>
+
+      <div class="card">
+        <div class="controls">
+          <button id="start-btn" class="start">开始测量</button>
+          <button id="stop-btn" class="stop" disabled>停止测量</button>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-label">当前 FPS</div>
+            <div class="metric-value" id="current-fps">0.0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">最小 FPS</div>
+            <div class="metric-value" id="min-fps">0.0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">最大 FPS</div>
+            <div class="metric-value" id="max-fps">0.0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">平均 FPS</div>
+            <div class="metric-value" id="avg-fps">0.0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">FPS 历史曲线（绿色虚线 = 60 FPS 基准）</div>
+        <canvas id="fps-graph"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">CSS 动画舞台（球体弹跳 + 旋转加载器）</div>
+        <div class="stage">
+          <div class="ball"></div>
+          <div class="spinner"></div>
+        </div>
+        <p class="note">
+          上面的动画完全由 CSS 驱动，FPS 由 requestAnimationFrame
+          回调间隔计算。切换浏览器标签页会暂停 rAF。
+        </p>
+      </div>
+    </div>
+
+    <script type="module" src="src/main.ts"></script>
+  </body>
+</html>

@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5243,
-    host: true
+    host: true,
   },
   build: {
     // 让 chunk 文件名带内容 hash，便于长期缓存
@@ -16,10 +16,10 @@ export default defineConfig({
       output: {
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash][extname]'
-      }
+        assetFileNames: 'assets/[name]-[hash][extname]',
+      },
     },
     // 产物报告，方便观察 chunk 数量与体积
-    reportCompressedSize: true
-  }
+    reportCompressedSize: true,
+  },
 })

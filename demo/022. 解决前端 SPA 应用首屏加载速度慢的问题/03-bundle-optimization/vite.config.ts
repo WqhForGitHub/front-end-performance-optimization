@@ -16,7 +16,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5245,
-    host: true
+    host: true,
   },
   build: {
     // 关闭 sourcemap 以减小产物体积（生产环境）
@@ -50,8 +50,8 @@ export default defineConfig({
             return 'vendor'
           }
           return undefined
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 })

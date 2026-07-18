@@ -7,9 +7,7 @@ export const BeforeAfter: FC = () => {
   return (
     <div className="page">
       <h2>before / after 对比</h2>
-      <p>
-        同样是"组件不显示"，下面三种写法的 DOM 产物完全不同。理解差异才能选对方案。
-      </p>
+      <p>同样是"组件不显示"，下面三种写法的 DOM 产物完全不同。理解差异才能选对方案。</p>
 
       <div className="compare-grid">
         <div className="compare-card">

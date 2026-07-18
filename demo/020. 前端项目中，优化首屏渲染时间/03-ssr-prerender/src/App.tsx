@@ -67,7 +67,18 @@ const metricCellStyle: CSSProperties = {
   textAlign: 'center',
 }
 
-const MODE_META: Record<RenderMode, { phases: TimelinePhase[]; fcp: number; lcp: number; tti: number; label: string; desc: string; color: string }> = {
+const MODE_META: Record<
+  RenderMode,
+  {
+    phases: TimelinePhase[]
+    fcp: number
+    lcp: number
+    tti: number
+    label: string
+    desc: string
+    color: string
+  }
+> = {
   csr: {
     phases: CSR_PHASES,
     fcp: 920,
@@ -126,7 +137,9 @@ export default function App() {
             />
           </div>
           <div style={{ flex: 1, minWidth: 240 }}>
-            <div style={{ fontSize: 14, color: meta.color, fontWeight: 700, marginBottom: 4 }}>{meta.label}</div>
+            <div style={{ fontSize: 14, color: meta.color, fontWeight: 700, marginBottom: 4 }}>
+              {meta.label}
+            </div>
             <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.6 }}>{meta.desc}</div>
           </div>
         </div>
@@ -137,12 +150,17 @@ export default function App() {
         <div style={metricRowStyle}>
           <MetricCell label="FCP 首次绘制" value={meta.fcp} unit="ms" highlight={mode !== 'csr'} />
           <MetricCell label="LCP 最大绘制" value={meta.lcp} unit="ms" highlight={mode !== 'csr'} />
-          <MetricCell label="TTI 可交互时间" value={meta.tti} unit="ms" highlight={mode === 'ssg'} />
+          <MetricCell
+            label="TTI 可交互时间"
+            value={meta.tti}
+            unit="ms"
+            highlight={mode === 'ssg'}
+          />
         </div>
         <Timeline phases={meta.phases} total={1400} />
         <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 12, lineHeight: 1.6 }}>
-          说明：以上为示意数据。SSR/SSG 把首屏 DOM 提前到 HTML 阶段，FCP 大幅提前；
-          但 TTI 仍取决于 JS 下载与 hydrate 时间，所以「看到内容」和「能交互」之间仍可能有间隔。
+          说明：以上为示意数据。SSR/SSG 把首屏 DOM 提前到 HTML 阶段，FCP 大幅提前； 但 TTI 仍取决于
+          JS 下载与 hydrate 时间，所以「看到内容」和「能交互」之间仍可能有间隔。
         </p>
       </section>
 
@@ -188,7 +206,13 @@ function MetricCell({
   return (
     <div style={metricCellStyle}>
       <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 22, fontWeight: 700, color: highlight ? 'var(--accent)' : 'var(--text)' }}>
+      <div
+        style={{
+          fontSize: 22,
+          fontWeight: 700,
+          color: highlight ? 'var(--accent)' : 'var(--text)',
+        }}
+      >
         {value}
         <span style={{ fontSize: 12, color: 'var(--muted)', marginLeft: 4 }}>{unit}</span>
       </div>
@@ -228,7 +252,10 @@ function BrowserView({ mode }: { mode: RenderMode }) {
     }
   }, [mode])
 
-  const showContent = mode !== 'csr' ? stage !== 'html' : stage === 'paint' || stage === 'js' || stage === 'interactive'
+  const showContent =
+    mode !== 'csr'
+      ? stage !== 'html'
+      : stage === 'paint' || stage === 'js' || stage === 'interactive'
 
   return (
     <div>
@@ -241,23 +268,42 @@ function BrowserView({ mode }: { mode: RenderMode }) {
           overflow: 'hidden',
         }}
       >
-        <div style={{ background: '#1a1d24', padding: '8px 12px', borderBottom: '1px solid var(--border)', fontSize: 11, color: 'var(--muted)' }}>
+        <div
+          style={{
+            background: '#1a1d24',
+            padding: '8px 12px',
+            borderBottom: '1px solid var(--border)',
+            fontSize: 11,
+            color: 'var(--muted)',
+          }}
+        >
           浏览器窗口 · 阶段：<span style={{ color: 'var(--accent)' }}>{stageLabel(stage)}</span>
         </div>
         <div style={{ padding: 18, minHeight: 160 }}>
           {!showContent && (
-            <div style={{ color: 'var(--muted)', fontSize: 13, textAlign: 'center', padding: '40px 0' }}>
+            <div
+              style={{
+                color: 'var(--muted)',
+                fontSize: 13,
+                textAlign: 'center',
+                padding: '40px 0',
+              }}
+            >
               {mode === 'csr' ? '⏳ 空白：等待 JS 下载并执行...' : '⏳ 等待 HTML 解析完成...'}
             </div>
           )}
           {showContent && (
             <div>
-              <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: 'var(--accent)' }}>
+              <div
+                style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: 'var(--accent)' }}
+              >
                 🏠 首屏标题：性能优化指南
               </div>
-              <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7, marginBottom: 10 }}>
-                这段文字来自预渲染 HTML，浏览器拿到 HTML 就能立即显示。
-                此时按钮还不可点击（JS 还在加载 / hydrate 中）。
+              <div
+                style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7, marginBottom: 10 }}
+              >
+                这段文字来自预渲染 HTML，浏览器拿到 HTML 就能立即显示。 此时按钮还不可点击（JS
+                还在加载 / hydrate 中）。
               </div>
               <button
                 disabled={stage !== 'interactive'}
@@ -567,12 +613,29 @@ function Tips() {
       desc="预渲染产物含首屏 DOM，HTML 会变大；配合关键 CSS 内联 + 资源 preload 才能拿到最大收益。"
     />,
   ]
-  return <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>{items}</div>
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: 14,
+      }}
+    >
+      {items}
+    </div>
+  )
 }
 
 function TipItem({ title, desc }: { title: string; desc: string; key?: string | number }) {
   return (
-    <div style={{ background: '#0f1115', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
+    <div
+      style={{
+        background: '#0f1115',
+        border: '1px solid var(--border)',
+        borderRadius: 10,
+        padding: 14,
+      }}
+    >
       <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 13 }}>{title}</div>
       <div style={{ color: 'var(--muted)', fontSize: 12, lineHeight: 1.6 }}>{desc}</div>
     </div>

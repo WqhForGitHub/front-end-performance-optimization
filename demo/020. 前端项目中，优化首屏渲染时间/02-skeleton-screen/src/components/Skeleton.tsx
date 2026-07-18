@@ -13,7 +13,13 @@ const baseStyle: CSSProperties = {
   display: 'block',
 }
 
-export function SkeletonBox({ width = '100%', height = 14, radius = 6, style, className }: SkeletonBoxProps) {
+export function SkeletonBox({
+  width = '100%',
+  height = 14,
+  radius = 6,
+  style,
+  className,
+}: SkeletonBoxProps) {
   return (
     <span
       className={`skeleton-block${className ? ' ' + className : ''}`}
@@ -36,7 +42,13 @@ interface SkeletonTextProps {
   lastWidth?: string | number
 }
 
-export function SkeletonText({ lines = 3, lineHeight = 12, gap = 8, width = '100%', lastWidth = '60%' }: SkeletonTextProps) {
+export function SkeletonText({
+  lines = 3,
+  lineHeight = 12,
+  gap = 8,
+  width = '100%',
+  lastWidth = '60%',
+}: SkeletonTextProps) {
   const items = []
   for (let i = 0; i < lines; i++) {
     items.push(
@@ -89,7 +101,13 @@ export function SkeletonArticle() {
   )
 }
 
-export function SkeletonList({ count = 3, type = 'card' }: { count?: number; type?: 'card' | 'article' }) {
+export function SkeletonList({
+  count = 3,
+  type = 'card',
+}: {
+  count?: number
+  type?: 'card' | 'article'
+}) {
   const items = []
   for (let i = 0; i < count; i++) {
     items.push(type === 'card' ? <SkeletonCard key={i} /> : <SkeletonArticle key={i} />)

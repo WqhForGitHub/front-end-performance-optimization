@@ -198,13 +198,26 @@ function SplitCacheStrategyDemo() {
           </thead>
           <tbody>
             {resourceRules.map((rule, i) => (
-              <tr key={i} style={{ background: i === resourceRules.length - 1 ? '#fafafa' : '#fff' }}>
+              <tr
+                key={i}
+                style={{ background: i === resourceRules.length - 1 ? '#fafafa' : '#fff' }}
+              >
                 <td style={styles.td}>{rule.type}</td>
-                <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontSize: 12 }}>{rule.pattern}</td>
-                <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontSize: 11 }}>{rule.cacheControl}</td>
+                <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontSize: 12 }}>
+                  {rule.pattern}
+                </td>
+                <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontSize: 11 }}>
+                  {rule.cacheControl}
+                </td>
                 <td style={styles.td}>{formatMaxAge(rule.maxAge)}</td>
                 <td style={styles.td}>
-                  <span style={{ ...styles.tag, background: strategyLabel[rule.strategy].bg, color: strategyLabel[rule.strategy].color }}>
+                  <span
+                    style={{
+                      ...styles.tag,
+                      background: strategyLabel[rule.strategy].bg,
+                      color: strategyLabel[rule.strategy].color,
+                    }}
+                  >
                     {strategyLabel[rule.strategy].text}
                   </span>
                 </td>
@@ -221,18 +234,28 @@ function SplitCacheStrategyDemo() {
 
       {/* 详情 */}
       {selected && (
-        <div style={{ ...styles.tier, borderLeftColor: selected.color.split('#')[1] ? selected.color : '#4f46e5' }}>
+        <div
+          style={{
+            ...styles.tier,
+            borderLeftColor: selected.color.split('#')[1] ? selected.color : '#4f46e5',
+          }}
+        >
           <h3 style={{ marginTop: 0, color: '#2d3a5c' }}>{selected.type}</h3>
           <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.7 }}>
             <strong>匹配规则：</strong>
-            <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{selected.pattern}</code>
+            <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
+              {selected.pattern}
+            </code>
           </p>
           <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.7 }}>
             <strong>Cache-Control：</strong>
-            <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{selected.cacheControl}</code>
+            <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
+              {selected.cacheControl}
+            </code>
           </p>
           <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.7 }}>
-            <strong>原因：</strong>{selected.reason}
+            <strong>原因：</strong>
+            {selected.reason}
           </p>
         </div>
       )}
@@ -241,7 +264,8 @@ function SplitCacheStrategyDemo() {
       <div style={styles.card}>
         <h2 style={styles.cardTitle}>2. Vite 配置：按类型分目录输出</h2>
         <p style={{ fontSize: 14, color: '#6b7280', marginBottom: 12 }}>
-          关键点：通过 assetFileNames 将不同类型资源输出到不同目录，便于 Nginx 按 location 匹配不同缓存规则。
+          关键点：通过 assetFileNames 将不同类型资源输出到不同目录，便于 Nginx 按 location
+          匹配不同缓存规则。
         </p>
         <pre style={styles.codeBlock}>{`export default defineConfig({
   build: {

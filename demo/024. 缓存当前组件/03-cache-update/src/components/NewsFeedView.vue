@@ -153,15 +153,15 @@ defineExpose({ refresh, manualRefresh })
       <span class="current-cat">当前分类：{{ category }}</span>
     </div>
 
-    <ul class="news-list" v-if="!loading && items.length">
+    <ul v-if="!loading && items.length" class="news-list">
       <li v-for="item in items" :key="item.id" :class="item.category">
         <span class="cat-tag">{{ item.category }}</span>
         <span class="title">{{ item.title }}</span>
         <span class="time">{{ item.publishedAt }}</span>
       </li>
     </ul>
-    <div class="loading" v-else-if="loading">数据加载中...</div>
-    <div class="empty" v-else>暂无数据</div>
+    <div v-else-if="loading" class="loading">数据加载中...</div>
+    <div v-else class="empty">暂无数据</div>
 
     <p class="tip">
       提示：切换到"其他页面"再切回本 Tab，观察数据获取时间是否更新（取决于策略 1 是否开启）。

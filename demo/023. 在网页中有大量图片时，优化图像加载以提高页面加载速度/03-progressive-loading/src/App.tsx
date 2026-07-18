@@ -23,9 +23,9 @@ export default function App() {
       { id: 3, seed: 'canyon', alt: '峡谷风光', aspect: 16 / 9 },
       { id: 4, seed: 'waterfall', alt: '瀑布流水', aspect: 4 / 3 },
       { id: 5, seed: 'sunrise', alt: '日出云海', aspect: 16 / 9 },
-      { id: 6, seed: 'meadow', alt: '草原花海', aspect: 4 / 3 }
+      { id: 6, seed: 'meadow', alt: '草原花海', aspect: 4 / 3 },
     ],
-    []
+    [],
   )
 
   // LQIP：20px 宽，体积极小（通常几 KB），几乎瞬间加载完成
@@ -38,7 +38,7 @@ export default function App() {
   const galleryStyle: CSSProperties = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-    gap: '18px'
+    gap: '18px',
   }
 
   return (
@@ -60,7 +60,7 @@ export default function App() {
               <span>20px 占位图体积仅几 KB，几乎瞬间加载，被放大并模糊</span>
             </div>
           </div>
-          <div className='intro-arrow'>{'->'}</div>
+          <div className="intro-arrow">{'->'}</div>
           <div className="intro-step">
             <div className="step-num">2</div>
             <div className="step-text">
@@ -68,7 +68,7 @@ export default function App() {
               <span>1600px 主图通过 new Image() 异步预加载，不阻塞渲染</span>
             </div>
           </div>
-          <div className='intro-arrow'>{'->'}</div>
+          <div className="intro-arrow">{'->'}</div>
           <div className="intro-step">
             <div className="step-num">3</div>
             <div className="step-text">
@@ -81,8 +81,8 @@ export default function App() {
 
       <h2 className="section-title">图库演示（缩放窗口可观察效果）</h2>
       <p className="section-desc">
-        每张图先显示模糊的 LQIP，主图加载完成后过渡为清晰版本。
-        打开开发者工具 Network 面板，过滤 Img，可看到先下载 20px 小图再下载 1600px 大图。
+        每张图先显示模糊的 LQIP，主图加载完成后过渡为清晰版本。 打开开发者工具 Network 面板，过滤
+        Img，可看到先下载 20px 小图再下载 1600px 大图。
       </p>
 
       <div style={galleryStyle}>
@@ -152,8 +152,8 @@ export default function App() {
         <h3>1. LQIP 占位图</h3>
         <p>
           LQIP 是极小尺寸（通常 20~40px 宽）的低质量图片，体积通常只有几 KB，
-          几乎瞬间加载完成。可以由服务端动态生成（如图片处理服务压缩到 20px），
-          也可使用 base64 内联到 HTML/CSS 中避免额外请求。
+          几乎瞬间加载完成。可以由服务端动态生成（如图片处理服务压缩到 20px）， 也可使用 base64
+          内联到 HTML/CSS 中避免额外请求。
         </p>
         <pre>
           <code>{`<!-- LQIP：20px 宽，几 KB 体积 -->
@@ -189,9 +189,9 @@ export default function App() {
 
         <h3>3. 主图异步预加载</h3>
         <p>
-          使用 <code>new Image()</code> 在后台预加载主图，监听 <code>load</code> 事件后
-          才把 <code>src</code> 写入真实 <code>&lt;img&gt;</code>，避免加载过程中
-          出现闪烁。也可结合 IntersectionObserver 实现懒加载。
+          使用 <code>new Image()</code> 在后台预加载主图，监听 <code>load</code> 事件后 才把{' '}
+          <code>src</code> 写入真实 <code>&lt;img&gt;</code>，避免加载过程中 出现闪烁。也可结合
+          IntersectionObserver 实现懒加载。
         </p>
         <pre>
           <code>{`const img = new Image()

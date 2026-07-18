@@ -110,7 +110,13 @@ export default function TechniqueCard({ technique, injected, onInject }: Techniq
   }
 
   const injectBtnStyle: CSSProperties = injected
-    ? { ...btnBase, backgroundColor: `${technique.color}22`, color: technique.color, borderColor: technique.color, cursor: 'default' }
+    ? {
+        ...btnBase,
+        backgroundColor: `${technique.color}22`,
+        color: technique.color,
+        borderColor: technique.color,
+        cursor: 'default',
+      }
     : { ...btnBase, backgroundColor: technique.color, color: '#fff', borderColor: technique.color }
 
   const copyBtnStyle: CSSProperties = {

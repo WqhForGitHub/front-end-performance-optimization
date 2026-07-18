@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02 · 自动化雪碧图与方案对比 - 说说你对 CSS Sprites 的理解</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- ==================== 隐藏的 SVG Symbols 定义（用于现代替代方案演示） ==================== -->
+    <svg class="svg-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M12 3 L3 12 L5 12 L5 21 L10 21 L10 15 L14 15 L14 21 L19 21 L19 12 L21 12 Z" />
+      </symbol>
+      <symbol id="icon-star" viewBox="0 0 24 24">
+        <path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 18 L6 22 L7 15 L2 10 L9 9 Z" />
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24">
+        <path
+          d="M12 21 C12 21 4 14 4 9 C4 6 6 4 9 4 C10.5 4 12 5 12 6 C12 5 13.5 4 15 4 C18 4 20 6 20 9 C20 14 12 21 12 21 Z"
+        />
+      </symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24">
+        <path
+          d="M12 2 C8 2 6 5 6 9 C6 14 4 16 4 16 L20 16 C20 16 18 14 18 9 C18 5 16 2 12 2 Z M10 18 C10 19.5 11 20 12 20 C13 20 14 19.5 14 18 Z"
+        />
+      </symbol>
+    </svg>
+
+    <!-- ==================== 顶部导航 ==================== -->
+    <nav class="nav">
+      <div class="container">
+        <a href="#tools">自动化工具</a>
+        <a href="#config">构建配置</a>
+        <a href="#compare">方案对比</a>
+        <a href="#perf">性能可视化</a>
+        <a href="#request">请求模拟</a>
+        <a href="#modern">现代替代</a>
+        <a href="#decision">决策流程</a>
+        <a href="../01-basic-sprites/index.html" class="back">&lt;- 上一节：基础雪碧图</a>
+      </div>
+    </nav>
+
+    <!-- ==================== 页头 ==================== -->
+    <header class="page-header">
+      <div class="container">
+        <span class="badge">02 / 02 · Automated Sprites &amp; Alternatives</span>
+        <h1>自动化雪碧图生成 &amp; 现代方案对比</h1>
+        <p class="subtitle">
+          手工拼图不可持续，真实项目必须依赖构建工具自动生成雪碧图。
+          本节演示自动化工具链、四种图标方案的横向对比，以及 HTTP/2 时代的现代替代方案。
+        </p>
+      </div>
+    </header>
+
+    <!-- ==================== 第 1 节：自动化工具 ==================== -->
+    <section id="tools">
+      <div class="container">
+        <h2><span class="num">1</span> 自动化雪碧图生成工具</h2>
+        <p class="lead">
+          手工维护雪碧图极易出错（坐标算错、漏图、命名冲突），生产环境必须用工具自动完成 "源图 ->
+          合并 -> 生成 CSS" 流程。以下是主流工具：
+        </p>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">webpack-spritesmith</div>
+            <div class="tool-desc">
+              Webpack 插件，将指定目录下的图片自动合并为雪碧图并生成 SCSS/CSS/JSON。
+            </div>
+            <div class="tool-meta">
+              <span class="tag ecosystem-webpack">Webpack</span>
+              <span class="tag status-legacy">维护缓慢</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">sprity</div>
+            <div class="tool-desc">Node 通用雪碧图生成器，支持 Gulp/Grunt，输出格式可定制。</div>
+            <div class="tool-meta">
+              <span class="tag ecosystem-gulp">Gulp</span>
+              <span class="tag status-legacy">已停止维护</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">postcss-sprites</div>
+            <div class="tool-desc">
+              PostCSS 插件，扫描 CSS 中的 background-image 自动替换为雪碧图。
+            </div>
+            <div class="tool-meta">
+              <span class="tag ecosystem-webpack">PostCSS</span>
+              <span class="tag status-legacy">低频维护</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Glue</div>
+            <div class="tool-desc">Python 命令行工具，支持 SVG 输出、Retina、缓存等特性。</div>
+            <div class="tool-meta">
+              <span class="tag ecosystem-cli">CLI</span>
+              <span class="tag status-legacy">已停止维护</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">@vitejs/plugin-spritesmith</div>
+            <div class="tool-desc">社区 Vite 适配版本，API 与 webpack-spritesmith 类似。</div>
+            <div class="tool-meta">
+              <span class="tag ecosystem-webpack">Vite</span>
+              <span class="tag status-active">社区维护</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">svg-sprite-loader</div>
+            <div class="tool-desc">
+              将多个 SVG 合并为 sprite（symbol/use 模式），现代替代方案首选。
+            </div>
+            <div class="tool-meta">
+              <span class="tag ecosystem-webpack">Webpack</span>
+              <span class="tag status-active">推荐</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <strong>趋势提醒：</strong>
+          大多数传统雪碧图工具（sprity、Glue）已停止维护。在 HTTP/2 普及的今天， 新项目建议直接使用
+          <strong>SVG sprite</strong>（svg-sprite-loader / vite-plugin-svg-icons） 或
+          <strong>Icon Font</strong>，仅在兼容老项目或位图图标场景下才使用 CSS Sprites。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 2 节：构建工具配置 ==================== -->
+    <section id="config">
+      <div class="container">
+        <h2><span class="num">2</span> 构建工具配置示例</h2>
+        <p class="lead">
+          以下是真实项目中使用 webpack-spritesmith 和 Vite
+          自动生成雪碧图的配置示例（仅作参考，本演示不实际运行）。
+        </p>
+
+        <div class="code-block">
+          <span class="code-label">webpack.config.js</span>
+          <pre><code><span class="tk-key">const</span> path = <span class="tk-fn">require</span>(<span class="tk-str">"path"</span>);
+<span class="tk-key">const</span> SpritesmithPlugin = <span class="tk-fn">require</span>(<span class="tk-str">"webpack-spritesmith"</span>);
+
+module.exports = {
+  <span class="tk-comment">// ...其他配置</span>
+  plugins: [
+    <span class="tk-key">new</span> <span class="tk-fn">SpritesmithPlugin</span>({
+      <span class="tk-comment">// 源图目录：每个 png 是一个独立图标</span>
+      src: {
+        cwd: path.<span class="tk-fn">resolve</span>(__dirname, <span class="tk-str">"src/icons"</span>),
+        glob: <span class="tk-str">"*.png"</span>,
+      },
+      <span class="tk-comment">// 输出：合并后的雪碧图</span>
+      target: {
+        image: path.<span class="tk-fn">resolve</span>(__dirname, <span class="tk-str">"src/assets/sprite.png"</span>),
+        css: path.<span class="tk-fn">resolve</span>(__dirname, <span class="tk-str">"src/assets/sprite.scss"</span>),
+      },
+      <span class="tk-comment">// 样式模板中引用图片的路径</span>
+      apiOptions: {
+        cssImageRef: <span class="tk-str">"./sprite.png"</span>,
+      },
+      <span class="tk-comment">// 雪碧图布局：从上到下排列</span>
+      spritesmithOptions: {
+        algorithm: <span class="tk-str">"top-down"</span>,
+        padding: <span class="tk-num">2</span>,
+      },
+    }),
+  ],
+  <span class="tk-comment">// 让 webpack 识别 .png</span>
+  module: {
+    rules: [
+      { test: <span class="tk-str">/\.png$/</span>, type: <span class="tk-str">"asset/resource"</span> },
+    ],
+  },
+};</code></pre>
+        </div>
+
+        <div class="code-block">
+          <span class="code-label">生成的 sprite.scss（自动产出）</span>
+          <pre><code><span class="tk-comment">/* 由 webpack-spritesmith 自动生成，请勿手动编辑 */</span>
+<span class="tk-sel">.icon-home</span> {
+  <span class="tk-prop">background-image</span>: <span class="tk-val">url('./sprite.png')</span>;
+  <span class="tk-prop">background-position</span>: <span class="tk-num">0px 0px</span>;
+  <span class="tk-prop">width</span>: <span class="tk-num">64px</span>;
+  <span class="tk-prop">height</span>: <span class="tk-num">64px</span>;
+}
+<span class="tk-sel">.icon-user</span> {
+  <span class="tk-prop">background-image</span>: <span class="tk-val">url('./sprite.png')</span>;
+  <span class="tk-prop">background-position</span>: <span class="tk-num">-64px 0px</span>;
+  <span class="tk-prop">width</span>: <span class="tk-num">64px</span>;
+  <span class="tk-prop">height</span>: <span class="tk-num">64px</span>;
+}
+<span class="tk-comment">/* ... 更多图标 */</span></code></pre>
+        </div>
+
+        <div class="code-block">
+          <span class="code-label">vite.config.ts（Vite + svg-icons，现代推荐）</span>
+          <pre><code><span class="tk-key">import</span> { defineConfig } <span class="tk-key">from</span> <span class="tk-str">"vite"</span>;
+<span class="tk-key">import</span> { createSvgIconsPlugin } <span class="tk-key">from</span> <span class="tk-str">"vite-plugin-svg-icons"</span>;
+<span class="tk-key">import</span> path <span class="tk-key">from</span> <span class="tk-str">"path"</span>;
+
+<span class="tk-key">export default</span> <span class="tk-fn">defineConfig</span>({
+  plugins: [
+    <span class="tk-fn">createSvgIconsPlugin</span>({
+      <span class="tk-comment">// 扫描 src/icons/svg 下所有 .svg</span>
+      iconDirs: [path.<span class="tk-fn">resolve</span>(process.<span class="tk-fn">cwd</span>(), <span class="tk-str">"src/icons/svg"</span>)],
+      <span class="tk-comment">// symbol id 格式：icon-文件名</span>
+      symbolId: <span class="tk-str">"icon-[name]"</span>,
+    }),
+  ],
+});
+
+<span class="tk-comment">// 使用：自动生成 SVG sprite，配合 &lt;use&gt; 引用</span>
+<span class="tk-comment">// &lt;svg&gt;&lt;use href="#icon-home"/&gt;&lt;/svg&gt;</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 3 节：方案对比表 ==================== -->
+    <section id="compare">
+      <div class="container">
+        <h2><span class="num">3</span> 四种图标方案横向对比</h2>
+        <p class="lead">
+          CSS Sprites / Icon Fonts / SVG / Base64 各有适用场景，下表从 8 个维度对比。
+        </p>
+
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>对比维度</th>
+                <th>CSS Sprites</th>
+                <th>Icon Fonts</th>
+                <th>SVG &lt;symbol&gt;</th>
+                <th>Base64 内联</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>示例</td>
+                <td><span class="mini-demo sprite-demo"></span></td>
+                <td><span class="mini-demo font-demo">&#xF015;</span></td>
+                <td>
+                  <span class="mini-demo svg-demo">
+                    <svg viewBox="0 0 24 24" fill="#38bdf8">
+                      <path
+                        d="M12 3 L3 12 L5 12 L5 21 L10 21 L10 15 L14 15 L14 21 L19 21 L19 12 L21 12 Z"
+                      />
+                    </svg>
+                  </span>
+                </td>
+                <td><span class="mini-demo base64-demo"></span></td>
+              </tr>
+              <tr>
+                <td>HTTP 请求数</td>
+                <td>1 次</td>
+                <td>1 次（字体文件）</td>
+                <td>1 次（可内联为 0）</td>
+                <td class="yes">0 次（嵌入 CSS）</td>
+              </tr>
+              <tr>
+                <td>矢量缩放</td>
+                <td class="no">否（位图）</td>
+                <td class="yes">是</td>
+                <td class="yes">是</td>
+                <td class="no">否（位图）</td>
+              </tr>
+              <tr>
+                <td>CSS 改色</td>
+                <td class="no">否</td>
+                <td class="partial">单色（color）</td>
+                <td class="yes">是（fill/currentColor）</td>
+                <td class="no">否</td>
+              </tr>
+              <tr>
+                <td>多色支持</td>
+                <td class="yes">是</td>
+                <td class="no">否</td>
+                <td class="yes">是</td>
+                <td class="yes">是</td>
+              </tr>
+              <tr>
+                <td>Retina 适配</td>
+                <td class="partial">需 @2x 图</td>
+                <td class="yes">天然支持</td>
+                <td class="yes">天然支持</td>
+                <td class="partial">需 @2x 图</td>
+              </tr>
+              <tr>
+                <td>可访问性</td>
+                <td class="partial">需 aria-label</td>
+                <td class="no">差（屏幕阅读器）</td>
+                <td class="yes">好（&lt;title&gt;）</td>
+                <td class="partial">需 aria-label</td>
+              </tr>
+              <tr>
+                <td>缓存复用</td>
+                <td class="yes">整图缓存</td>
+                <td class="yes">字体缓存</td>
+                <td class="partial">内联则不缓存</td>
+                <td class="no">随 CSS 缓存</td>
+              </tr>
+              <tr>
+                <td>HTTP/2 收益</td>
+                <td class="no">显著降低</td>
+                <td class="yes">不受影响</td>
+                <td class="yes">不受影响</td>
+                <td class="yes">不受影响</td>
+              </tr>
+              <tr>
+                <td>维护成本</td>
+                <td class="no">高（需工具）</td>
+                <td class="partial">中</td>
+                <td class="yes">低</td>
+                <td class="yes">低</td>
+              </tr>
+              <tr>
+                <td>推荐场景</td>
+                <td>老项目、位图、游戏图集</td>
+                <td>单色图标库</td>
+                <td class="yes">现代项目首选</td>
+                <td>极小图（&lt;4KB）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout success">
+          <strong>结论：</strong>
+          现代项目（HTTP/2 + Retina）首选 <strong>SVG &lt;symbol&gt; + &lt;use&gt;</strong>，
+          它兼具矢量缩放、CSS 改色、多色、可访问性、低维护成本等优势。CSS Sprites
+          在新项目中已不推荐， 但在维护老项目或处理位图图标时仍有价值。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 4 节：性能可视化 ==================== -->
+    <section id="perf">
+      <div class="container">
+        <h2><span class="num">4</span> 性能对比可视化</h2>
+        <p class="lead">
+          下图模拟 20
+          个图标的加载场景，对比五种方案在"请求数"与"传输体积"上的差异（数据为典型估算值）。
+        </p>
+
+        <div class="perf-chart">
+          <h3>HTTP 请求数对比（越少越好）</h3>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>传统多图（HTTP/1.1）</span>
+              <span class="value">20 次</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill sprite" data-width="100%">20</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>CSS Sprites</span>
+              <span class="value">1 次</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill sprite" data-width="5%">1</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>Icon Fonts</span>
+              <span class="value">1 次</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill iconfont" data-width="5%">1</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>SVG sprite（&lt;use&gt;）</span>
+              <span class="value">1 次（可内联为 0）</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill svg" data-width="5%">1</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>Base64 内联</span>
+              <span class="value">0 次</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill base64" data-width="2%">0</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>HTTP/2 多图直连</span>
+              <span class="value">20 次（共用连接）</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill http2" data-width="30%">20</div></div>
+          </div>
+
+          <div class="chart-legend">
+            <div class="item"><span class="swatch" style="background: #60a5fa"></span>位图方案</div>
+            <div class="item"><span class="swatch" style="background: #34d399"></span>字体方案</div>
+            <div class="item"><span class="swatch" style="background: #fbbf24"></span>矢量方案</div>
+            <div class="item"><span class="swatch" style="background: #f87171"></span>内联方案</div>
+            <div class="item">
+              <span class="swatch" style="background: #a78bfa"></span>HTTP/2 方案
+            </div>
+          </div>
+        </div>
+
+        <div class="perf-chart">
+          <h3>传输体积对比（KB，估算值）</h3>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>传统多图（20 张 PNG）</span>
+              <span class="value">~40 KB</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill sprite" data-width="80%">40</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>CSS Sprites（合并后）</span>
+              <span class="value">~28 KB</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill sprite" data-width="56%">28</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>Icon Fonts（woff2）</span>
+              <span class="value">~12 KB</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill iconfont" data-width="24%">12</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>SVG sprite（gzip）</span>
+              <span class="value">~8 KB</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill svg" data-width="16%">8</div></div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-label">
+              <span>Base64 内联（增大 CSS）</span>
+              <span class="value">~53 KB</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill base64" data-width="100%">53</div></div>
+          </div>
+
+          <div class="chart-legend">
+            <div class="item">注：Base64 编码会使体积增大约 33%，且无法被图片压缩器单独优化。</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>解读：</strong>
+          <ul style="margin: 8px 0 0 20px">
+            <li>CSS Sprites 把 40KB 压到 28KB（共享调色板），请求从 20 降到 1。</li>
+            <li>SVG sprite 体积最小（8KB），且是矢量，是综合最优。</li>
+            <li>Base64 虽然请求数为 0，但体积膨胀 33%，且无法独立缓存，仅适合极小图。</li>
+            <li>HTTP/2 下"20 次请求"共用连接，握手开销可忽略，雪碧图的请求优势被削弱。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 5 节：请求减少交互演示 ==================== -->
+    <section id="request">
+      <div class="container">
+        <h2><span class="num">5</span> 请求减少交互演示</h2>
+        <p class="lead">
+          拖动滑块改变图标数量，对比"传统多图"与"CSS Sprites"在网络请求时间线上的差异。
+        </p>
+
+        <div class="request-demo">
+          <div class="controls">
+            <label for="iconRange">图标数量：</label>
+            <input type="range" id="iconRange" min="1" max="40" value="12" />
+            <span class="icon-count" id="iconCountValue">12</span>
+            <div class="mode-toggle">
+              <button data-mode="separate" class="active">传统多图</button>
+              <button data-mode="sprite">CSS Sprites</button>
+            </div>
+          </div>
+
+          <div class="request-stats">
+            <div class="stat-card" id="statRequests">
+              <div class="stat-label">HTTP 请求数</div>
+              <div class="stat-value">12</div>
+            </div>
+            <div class="stat-card" id="statSize">
+              <div class="stat-label">预估传输体积</div>
+              <div class="stat-value">24 KB</div>
+            </div>
+            <div class="stat-card" id="statTime">
+              <div class="stat-label">预估加载耗时</div>
+              <div class="stat-value">480 ms</div>
+            </div>
+            <div class="stat-card good" id="statSaving">
+              <div class="stat-label">节省比例</div>
+              <div class="stat-value">--</div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-title">网络请求时间线（每条 = 1 次请求）</div>
+            <div class="timeline-bars" id="timelineBars"></div>
+            <div class="timeline-axis">
+              <span>0 ms</span>
+              <span id="timelineEnd">480 ms</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <strong>说明：</strong>
+          上述数据为简化估算：单图请求耗时 ~40ms（含连接开销），雪碧图耗时 ~80ms（体积大但只 1
+          次）。 实际项目受网络、CDN、HTTP 版本影响，请以 DevTools Network 实测为准。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 6 节：现代替代方案 ==================== -->
+    <section id="modern">
+      <div class="container">
+        <h2><span class="num">6</span> 现代替代方案演示</h2>
+        <p class="lead">
+          在 HTTP/2 时代，以下三种方案已逐步取代 CSS Sprites。鼠标移到图标上查看交互效果。
+        </p>
+
+        <div class="modern-grid">
+          <!-- SVG symbol -->
+          <div class="modern-card">
+            <h3>
+              1. SVG &lt;symbol&gt; + &lt;use&gt;
+              <span style="font-size: 0.75rem; color: var(--color-success)">推荐</span>
+            </h3>
+            <div class="demo-area">
+              <svg class="svg-symbol-demo"><use href="#icon-home"></use></svg>
+              <svg class="svg-symbol-demo red"><use href="#icon-heart"></use></svg>
+              <svg class="svg-symbol-demo green"><use href="#icon-star"></use></svg>
+              <svg class="svg-symbol-demo pink"><use href="#icon-bell"></use></svg>
+            </div>
+            <p class="desc">
+              所有 SVG 合并为一个隐藏的 sprite，通过 <code>&lt;use href="#id"&gt;</code> 引用。
+              矢量无损、可用 CSS 改色（<code>fill</code>）、支持多色、可加
+              <code>&lt;title&gt;</code> 提升无障碍。
+            </p>
+            <div class="code-block" style="margin: 0">
+              <span class="code-label">HTML</span>
+              <pre><code><span class="tk-comment">&lt;!-- 定义（页面只需一次） --&gt;</span>
+<span class="tk-tag">&lt;svg</span> <span class="tk-attr">style</span>=<span class="tk-str">"display:none"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;symbol</span> <span class="tk-attr">id</span>=<span class="tk-str">"icon-home"</span> <span class="tk-attr">viewBox</span>=<span class="tk-str">"0 0 24 24"</span><span class="tk-tag">&gt;</span>
+    <span class="tk-tag">&lt;path</span> <span class="tk-attr">d</span>=<span class="tk-str">"..."</span> <span class="tk-tag">/&gt;</span>
+  <span class="tk-tag">&lt;/symbol&gt;</span>
+<span class="tk-tag">&lt;/svg&gt;</span>
+
+<span class="tk-comment">&lt;!-- 使用 --&gt;</span>
+<span class="tk-tag">&lt;svg</span> <span class="tk-attr">class</span>=<span class="tk-str">"icon"</span><span class="tk-tag">&gt;&lt;use</span> <span class="tk-attr">href</span>=<span class="tk-str">"#icon-home"</span><span class="tk-tag">/&gt;&lt;/svg&gt;</span></code></pre>
+            </div>
+          </div>
+
+          <!-- Icon Font -->
+          <div class="modern-card">
+            <h3>2. Icon Font（图标字体）</h3>
+            <div class="demo-area">
+              <span class="iconfont-demo">&#xF015;</span>
+              <span class="iconfont-demo">&#xF004;</span>
+              <span class="iconfont-demo">&#xF005;</span>
+              <span class="iconfont-demo">&#xF0F3;</span>
+            </div>
+            <p class="desc">
+              把图标做成字体文件（woff2），用 <code>&lt;i class="fa fa-home"&gt;</code> 引用。
+              矢量缩放、单色可用
+              <code>color</code> 改色、体积小。但无法多色、可访问性差、字体加载有闪烁。
+            </p>
+            <div class="code-block" style="margin: 0">
+              <span class="code-label">HTML</span>
+              <pre><code><span class="tk-tag">&lt;link</span> <span class="tk-attr">rel</span>=<span class="tk-str">"stylesheet"</span>
+      <span class="tk-attr">href</span>=<span class="tk-str">"font-awesome.min.css"</span><span class="tk-tag">&gt;</span>
+
+<span class="tk-tag">&lt;i</span> <span class="tk-attr">class</span>=<span class="tk-str">"fa fa-home"</span><span class="tk-tag">&gt;&lt;/i&gt;</span>
+<span class="tk-tag">&lt;i</span> <span class="tk-attr">class</span>=<span class="tk-str">"fa fa-heart"</span><span class="tk-tag">&gt;&lt;/i&gt;</span>
+
+<span class="tk-comment">/* CSS 改色 */</span>
+<span class="tk-sel">.fa-home</span> { <span class="tk-prop">color</span>: <span class="tk-val">#38bdf8</span>; <span class="tk-prop">font-size</span>: <span class="tk-num">24px</span>; }</code></pre>
+            </div>
+          </div>
+
+          <!-- CSS 渐变背景 -->
+          <div class="modern-card">
+            <h3>3. CSS 渐变背景（纯 CSS 图形）</h3>
+            <div class="demo-area">
+              <span class="gradient-icon g1"></span>
+              <span class="gradient-icon g2"></span>
+              <span class="gradient-icon g3"></span>
+              <span class="gradient-icon g4"></span>
+            </div>
+            <p class="desc">
+              用 <code>linear-gradient</code> / <code>radial-gradient</code> /
+              <code>conic-gradient</code>
+              直接画出图形，零图片请求、矢量缩放、可用 CSS 动画。适合简单几何图形与占位符。
+            </p>
+            <div class="code-block" style="margin: 0">
+              <span class="code-label">CSS</span>
+              <pre><code><span class="tk-sel">.icon-gradient</span> {
+  <span class="tk-prop">width</span>: <span class="tk-num">40px</span>;
+  <span class="tk-prop">height</span>: <span class="tk-num">40px</span>;
+  <span class="tk-prop">border-radius</span>: <span class="tk-num">8px</span>;
+  <span class="tk-prop">background</span>: <span class="tk-val">linear-gradient</span>(
+    <span class="tk-num">135deg</span>, <span class="tk-val">#667eea 0%</span>, <span class="tk-val">#764ba2 100%</span>
+  );
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout success">
+          <strong>迁移建议：</strong>
+          从 CSS Sprites 迁移到 SVG sprite 的工作量很小：
+          <ol style="margin: 8px 0 0 20px">
+            <li>把 PNG 图标用工具（如 inkscape / figma）导出为 SVG；</li>
+            <li>
+              用 <code>vite-plugin-svg-icons</code> 或 <code>svg-sprite-loader</code> 自动生成
+              sprite；
+            </li>
+            <li>
+              把 <code>&lt;span class="icon-xxx"&gt;</code> 替换为
+              <code>&lt;svg&gt;&lt;use href="#icon-xxx"/&gt;&lt;/svg&gt;</code>；
+            </li>
+            <li>改色用 <code>fill: currentColor</code>，跟随文字颜色。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 7 节：决策流程 ==================== -->
+    <section id="decision">
+      <div class="container">
+        <h2><span class="num">7</span> 选型决策流程</h2>
+        <p class="lead">面对图标需求时，按以下问题逐步决策：</p>
+
+        <div class="flowchart">
+          <div class="flow-step">
+            <div class="q-num">1</div>
+            <div class="q-content">
+              <div class="q-text">图标是否需要多色 / 渐变 / 复杂路径？</div>
+              <div class="q-answer">
+                是 → <span class="recommend">SVG &lt;symbol&gt;</span>　|　否 → 继续第 2 步
+              </div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="q-num">2</div>
+            <div class="q-content">
+              <div class="q-text">图标是否为照片级位图（如缩略图、游戏素材）？</div>
+              <div class="q-answer">
+                是 → <span class="recommend">CSS Sprites</span> 或独立图片 + HTTP/2　|　否 → 继续第
+                3 步
+              </div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="q-num">3</div>
+            <div class="q-content">
+              <div class="q-text">是否单色且数量较多（&gt;20 个）？</div>
+              <div class="q-answer">
+                是 → <span class="recommend">Icon Font</span>　|　否 → 继续第 4 步
+              </div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="q-num">4</div>
+            <div class="q-content">
+              <div class="q-text">图标数量很少且体积极小（&lt;4KB）？</div>
+              <div class="q-answer">
+                是 → <span class="recommend">Base64 内联</span>　|　否 →
+                <span class="recommend">SVG &lt;symbol&gt;</span>（默认首选）
+              </div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="q-num">5</div>
+            <div class="q-content">
+              <div class="q-text">是否在维护老项目（已有 PNG + HTTP/1.1）？</div>
+              <div class="q-answer">
+                是 → 保留 <span class="recommend">CSS Sprites</span>（用 webpack-spritesmith
+                自动化），逐步迁移 SVG
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>一句话总结：</strong>
+          新项目用 SVG，老项目用雪碧图过渡，单色图标库用 Icon Font，极小图用 Base64。 HTTP/2
+          环境下，"减少请求数"不再是首要目标，<strong>可维护性</strong>与<strong>可访问性</strong>更重要。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="page-footer">
+      <div class="container">
+        <p>
+          02 · 自动化雪碧图与方案对比 &nbsp;|&nbsp;
+          <a href="../01-basic-sprites/index.html">&lt;- 上一节：01 · 基础 CSS Sprites</a>
+        </p>
+        <p style="margin-top: 8px">
+          纯 HTML + CSS + JavaScript，无任何依赖，可直接在浏览器中运行。
+        </p>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

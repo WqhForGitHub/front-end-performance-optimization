@@ -26,8 +26,8 @@ function reset() {
   <div class="profile-view">
     <h2>个人资料</h2>
     <p class="desc">
-      在表单中输入内容（不要提交），切到其他 Tab 后再切回，输入框中的内容会完整保留。
-      没有 KeepAlive 时，未保存的表单数据会全部丢失。
+      在表单中输入内容（不要提交），切到其他 Tab 后再切回，输入框中的内容会完整保留。 没有 KeepAlive
+      时，未保存的表单数据会全部丢失。
     </p>
 
     <form class="form" @submit.prevent>

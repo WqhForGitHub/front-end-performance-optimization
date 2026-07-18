@@ -13,11 +13,11 @@ SPA 应用通常将所有路由、组件、第三方依赖打包到一个 `bundl
 
 ## 二、三种优化方案
 
-| 方案 | 目录 | 端口 | 核心思路 |
-| --- | --- | --- | --- |
-| 路由级懒加载 | `01-route-lazy-loading` | 5243 | `React.lazy` + `Suspense`，按路由切分 bundle |
-| 资源预取 / 预连接 | `02-resource-prefetch` | 5244 | `idle` / `hover` 预取、`dns-prefetch`、`preconnect` |
-| 构建产物优化 | `03-bundle-optimization` | 5245 | `manualChunks`、CDN externals、tree shaking |
+| 方案              | 目录                     | 端口 | 核心思路                                            |
+| ----------------- | ------------------------ | ---- | --------------------------------------------------- |
+| 路由级懒加载      | `01-route-lazy-loading`  | 5243 | `React.lazy` + `Suspense`，按路由切分 bundle        |
+| 资源预取 / 预连接 | `02-resource-prefetch`   | 5244 | `idle` / `hover` 预取、`dns-prefetch`、`preconnect` |
+| 构建产物优化      | `03-bundle-optimization` | 5245 | `manualChunks`、CDN externals、tree shaking         |
 
 ## 三、快速开始
 

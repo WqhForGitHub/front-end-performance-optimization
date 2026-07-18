@@ -55,7 +55,7 @@ export function useProgressiveImage(options: UseProgressiveImageOptions) {
           }
         })
       },
-      { rootMargin, threshold: 0.01 }
+      { rootMargin, threshold: 0.01 },
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -113,6 +113,6 @@ export function useProgressiveImage(options: UseProgressiveImageOptions) {
     placeholderSrc,
     mainReady: state === 'loaded',
     inView,
-    reload
+    reload,
   }
 }

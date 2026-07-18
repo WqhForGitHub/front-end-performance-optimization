@@ -21,7 +21,7 @@ export const resourcePolicies: ResourcePolicy[] = [
     ttl: '每次协商',
     reason: '入口必须实时拿到最新 hash 引用，否则旧 HTML 指向失效的旧 hash 资源',
     color: '#2563eb',
-    icon: 'H'
+    icon: 'H',
   },
   {
     type: '带 hash 的 JS / CSS',
@@ -30,7 +30,7 @@ export const resourcePolicies: ResourcePolicy[] = [
     ttl: '1 年',
     reason: '文件名含 contenthash，内容变即换名，可永久强缓存且刷新也命中',
     color: '#16a34a',
-    icon: 'J'
+    icon: 'J',
   },
   {
     type: '图片',
@@ -39,7 +39,7 @@ export const resourcePolicies: ResourcePolicy[] = [
     ttl: '30 天',
     reason: '图片不常变更，中等时长缓存兼顾更新与性能',
     color: '#9333ea',
-    icon: 'I'
+    icon: 'I',
   },
   {
     type: '字体',
@@ -48,7 +48,7 @@ export const resourcePolicies: ResourcePolicy[] = [
     ttl: '1 年',
     reason: '字体文件几乎不变，长缓存并允许跨域',
     color: '#0891b2',
-    icon: 'F'
+    icon: 'F',
   },
   {
     type: 'JSON / manifest',
@@ -57,7 +57,7 @@ export const resourcePolicies: ResourcePolicy[] = [
     ttl: '每次协商',
     reason: '配置类文件可能随时更新，需协商校验',
     color: '#ea580c',
-    icon: 'J'
+    icon: 'J',
   },
   {
     type: 'Service Worker',
@@ -66,8 +66,8 @@ export const resourcePolicies: ResourcePolicy[] = [
     ttl: '禁缓存',
     reason: 'SW 自身必须实时更新，否则无法升级版本',
     color: '#dc2626',
-    icon: 'S'
-  }
+    icon: 'S',
+  },
 ]
 
 /** nginx.conf 分段说明 */
@@ -88,8 +88,8 @@ export const configSections: ConfigSection[] = [
     directives: [
       { name: 'gzip on', explain: '开启压缩' },
       { name: 'gzip_vary on', explain: '响应头加 Vary: Accept-Encoding' },
-      { name: 'gzip_types', explain: '指定压缩的 MIME 类型' }
-    ]
+      { name: 'gzip_types', explain: '指定压缩的 MIME 类型' },
+    ],
   },
   {
     id: 'html',
@@ -97,8 +97,8 @@ export const configSections: ConfigSection[] = [
     lineRange: 'L28-L33',
     desc: 'HTML 是引用其它带 hash 资源的入口，必须每次协商，保证用户始终拿到最新版本引用。',
     directives: [
-      { name: 'Cache-Control: no-cache', explain: '可缓存但每次必须校验（ETag/Last-Modified）' }
-    ]
+      { name: 'Cache-Control: no-cache', explain: '可缓存但每次必须校验（ETag/Last-Modified）' },
+    ],
   },
   {
     id: 'jscs',
@@ -107,8 +107,8 @@ export const configSections: ConfigSection[] = [
     desc: 'Vite 产物带 contenthash，内容变更即换文件名，因此可永久强缓存并标记 immutable。',
     directives: [
       { name: 'max-age=31536000', explain: '一年强缓存' },
-      { name: 'immutable', explain: '用户主动刷新也不发协商请求' }
-    ]
+      { name: 'immutable', explain: '用户主动刷新也不发协商请求' },
+    ],
   },
   {
     id: 'media',
@@ -117,8 +117,8 @@ export const configSections: ConfigSection[] = [
     desc: '静态媒体资源不常变化，设置中等至长周期的强缓存。',
     directives: [
       { name: 'max-age=2592000', explain: '图片 30 天' },
-      { name: 'max-age=31536000', explain: '字体 1 年，并允许跨域' }
-    ]
+      { name: 'max-age=31536000', explain: '字体 1 年，并允许跨域' },
+    ],
   },
   {
     id: 'sw',
@@ -127,8 +127,8 @@ export const configSections: ConfigSection[] = [
     desc: 'Service Worker 脚本必须实时更新，否则浏览器会一直运行旧版本导致无法升级。',
     directives: [
       { name: 'no-store', explain: '禁止任何缓存存储' },
-      { name: 'must-revalidate', explain: '过期必校验' }
-    ]
+      { name: 'must-revalidate', explain: '过期必校验' },
+    ],
   },
   {
     id: 'spa',
@@ -136,9 +136,9 @@ export const configSections: ConfigSection[] = [
     lineRange: 'L90-L94',
     desc: '前端路由路径全部回退到 index.html，且 index.html 仍走 no-cache 策略。',
     directives: [
-      { name: 'try_files $uri $uri/ /index.html', explain: '找不到文件则返回 index.html' }
-    ]
-  }
+      { name: 'try_files $uri $uri/ /index.html', explain: '找不到文件则返回 index.html' },
+    ],
+  },
 ]
 
 /** nginx.conf 原文（用于在界面中展示，与项目根目录 nginx.conf 保持一致） */

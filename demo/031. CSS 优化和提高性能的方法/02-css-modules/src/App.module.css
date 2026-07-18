@@ -1,0 +1,185 @@
+/* ============================================================
+ * CSS Module 文件（App.module.css）
+ * 1. 所有类名在构建时会被自动 hash 化
+ *    例如 .card  会变成  App_card__3F9k1
+ * 2. 即使这里也叫 .card，也不会和 global.css 里的 .card 冲突
+ * 3. 通过 :global(.xxx) 可以选择性地使用全局类名
+ * 4. composes 可复用其他规则
+ * ============================================================ */
+
+/* 容器 */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  line-height: 1.6;
+}
+
+/* 顶部 hero 区 */
+.hero {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  padding: 32px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.35);
+}
+
+.heroTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.heroSub {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+}
+
+/* 通用卡片 - 注意：这里的 .card 与 global.css 中的 .card 同名但互不影响 */
+.card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+}
+
+/* 这是 CSS Modules 主题的 .card - 蓝绿色调，与全局紫色 .card 区分 */
+.demoCard {
+  background: linear-gradient(135deg, #0ea5e9, #10b981);
+  border: 2px solid #5eead4;
+  border-radius: 12px;
+  padding: 20px;
+  color: #ffffff;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #ccfbf1;
+}
+
+.desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 段标题 */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: #6ee7b7;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #a7f3d0;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+/* 局部 .button - 与全局 .button 同名不冲突 */
+.button {
+  padding: 8px 16px;
+  border: 1px solid #10b981;
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+/* 类名 hash 可视化区域 */
+.hashBox {
+  background: #0b1120;
+  border: 1px dashed rgba(16, 185, 129, 0.4);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', Consolas, monospace;
+  font-size: 12.5px;
+}
+
+.hashLabel {
+  color: #94a3b8;
+  margin-right: 8px;
+}
+
+.hashValue {
+  color: #5eead4;
+  font-weight: 700;
+  word-break: break-all;
+}
+
+/* 代码块 */
+.codeBlock {
+  background: #0b1120;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-family: 'JetBrains Mono', Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #cbd5e1;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 12px 0 0;
+}
+
+/* 双栏对比 */
+.compareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .compareGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compareCol {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+/* 使用 composes 复用样式 */
+.base {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.primary {
+  composes: base;
+  background: #10b981;
+  color: #ffffff;
+}
+
+.secondary {
+  composes: base;
+  background: transparent;
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+}

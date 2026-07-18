@@ -25,21 +25,39 @@ export default function AnimationDemo() {
   // 方式1：setState + setInterval
   const [posA, setPosA] = useState(0)
   const dirA = useRef(1)
-  const statsARef = useRef({ frames: 0, jank: 0, lastTime: performance.now(), lastFpsTime: performance.now(), fps: 0 })
+  const statsARef = useRef({
+    frames: 0,
+    jank: 0,
+    lastTime: performance.now(),
+    lastFpsTime: performance.now(),
+    fps: 0,
+  })
   const intervalARef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // 方式2：DOM + setInterval
   const boxBRef = useRef<HTMLDivElement | null>(null)
   const posB = useRef(0)
   const dirB = useRef(1)
-  const statsBRef = useRef({ frames: 0, jank: 0, lastTime: performance.now(), lastFpsTime: performance.now(), fps: 0 })
+  const statsBRef = useRef({
+    frames: 0,
+    jank: 0,
+    lastTime: performance.now(),
+    lastFpsTime: performance.now(),
+    fps: 0,
+  })
   const intervalBRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // 方式3：DOM + requestAnimationFrame
   const boxCRef = useRef<HTMLDivElement | null>(null)
   const posC = useRef(0)
   const dirC = useRef(1)
-  const statsCRef = useRef({ frames: 0, jank: 0, lastTime: performance.now(), lastFpsTime: performance.now(), fps: 0 })
+  const statsCRef = useRef({
+    frames: 0,
+    jank: 0,
+    lastTime: performance.now(),
+    lastFpsTime: performance.now(),
+    fps: 0,
+  })
   const rafCRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -75,15 +93,25 @@ export default function AnimationDemo() {
 
       setPosA((p) => {
         let next = p + dirA.current * 3
-        if (next > 280) { next = 280; dirA.current = -1 }
-        if (next < 0) { next = 0; dirA.current = 1 }
+        if (next > 280) {
+          next = 280
+          dirA.current = -1
+        }
+        if (next < 0) {
+          next = 0
+          dirA.current = 1
+        }
         return next
       })
 
       const elapsed = t - statsARef.current.lastFpsTime
       if (elapsed >= 1000) {
         statsARef.current.fps = Math.round((statsARef.current.frames * 1000) / elapsed)
-        setStatsA({ fps: statsARef.current.fps, frames: statsARef.current.frames, jankFrames: statsARef.current.jank })
+        setStatsA({
+          fps: statsARef.current.fps,
+          frames: statsARef.current.frames,
+          jankFrames: statsARef.current.jank,
+        })
         statsARef.current.lastFpsTime = t
       }
     }, 10)
@@ -97,15 +125,25 @@ export default function AnimationDemo() {
       if (delta > 20) statsBRef.current.jank += 1
 
       let next = posB.current + dirB.current * 3
-      if (next > 280) { next = 280; dirB.current = -1 }
-      if (next < 0) { next = 0; dirB.current = 1 }
+      if (next > 280) {
+        next = 280
+        dirB.current = -1
+      }
+      if (next < 0) {
+        next = 0
+        dirB.current = 1
+      }
       posB.current = next
       if (boxBRef.current) boxBRef.current.style.transform = `translateX(${next}px)`
 
       const elapsed = t - statsBRef.current.lastFpsTime
       if (elapsed >= 1000) {
         statsBRef.current.fps = Math.round((statsBRef.current.frames * 1000) / elapsed)
-        setStatsB({ fps: statsBRef.current.fps, frames: statsBRef.current.frames, jankFrames: statsBRef.current.jank })
+        setStatsB({
+          fps: statsBRef.current.fps,
+          frames: statsBRef.current.frames,
+          jankFrames: statsBRef.current.jank,
+        })
         statsBRef.current.lastFpsTime = t
       }
     }, 16)
@@ -119,15 +157,25 @@ export default function AnimationDemo() {
       if (delta > 20) statsCRef.current.jank += 1
 
       let next = posC.current + dirC.current * 3
-      if (next > 280) { next = 280; dirC.current = -1 }
-      if (next < 0) { next = 0; dirC.current = 1 }
+      if (next > 280) {
+        next = 280
+        dirC.current = -1
+      }
+      if (next < 0) {
+        next = 0
+        dirC.current = 1
+      }
       posC.current = next
       if (boxCRef.current) boxCRef.current.style.transform = `translateX(${next}px)`
 
       const elapsed = t - statsCRef.current.lastFpsTime
       if (elapsed >= 1000) {
         statsCRef.current.fps = Math.round((statsCRef.current.frames * 1000) / elapsed)
-        setStatsC({ fps: statsCRef.current.fps, frames: statsCRef.current.frames, jankFrames: statsCRef.current.jank })
+        setStatsC({
+          fps: statsCRef.current.fps,
+          frames: statsCRef.current.frames,
+          jankFrames: statsCRef.current.jank,
+        })
         statsCRef.current.lastFpsTime = t
       }
       rafCRef.current = requestAnimationFrame(tickC)
@@ -232,8 +280,9 @@ export default function AnimationDemo() {
     <div style={wrapperStyle}>
       <h3 style={titleStyle}>动画渲染优化对比</h3>
       <p style={descStyle}>
-        点击「开始动画」让三个小球同时左右往返移动，对比三种驱动方式。方式1 用 setState 高频更新会触发大量 React 重渲染；
-        方式2/3 直接操作 DOM 跳过 React。requestAnimationFrame 与屏幕刷新同步，应是最流畅、丢帧最少。
+        点击「开始动画」让三个小球同时左右往返移动，对比三种驱动方式。方式1 用 setState
+        高频更新会触发大量 React 重渲染； 方式2/3 直接操作 DOM 跳过 React。requestAnimationFrame
+        与屏幕刷新同步，应是最流畅、丢帧最少。
       </p>
       <button style={btnStyle} onClick={() => setRunning((r) => !r)}>
         {running ? '停止动画' : '开始动画'}
@@ -245,9 +294,17 @@ export default function AnimationDemo() {
           <div style={{ ...ballStyle('#f44336'), transform: `translateX(${posA}px)` }} />
         </div>
         <div style={statsLine}>
-          <span>FPS: <span style={statItem(statsA.fps >= 50 ? '#4caf50' : '#f44336')}>{statsA.fps}</span></span>
+          <span>
+            FPS:{' '}
+            <span style={statItem(statsA.fps >= 50 ? '#4caf50' : '#f44336')}>{statsA.fps}</span>
+          </span>
           <span>总帧数: {statsA.frames}</span>
-          <span>丢帧(&gt;20ms): <span style={statItem(statsA.jankFrames > 5 ? '#f44336' : '#4caf50')}>{statsA.jankFrames}</span></span>
+          <span>
+            丢帧(&gt;20ms):{' '}
+            <span style={statItem(statsA.jankFrames > 5 ? '#f44336' : '#4caf50')}>
+              {statsA.jankFrames}
+            </span>
+          </span>
         </div>
       </div>
 
@@ -257,21 +314,39 @@ export default function AnimationDemo() {
           <div ref={boxBRef} style={ballStyle('#ff9800')} />
         </div>
         <div style={statsLine}>
-          <span>FPS: <span style={statItem(statsB.fps >= 50 ? '#4caf50' : '#f44336')}>{statsB.fps}</span></span>
+          <span>
+            FPS:{' '}
+            <span style={statItem(statsB.fps >= 50 ? '#4caf50' : '#f44336')}>{statsB.fps}</span>
+          </span>
           <span>总帧数: {statsB.frames}</span>
-          <span>丢帧(&gt;20ms): <span style={statItem(statsB.jankFrames > 5 ? '#f44336' : '#4caf50')}>{statsB.jankFrames}</span></span>
+          <span>
+            丢帧(&gt;20ms):{' '}
+            <span style={statItem(statsB.jankFrames > 5 ? '#f44336' : '#4caf50')}>
+              {statsB.jankFrames}
+            </span>
+          </span>
         </div>
       </div>
 
       <div style={laneStyle}>
-        <div style={laneTitleStyle('#4caf50')}>方式3：DOM 直操作 + requestAnimationFrame（推荐）</div>
+        <div style={laneTitleStyle('#4caf50')}>
+          方式3：DOM 直操作 + requestAnimationFrame（推荐）
+        </div>
         <div style={trackStyle}>
           <div ref={boxCRef} style={ballStyle('#4caf50')} />
         </div>
         <div style={statsLine}>
-          <span>FPS: <span style={statItem(statsC.fps >= 50 ? '#4caf50' : '#f44336')}>{statsC.fps}</span></span>
+          <span>
+            FPS:{' '}
+            <span style={statItem(statsC.fps >= 50 ? '#4caf50' : '#f44336')}>{statsC.fps}</span>
+          </span>
           <span>总帧数: {statsC.frames}</span>
-          <span>丢帧(&gt;20ms): <span style={statItem(statsC.jankFrames > 5 ? '#f44336' : '#4caf50')}>{statsC.jankFrames}</span></span>
+          <span>
+            丢帧(&gt;20ms):{' '}
+            <span style={statItem(statsC.jankFrames > 5 ? '#f44336' : '#4caf50')}>
+              {statsC.jankFrames}
+            </span>
+          </span>
         </div>
       </div>
     </div>

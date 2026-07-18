@@ -47,8 +47,8 @@ export default function SimulationDemo() {
           status: 200,
           transferred: bodySize,
           note: '首次请求，下载完整内容并存入 ETag=' + serverEtag,
-          tone: 'miss'
-        }
+          tone: 'miss',
+        },
       ])
       return
     }
@@ -65,8 +65,8 @@ export default function SimulationDemo() {
           status: 304,
           transferred: '0.5 KB',
           note: 'ETag 一致，复用本地副本',
-          tone: 'revalidate'
-        }
+          tone: 'revalidate',
+        },
       ])
       setResourceState('fresh')
     } else {
@@ -82,8 +82,8 @@ export default function SimulationDemo() {
           status: 200,
           transferred: bodySize,
           note: 'ETag 不一致，下载新内容并更新本地 ETag=' + newEtag,
-          tone: 'miss'
-        }
+          tone: 'miss',
+        },
       ])
     }
   }
@@ -105,7 +105,7 @@ export default function SimulationDemo() {
   const stateLabel: Record<ResourceState, { text: string; color: string }> = {
     empty: { text: '无缓存', color: '#94a3b8' },
     fresh: { text: '已缓存 (新鲜)', color: '#16a34a' },
-    'needs-revalidate': { text: '已缓存 (待校验)', color: '#ea580c' }
+    'needs-revalidate': { text: '已缓存 (待校验)', color: '#ea580c' },
   }
 
   return (
@@ -113,7 +113,8 @@ export default function SimulationDemo() {
       <div className="card-head">
         <h2>304 协商缓存模拟器</h2>
         <p>
-          模拟浏览器请求 <code className="inline-code">/dashboard.json</code>（响应头 <code className="inline-code">Cache-Control: no-cache</code>，
+          模拟浏览器请求 <code className="inline-code">/dashboard.json</code>（响应头{' '}
+          <code className="inline-code">Cache-Control: no-cache</code>，
           即每次必须协商）。点击“发送请求”观察 304 / 200，点击“修改资源”模拟服务器内容更新。
         </p>
       </div>
@@ -131,14 +132,26 @@ export default function SimulationDemo() {
           </div>
           <div className="state-row">
             <span className="state-key">本地副本</span>
-            <span className="badge" style={{ background: stateLabel[resourceState].color + '22', color: stateLabel[resourceState].color }}>
+            <span
+              className="badge"
+              style={{
+                background: stateLabel[resourceState].color + '22',
+                color: stateLabel[resourceState].color,
+              }}
+            >
               {stateLabel[resourceState].text}
             </span>
           </div>
           <div className="sim-actions">
-            <button className="btn btn-primary" onClick={request}>发送请求</button>
-            <button className="btn btn-warn" onClick={modify}>修改资源</button>
-            <button className="btn btn-ghost" onClick={reset}>重置</button>
+            <button className="btn btn-primary" onClick={request}>
+              发送请求
+            </button>
+            <button className="btn btn-warn" onClick={modify}>
+              修改资源
+            </button>
+            <button className="btn btn-ghost" onClick={reset}>
+              重置
+            </button>
           </div>
         </div>
 
@@ -188,7 +201,9 @@ export default function SimulationDemo() {
                 {log.map((l) => (
                   <tr key={l.step} className={l.tone}>
                     <td>{l.step}</td>
-                    <td><code className="inline-code">{l.action}</code></td>
+                    <td>
+                      <code className="inline-code">{l.action}</code>
+                    </td>
                     <td>
                       <span className={`status-pill s${l.status}`}>{l.status}</span>
                     </td>

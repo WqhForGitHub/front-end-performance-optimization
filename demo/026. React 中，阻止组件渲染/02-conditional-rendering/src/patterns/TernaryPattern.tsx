@@ -19,7 +19,8 @@ export const TernaryPattern: FC = () => {
       <h2>模式 2 · 三目运算符</h2>
       <p>
         二选一场景的最佳选择。两个分支必定渲染其一，不存在"什么都不渲染"的情况。
-        如果需要"条件为假则不渲染"，应该用 <code>&&</code> 而非 <code>{'cond ? <Comp/> : null'}</code>。
+        如果需要"条件为假则不渲染"，应该用 <code>&&</code> 而非{' '}
+        <code>{'cond ? <Comp/> : null'}</code>。
       </p>
 
       <pre className="code-block">{`{status === 'loading' ? <Spinner/> : <Data/>}
@@ -70,7 +71,8 @@ export const TernaryPattern: FC = () => {
             </div>
           </div>
           <div className="hint">
-            注意上面的嵌套三目 <code>{'status === "loading" ? ... : status === "success" ? ... : ...'}</code>，
+            注意上面的嵌套三目{' '}
+            <code>{'status === "loading" ? ... : status === "success" ? ... : ...'}</code>，
             超过两层时可读性急剧下降，应改用 switch 或 IIFE。
           </div>
         </div>

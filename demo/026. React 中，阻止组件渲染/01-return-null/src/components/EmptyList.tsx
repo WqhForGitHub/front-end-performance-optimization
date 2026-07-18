@@ -29,7 +29,9 @@ export const EmptyList: FC<EmptyListProps> = ({ items, showEmptyHint }) => {
   return (
     <ul className="list">
       {items.map((item, i) => (
-        <li key={i} className="list-item">{item}</li>
+        <li key={i} className="list-item">
+          {item}
+        </li>
       ))}
     </ul>
   )

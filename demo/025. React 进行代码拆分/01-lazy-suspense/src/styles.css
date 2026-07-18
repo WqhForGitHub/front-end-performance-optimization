@@ -1,12 +1,18 @@
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   color: #1f2937;
   background: #f5f7fa;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-body { margin: 0; padding: 0; }
+body {
+  margin: 0;
+  padding: 0;
+}
 
 .app-shell {
   min-height: 100vh;
@@ -41,7 +47,9 @@ body { margin: 0; padding: 0; }
   transition: all 0.2s;
 }
 
-.nav-btn:hover { background: #334155; }
+.nav-btn:hover {
+  background: #334155;
+}
 
 .nav-btn.active {
   background: #3b82f6;
@@ -76,25 +84,44 @@ body { margin: 0; padding: 0; }
   animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .page {
   background: #fff;
   border-radius: 12px;
   padding: 32px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.page h2 { margin-top: 0; color: #111827; }
-.page h3 { color: #1f2937; margin-bottom: 8px; }
+.page h2 {
+  margin-top: 0;
+  color: #111827;
+}
+.page h3 {
+  color: #1f2937;
+  margin-bottom: 8px;
+}
 
-.page p { line-height: 1.7; color: #4b5563; }
+.page p {
+  line-height: 1.7;
+  color: #4b5563;
+}
 
 .code-block {
   background: #0f172a;
@@ -142,14 +169,30 @@ body { margin: 0; padding: 0; }
   justify-content: center;
 }
 
-.bundle-box .size { font-size: 11px; opacity: 0.85; margin-top: 4px; }
+.bundle-box .size {
+  font-size: 11px;
+  opacity: 0.85;
+  margin-top: 4px;
+}
 
-.bg-main { background: #3b82f6; }
-.bg-home { background: #10b981; }
-.bg-dashboard { background: #8b5cf6; }
-.bg-settings { background: #f59e0b; }
-.bg-profile { background: #ef4444; }
-.bg-vendor { background: #64748b; }
+.bg-main {
+  background: #3b82f6;
+}
+.bg-home {
+  background: #10b981;
+}
+.bg-dashboard {
+  background: #8b5cf6;
+}
+.bg-settings {
+  background: #f59e0b;
+}
+.bg-profile {
+  background: #ef4444;
+}
+.bg-vendor {
+  background: #64748b;
+}
 
 .legend {
   display: flex;
@@ -160,8 +203,16 @@ body { margin: 0; padding: 0; }
   margin-top: 8px;
 }
 
-.legend-item { display: flex; align-items: center; gap: 6px; }
-.legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
 
 .flow {
   display: flex;
@@ -186,8 +237,14 @@ body { margin: 0; padding: 0; }
   margin-left: 8px;
 }
 
-.tag-load { background: #dbeafe; color: #1e40af; }
-.tag-split { background: #dcfce7; color: #166534; }
+.tag-load {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.tag-split {
+  background: #dcfce7;
+  color: #166534;
+}
 
 .info-grid {
   display: grid;
@@ -203,8 +260,18 @@ body { margin: 0; padding: 0; }
   border-radius: 4px;
 }
 
-.info-card .label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-.info-card .value { font-size: 14px; color: #1e293b; margin-top: 4px; font-weight: 500; }
+.info-card .label {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.info-card .value {
+  font-size: 14px;
+  color: #1e293b;
+  margin-top: 4px;
+  font-weight: 500;
+}
 
 .metric-row {
   display: flex;
@@ -213,11 +280,24 @@ body { margin: 0; padding: 0; }
   margin: 12px 0;
 }
 
-.metric { text-align: left; }
-.metric .num { font-size: 24px; font-weight: 700; color: #3b82f6; }
-.metric .desc { font-size: 12px; color: #64748b; }
+.metric {
+  text-align: left;
+}
+.metric .num {
+  font-size: 24px;
+  font-weight: 700;
+  color: #3b82f6;
+}
+.metric .desc {
+  font-size: 12px;
+  color: #64748b;
+}
 
-.timer { font-family: 'Fira Code', Consolas, monospace; color: #3b82f6; font-weight: 600; }
+.timer {
+  font-family: 'Fira Code', Consolas, monospace;
+  color: #3b82f6;
+  font-weight: 600;
+}
 
 .note {
   background: #fef3c7;

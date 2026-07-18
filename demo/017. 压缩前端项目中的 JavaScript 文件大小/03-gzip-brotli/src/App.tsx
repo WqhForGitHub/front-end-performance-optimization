@@ -104,8 +104,8 @@ export default function App() {
       <div style={sectionStyle}>
         <h2 style={titleStyle}>1. 压缩阶段体积对比</h2>
         <div style={descStyle}>
-          下方展示了常见前端资源在 4 个阶段的体积变化：原始 → Terser 压缩 → gzip → brotli。
-          可以看到 brotli 相比 gzip 还有额外 10%~20% 的压缩收益。
+          下方展示了常见前端资源在 4 个阶段的体积变化：原始 → Terser 压缩 → gzip → brotli。 可以看到
+          brotli 相比 gzip 还有额外 10%~20% 的压缩收益。
         </div>
         {compressionEntries.map((entry) => (
           <CompressionBar key={entry.name} entry={entry} max={maxOriginal} />
@@ -155,8 +155,8 @@ export default function App() {
       <div style={sectionStyle}>
         <h2 style={titleStyle}>3. Vite 压缩插件配置</h2>
         <div style={descStyle}>
-          使用 <code>vite-plugin-compression</code> 插件在构建时预生成 .gz 和 .br 文件，
-          配合 Nginx 的 <code>gzip_static on</code> 和 <code>brotli_static on</code> 直接返回预压缩文件。
+          使用 <code>vite-plugin-compression</code> 插件在构建时预生成 .gz 和 .br 文件， 配合 Nginx
+          的 <code>gzip_static on</code> 和 <code>brotli_static on</code> 直接返回预压缩文件。
         </div>
         <pre style={codeBlockStyle}>{`// vite.config.ts
 import { defineConfig } from 'vite'
@@ -194,9 +194,7 @@ export default defineConfig({
       {/* Nginx 配置 */}
       <div style={sectionStyle}>
         <h2 style={titleStyle}>4. Nginx 静态压缩指令</h2>
-        <div style={descStyle}>
-          Nginx 配合预压缩文件，避免运行时压缩 CPU 开销：
-        </div>
+        <div style={descStyle}>Nginx 配合预压缩文件，避免运行时压缩 CPU 开销：</div>
         <pre style={codeBlockStyle}>{`server {
     gzip_static on;              # 优先返回 .gz 文件
     brotli_static on;            # 优先返回 .br 文件
@@ -215,7 +213,9 @@ export default defineConfig({
           <tbody>
             {nginxDirectives.map((d) => (
               <tr key={d.directive}>
-                <td style={{ ...tdStyle, fontFamily: 'monospace', color: '#1976d2' }}>{d.directive}</td>
+                <td style={{ ...tdStyle, fontFamily: 'monospace', color: '#1976d2' }}>
+                  {d.directive}
+                </td>
                 <td style={tdStyle}>{d.desc}</td>
               </tr>
             ))}

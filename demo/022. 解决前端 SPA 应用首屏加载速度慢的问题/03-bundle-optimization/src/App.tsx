@@ -5,7 +5,7 @@ import {
   BundleTable,
   baselineRows,
   manualChunksRows,
-  cdnExternalsRows
+  cdnExternalsRows,
 } from './components/BundleAnalysis'
 
 const App: FC = () => {
@@ -50,16 +50,17 @@ const App: FC = () => {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginTop: 16 }}>
+        <div
+          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginTop: 16 }}
+        >
           <BundleTable title="基线" rows={baselineRows} showTotal={true} />
           <BundleTable title="+ manualChunks" rows={manualChunksRows} showTotal={true} />
           <BundleTable title="+ CDN externals" rows={cdnExternalsRows} showTotal={true} />
         </div>
 
         <div className="tip">
-          关键收益：首屏 chunk 从 320KB 降到 95KB（仅业务 + lodash），
-          且 vendor-react / vendor-lodash 文件名带 hash，可被浏览器长期缓存，
-          后续发版仅需重新下载 main.js。
+          关键收益：首屏 chunk 从 320KB 降到 95KB（仅业务 + lodash）， 且 vendor-react /
+          vendor-lodash 文件名带 hash，可被浏览器长期缓存， 后续发版仅需重新下载 main.js。
         </div>
       </div>
 

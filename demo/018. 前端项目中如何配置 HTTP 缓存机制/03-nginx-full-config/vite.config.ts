@@ -8,14 +8,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5236,
-    open: true
+    open: true,
   },
   preview: {
     port: 5236,
     // 仅作演示用，真实环境以 nginx.conf 为准
     headers: {
-      'Cache-Control': 'no-cache'
-    }
+      'Cache-Control': 'no-cache',
+    },
   },
   build: {
     outDir: 'dist',
@@ -24,8 +24,8 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    }
-  }
+        assetFileNames: 'assets/[name].[hash].[ext]',
+      },
+    },
+  },
 })

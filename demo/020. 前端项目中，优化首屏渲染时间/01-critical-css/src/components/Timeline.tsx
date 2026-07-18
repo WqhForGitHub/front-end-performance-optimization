@@ -51,7 +51,15 @@ export function Timeline({ phases, total }: TimelineProps) {
               borderLeft: '1px dashed rgba(255,255,255,0.08)',
             }}
           >
-            <span style={{ position: 'absolute', top: 60, fontSize: 10, color: 'var(--muted)', transform: 'translateX(-50%)' }}>
+            <span
+              style={{
+                position: 'absolute',
+                top: 60,
+                fontSize: 10,
+                color: 'var(--muted)',
+                transform: 'translateX(-50%)',
+              }}
+            >
               {t}ms
             </span>
           </div>
@@ -114,14 +122,31 @@ export function Timeline({ phases, total }: TimelineProps) {
                 boxShadow: `0 0 0 2px ${m.color}`,
               }}
             />
-            <div style={{ fontSize: 10, color: m.color, marginTop: 4, whiteSpace: 'nowrap', transform: 'translateX(-50%)' }}>
+            <div
+              style={{
+                fontSize: 10,
+                color: m.color,
+                marginTop: 4,
+                whiteSpace: 'nowrap',
+                transform: 'translateX(-50%)',
+              }}
+            >
               {m.label}
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 18, fontSize: 11, color: 'var(--muted)' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 16,
+          flexWrap: 'wrap',
+          marginTop: 18,
+          fontSize: 11,
+          color: 'var(--muted)',
+        }}
+      >
         <Legend color="#fbbf24" text="内联 CSS（不阻塞）" />
         <Legend color="#22d3ee" text="异步加载（不阻塞渲染）" />
         <Legend color="#f87171" text="阻塞渲染的外部 CSS" />
@@ -134,7 +159,15 @@ export function Timeline({ phases, total }: TimelineProps) {
 function Legend({ color, text }: { color: string; text: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-      <span style={{ width: 12, height: 12, background: color, borderRadius: 3, display: 'inline-block' }} />
+      <span
+        style={{
+          width: 12,
+          height: 12,
+          background: color,
+          borderRadius: 3,
+          display: 'inline-block',
+        }}
+      />
       <span>{text}</span>
     </div>
   )

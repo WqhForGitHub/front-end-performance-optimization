@@ -46,7 +46,6 @@ export function useSharedRequest<T>(
     return () => {
       cancelled = true
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, ...deps])
 
   return { data, loading, error }

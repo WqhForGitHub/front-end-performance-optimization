@@ -110,9 +110,7 @@ export default function App() {
   return (
     <div style={pageStyle}>
       <div style={headerStyle}>
-        <h1 style={{ margin: '0 0 8px 0', fontSize: '26px' }}>
-          方案一：Promise 共享 / 请求去重
-        </h1>
+        <h1 style={{ margin: '0 0 8px 0', fontSize: '26px' }}>方案一：Promise 共享 / 请求去重</h1>
         <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
           3 个组件请求同一个 API，共享进行中的 Promise，只发 1 次请求
         </p>

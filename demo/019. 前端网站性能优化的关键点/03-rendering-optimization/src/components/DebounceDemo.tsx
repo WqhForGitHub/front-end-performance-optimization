@@ -29,7 +29,11 @@ export default function DebounceDemo() {
     setImmediateFilterCount((c) => c + 1)
     if (!immediateValue.trim()) return mockDatabase.slice(0, 8)
     const q = immediateValue.toLowerCase()
-    return mockDatabase.filter((item) => item.name.toLowerCase().includes(q) || item.category.includes(immediateValue)).slice(0, 8)
+    return mockDatabase
+      .filter(
+        (item) => item.name.toLowerCase().includes(q) || item.category.includes(immediateValue),
+      )
+      .slice(0, 8)
   }, [immediateValue])
 
   // 防抖过滤
@@ -37,8 +41,11 @@ export default function DebounceDemo() {
     setDebounceFilterCount((c) => c + 1)
     if (!debouncedValue.trim()) return mockDatabase.slice(0, 8)
     const q = debouncedValue.toLowerCase()
-    return mockDatabase.filter((item) => item.name.toLowerCase().includes(q) || item.category.includes(debouncedValue)).slice(0, 8)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return mockDatabase
+      .filter(
+        (item) => item.name.toLowerCase().includes(q) || item.category.includes(debouncedValue),
+      )
+      .slice(0, 8)
   }, [debouncedValue])
 
   const handleImmediateChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -131,15 +138,23 @@ export default function DebounceDemo() {
   return (
     <div style={wrapperStyle}>
       <p style={descStyle}>
-        在两个输入框中快速输入文字（模拟搜索）。左侧每次按键都立即过滤 5000 条数据，
-        右侧使用 <code style={{ backgroundColor: '#f0f0f0', padding: '1px 5px', borderRadius: '3px' }}>useDebouncedValue(300ms)</code>，
-        仅在停止输入后才过滤。对比过滤执行次数差异。
+        在两个输入框中快速输入文字（模拟搜索）。左侧每次按键都立即过滤 5000 条数据， 右侧使用{' '}
+        <code style={{ backgroundColor: '#f0f0f0', padding: '1px 5px', borderRadius: '3px' }}>
+          useDebouncedValue(300ms)
+        </code>
+        ， 仅在停止输入后才过滤。对比过滤执行次数差异。
       </p>
 
       <div style={statBoxStyle}>
-        <span>总按键次数：<strong style={{ color: '#1976d2' }}>{keyCount}</strong></span>
-        <span>立即过滤执行：<strong style={{ color: '#f44336' }}>{immediateFilterCount}</strong> 次</span>
-        <span>防抖过滤执行：<strong style={{ color: '#4caf50' }}>{debounceFilterCount}</strong> 次</span>
+        <span>
+          总按键次数：<strong style={{ color: '#1976d2' }}>{keyCount}</strong>
+        </span>
+        <span>
+          立即过滤执行：<strong style={{ color: '#f44336' }}>{immediateFilterCount}</strong> 次
+        </span>
+        <span>
+          防抖过滤执行：<strong style={{ color: '#4caf50' }}>{debounceFilterCount}</strong> 次
+        </span>
       </div>
 
       <div style={gridStyle}>

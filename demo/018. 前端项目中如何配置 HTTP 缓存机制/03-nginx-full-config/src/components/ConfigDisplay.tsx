@@ -5,11 +5,17 @@ import { configSections, nginxConfSource } from '../data/nginxData'
 function highlight(line: string): ReactNode {
   const keywords = [
     { re: /(#.*$)/, color: '#64748b' },
-    { re: /\b(server|location|listen|root|index|return|try_files|add_header|gzip|error_page|etag)\b/g, color: '#c084fc' },
-    { re: /\b(public|private|no-cache|no-store|must-revalidate|immutable|max-age|s-maxage)\b/g, color: '#7dd3fc' },
+    {
+      re: /\b(server|location|listen|root|index|return|try_files|add_header|gzip|error_page|etag)\b/g,
+      color: '#c084fc',
+    },
+    {
+      re: /\b(public|private|no-cache|no-store|must-revalidate|immutable|max-age|s-maxage)\b/g,
+      color: '#7dd3fc',
+    },
     { re: /("[^"]*")/g, color: '#86efac' },
     { re: /(\$\w+)/g, color: '#fbbf24' },
-    { re: /\b(\d+)\b/g, color: '#fda4af' }
+    { re: /\b(\d+)\b/g, color: '#fda4af' },
   ]
 
   // 先处理注释整行
@@ -17,7 +23,9 @@ function highlight(line: string): ReactNode {
   if (commentMatch) {
     return [
       commentMatch[1],
-      <span key="c" style={{ color: '#64748b', fontStyle: 'italic' }}>{commentMatch[2]}</span>
+      <span key="c" style={{ color: '#64748b', fontStyle: 'italic' }}>
+        {commentMatch[2]}
+      </span>,
     ]
   }
 
@@ -48,7 +56,15 @@ function highlight(line: string): ReactNode {
     parts = next
   }
 
-  return parts.map((p, i) => (p.color ? <span key={i} style={{ color: p.color }}>{p.text}</span> : <span key={i}>{p.text}</span>))
+  return parts.map((p, i) =>
+    p.color ? (
+      <span key={i} style={{ color: p.color }}>
+        {p.text}
+      </span>
+    ) : (
+      <span key={i}>{p.text}</span>
+    ),
+  )
 }
 
 export default function ConfigDisplay() {
@@ -60,8 +76,8 @@ export default function ConfigDisplay() {
       <div className="card-head">
         <h2>nginx.conf 完整配置</h2>
         <p>
-          这是项目根目录 <code className="inline-code">nginx.conf</code> 的内容，可直接用于生产部署。
-          点击下方分段按钮，查看对应区块的说明。
+          这是项目根目录 <code className="inline-code">nginx.conf</code>{' '}
+          的内容，可直接用于生产部署。 点击下方分段按钮，查看对应区块的说明。
         </p>
       </div>
 
@@ -70,7 +86,11 @@ export default function ConfigDisplay() {
           <button
             key={s.id}
             className="section-tab"
-            style={active === s.id ? { background: '#1e293b', color: '#fff', borderColor: '#1e293b' } : {}}
+            style={
+              active === s.id
+                ? { background: '#1e293b', color: '#fff', borderColor: '#1e293b' }
+                : {}
+            }
             onClick={() => setActive(s.id)}
           >
             {s.title}
@@ -97,23 +117,25 @@ export default function ConfigDisplay() {
         </div>
 
         <div className="config-explain">
-          {configSections.filter((s) => s.id === active).map((s) => (
-            <div key={s.id}>
-              <div className="explain-head">
-                <span className="explain-range">{s.lineRange}</span>
-                <h3>{s.title}</h3>
+          {configSections
+            .filter((s) => s.id === active)
+            .map((s) => (
+              <div key={s.id}>
+                <div className="explain-head">
+                  <span className="explain-range">{s.lineRange}</span>
+                  <h3>{s.title}</h3>
+                </div>
+                <p className="muted explain-desc">{s.desc}</p>
+                <div className="directive-list">
+                  {s.directives.map((d) => (
+                    <div key={d.name} className="directive-row">
+                      <code className="inline-code">{d.name}</code>
+                      <span className="muted">{d.explain}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <p className="muted explain-desc">{s.desc}</p>
-              <div className="directive-list">
-                {s.directives.map((d) => (
-                  <div key={d.name} className="directive-row">
-                    <code className="inline-code">{d.name}</code>
-                    <span className="muted">{d.explain}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </section>

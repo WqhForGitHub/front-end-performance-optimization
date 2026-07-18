@@ -19,7 +19,7 @@ dist/assets/index-a3f9b2c1.js   142.07 kB │ gzip: 45.82 kB
 dist/assets/index-d8e1f4a7.css   12.33 kB │ gzip:  3.10 kB
 dist/assets/logo-7c2b9e3f.png     8.91 kB
 ✓ built in 1.23s`,
-    explain: '构建后产物文件名带 contenthash，配合 nginx 的 immutable 长缓存规则。'
+    explain: '构建后产物文件名带 contenthash，配合 nginx 的 immutable 长缓存规则。',
   },
   {
     id: 'docker',
@@ -27,12 +27,12 @@ dist/assets/logo-7c2b9e3f.png     8.91 kB
     cmd: 'docker run -d -p 5236:80 \\\n  -v $(pwd)/dist:/usr/share/nginx/html \\\n  -v $(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf \\\n  nginx:alpine',
     output: `a1b2c3d4e5f6...
 # 容器启动后访问 http://localhost:5236`,
-    explain: '将 dist 挂载到 nginx 静态目录，nginx.conf 挂载为站点配置。'
+    explain: '将 dist 挂载到 nginx 静态目录，nginx.conf 挂载为站点配置。',
   },
   {
     id: 'curl-js',
     label: '3. 验证 JS 长缓存',
-    cmd: "curl -I http://localhost:5236/assets/index-a3f9b2c1.js",
+    cmd: 'curl -I http://localhost:5236/assets/index-a3f9b2c1.js',
     output: `HTTP/1.1 200 OK
 Server: nginx/1.25.3
 Content-Type: application/javascript
@@ -41,7 +41,7 @@ Last-Modified: Wed, 17 Jul 2026 08:00:00 GMT
 ETag: "64a1c2-abcdef"
 Cache-Control: public, max-age=31536000, immutable
 Accept-Ranges: bytes`,
-    explain: 'JS 产物带 immutable + 一年 max-age，且附带 ETag / Last-Modified。'
+    explain: 'JS 产物带 immutable + 一年 max-age，且附带 ETag / Last-Modified。',
   },
   {
     id: 'curl-html',
@@ -53,7 +53,7 @@ Content-Type: text/html
 Cache-Control: no-cache
 ETag: "deadbeef"
 Last-Modified: Wed, 17 Jul 2026 08:00:00 GMT`,
-    explain: 'HTML 走 no-cache，每次发协商请求，命中则 304。'
+    explain: 'HTML 走 no-cache，每次发协商请求，命中则 304。',
   },
   {
     id: 'curl-304',
@@ -63,8 +63,8 @@ Last-Modified: Wed, 17 Jul 2026 08:00:00 GMT`,
 Server: nginx/1.25.3
 ETag: "deadbeef"
 Cache-Control: no-cache`,
-    explain: '带上 If-None-Match 后，nginx 比对 ETag 一致，返回 304 不带 body。'
-  }
+    explain: '带上 If-None-Match 后，nginx 比对 ETag 一致，返回 304 不带 body。',
+  },
 ]
 
 export default function DeploymentGuide() {
@@ -83,7 +83,11 @@ export default function DeploymentGuide() {
           <button
             key={c.id}
             className="cmd-tab"
-            style={active === c.id ? { background: '#2563eb', color: '#fff', borderColor: '#2563eb' } : {}}
+            style={
+              active === c.id
+                ? { background: '#2563eb', color: '#fff', borderColor: '#2563eb' }
+                : {}
+            }
             onClick={() => setActive(c.id)}
           >
             {c.label}

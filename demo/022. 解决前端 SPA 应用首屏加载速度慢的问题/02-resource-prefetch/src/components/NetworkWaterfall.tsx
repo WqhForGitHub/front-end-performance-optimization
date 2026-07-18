@@ -21,7 +21,7 @@ const TYPE_LABEL: Record<WaterfallItem['type'], string> = {
   dns: 'DNS',
   conn: 'TCP/TLS',
   req: 'Request',
-  res: 'Response'
+  res: 'Response',
 }
 
 export const NetworkWaterfall: FC<WaterfallProps> = ({ title, items, totalMs }) => {
@@ -34,7 +34,9 @@ export const NetworkWaterfall: FC<WaterfallProps> = ({ title, items, totalMs }) 
           const widthPct = (it.duration / totalMs) * 100
           return (
             <div className="waterfall-row" key={i}>
-              <div className="waterfall-name" title={it.name}>{it.name}</div>
+              <div className="waterfall-name" title={it.name}>
+                {it.name}
+              </div>
               <div className="waterfall-bar">
                 <div
                   className={'waterfall-fill ' + it.type}
@@ -61,8 +63,8 @@ export const NetworkWaterfall: FC<WaterfallProps> = ({ title, items, totalMs }) 
                   dns: '#a78bfa',
                   conn: '#f59e0b',
                   req: '#3b82f6',
-                  res: '#22c55e'
-                }[t]
+                  res: '#22c55e',
+                }[t],
               }}
             />
             {TYPE_LABEL[t]}

@@ -5,3 +5,4 @@
 *.min.css
 pnpm-lock.yaml
 yarn.lock
+**/env.d.ts

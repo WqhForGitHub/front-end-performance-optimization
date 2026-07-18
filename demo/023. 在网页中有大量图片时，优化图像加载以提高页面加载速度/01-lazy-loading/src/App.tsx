@@ -31,7 +31,7 @@ function buildImages(): ImageItem[] {
       src: `https://picsum.photos/seed/${seed}/800/600`,
       alt: `示例图片 ${i + 1}`,
       width: 800,
-      height: 600
+      height: 600,
     })
   }
   return items
@@ -40,7 +40,7 @@ function buildImages(): ImageItem[] {
 const MODE_OPTIONS: { value: LoadMode; label: string; desc: string }[] = [
   { value: 'io', label: 'IO 懒加载', desc: 'IntersectionObserver 控制，进入视口才请求' },
   { value: 'native', label: '原生 lazy', desc: '浏览器原生 loading="lazy"，无需 JS' },
-  { value: 'eager', label: '立即加载', desc: '对照：所有图片立即请求，带宽争抢明显' }
+  { value: 'eager', label: '立即加载', desc: '对照：所有图片立即请求，带宽争抢明显' },
 ]
 
 export default function App() {
@@ -54,11 +54,14 @@ export default function App() {
   const stats = useImageLoadStats(images.length)
 
   // 切换模式时重置统计并强制重建列表
-  const handleModeChange = useCallback((next: LoadMode) => {
-    setMode(next)
-    stats.reset()
-    setReloadKey((k) => k + 1)
-  }, [stats])
+  const handleModeChange = useCallback(
+    (next: LoadMode) => {
+      setMode(next)
+      stats.reset()
+      setReloadKey((k) => k + 1)
+    },
+    [stats],
+  )
 
   const handleReload = useCallback(() => {
     stats.reset()
@@ -69,12 +72,11 @@ export default function App() {
     setRootMargin(value)
   }, [])
 
-  const loadedPercent = images.length === 0
-    ? 0
-    : Math.round((stats.loadedCount / images.length) * 100)
+  const loadedPercent =
+    images.length === 0 ? 0 : Math.round((stats.loadedCount / images.length) * 100)
 
   const progressStyle: CSSProperties = {
-    width: `${loadedPercent}%`
+    width: `${loadedPercent}%`,
   }
 
   return (
@@ -82,8 +84,8 @@ export default function App() {
       <header className="app-header">
         <h1>方案一：图片懒加载（IntersectionObserver + 原生 loading=&quot;lazy&quot;）</h1>
         <p>
-          通过延迟加载视口外的图片，避免一次性发起几十个图片请求造成带宽争抢，
-          显著降低首屏 LCP 与可见图片加载时间。本演示共 {images.length} 张图片。
+          通过延迟加载视口外的图片，避免一次性发起几十个图片请求造成带宽争抢， 显著降低首屏 LCP
+          与可见图片加载时间。本演示共 {images.length} 张图片。
         </p>
       </header>
 
@@ -196,14 +198,10 @@ export default function App() {
 
 observer.observe(imgElement)`}</code>
         </pre>
-        <p>
-          优点：可自定义 rootMargin / threshold，体验可控；不支持的浏览器可降级为立即加载。
-        </p>
+        <p>优点：可自定义 rootMargin / threshold，体验可控；不支持的浏览器可降级为立即加载。</p>
 
         <h3>2. 原生 loading=&quot;lazy&quot;（native 模式）</h3>
-        <p>
-          浏览器原生支持的图片懒加载，零 JS 代码，浏览器自行决定加载时机。
-        </p>
+        <p>浏览器原生支持的图片懒加载，零 JS 代码，浏览器自行决定加载时机。</p>
         <pre>
           <code>{`<img
   src="photo.jpg"
@@ -214,8 +212,8 @@ observer.observe(imgElement)`}</code>
 />`}</code>
         </pre>
         <div className="note">
-          注意：原生 lazy 的预加载距离由浏览器决定，开发者无法精确控制；
-          且需同时设置 <code>width</code> / <code>height</code> 防止布局抖动（CLS）。
+          注意：原生 lazy 的预加载距离由浏览器决定，开发者无法精确控制； 且需同时设置{' '}
+          <code>width</code> / <code>height</code> 防止布局抖动（CLS）。
         </div>
 
         <h3>3. 立即加载（eager 模式 / 对照组）</h3>
@@ -226,8 +224,13 @@ observer.observe(imgElement)`}</code>
 
         <h3>选择建议</h3>
         <ul>
-          <li>首屏 LCP 图片：使用 <code>loading=&quot;eager&quot;</code> + <code>fetchpriority=&quot;high&quot;</code></li>
-          <li>普通列表/图库：使用 <code>loading=&quot;lazy&quot;</code> 即可，最简单</li>
+          <li>
+            首屏 LCP 图片：使用 <code>loading=&quot;eager&quot;</code> +{' '}
+            <code>fetchpriority=&quot;high&quot;</code>
+          </li>
+          <li>
+            普通列表/图库：使用 <code>loading=&quot;lazy&quot;</code> 即可，最简单
+          </li>
           <li>需要精细控制（埋点、骨架屏、动画）：使用 IntersectionObserver</li>
           <li>可结合：首屏 eager + 其余 lazy，兼顾首屏与带宽</li>
         </ul>

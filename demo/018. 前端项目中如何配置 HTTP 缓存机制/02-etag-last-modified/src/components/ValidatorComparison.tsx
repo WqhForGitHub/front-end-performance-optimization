@@ -75,7 +75,8 @@ export default function ValidatorComparison() {
       </div>
 
       <div className="note-box">
-        <strong>优先级规则：</strong>当服务器同时收到 <code className="inline-code">If-None-Match</code> 与
+        <strong>优先级规则：</strong>当服务器同时收到{' '}
+        <code className="inline-code">If-None-Match</code> 与
         <code className="inline-code">If-Modified-Since</code> 时，<strong>只校验 ETag</strong>。
         只有当请求不含 If-None-Match（或服务器不支持 ETag）时，才使用 Last-Modified。
       </div>

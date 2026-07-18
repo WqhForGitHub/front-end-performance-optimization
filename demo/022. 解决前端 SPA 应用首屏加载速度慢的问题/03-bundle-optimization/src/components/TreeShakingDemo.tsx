@@ -15,8 +15,9 @@ export const TreeShakingDemo: FC = () => {
     <div className="section">
       <h2>2. Tree Shaking 实际效果演示</h2>
       <div className="desc">
-        <code>exampleUtils.ts</code> 导出了 5 个符号，但本组件仅使用 <code>add / hashLabel / VERSION</code>；
-        未使用的 <code>multiply / formatPrice</code> 会被打包器剔除。
+        <code>exampleUtils.ts</code> 导出了 5 个符号，但本组件仅使用{' '}
+        <code>add / hashLabel / VERSION</code>； 未使用的 <code>multiply / formatPrice</code>{' '}
+        会被打包器剔除。
       </div>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 12 }}>
@@ -49,10 +50,27 @@ export const TreeShakingDemo: FC = () => {
         </label>
       </div>
 
-      <div style={{ marginTop: 12, padding: 12, background: '#f9fafb', borderRadius: 6, border: '1px solid #e5e7eb', fontSize: 13 }}>
-        <div>add(a, b) = <b style={{ color: '#ef4444' }}>{sum}</b></div>
-        <div>hashLabel(text) = <b style={{ color: '#ef4444', fontFamily: 'ui-monospace, monospace' }}>{hashed}</b></div>
-        <div>VERSION = <b style={{ color: '#ef4444', fontFamily: 'ui-monospace, monospace' }}>{VERSION}</b></div>
+      <div
+        style={{
+          marginTop: 12,
+          padding: 12,
+          background: '#f9fafb',
+          borderRadius: 6,
+          border: '1px solid #e5e7eb',
+          fontSize: 13,
+        }}
+      >
+        <div>
+          add(a, b) = <b style={{ color: '#ef4444' }}>{sum}</b>
+        </div>
+        <div>
+          hashLabel(text) ={' '}
+          <b style={{ color: '#ef4444', fontFamily: 'ui-monospace, monospace' }}>{hashed}</b>
+        </div>
+        <div>
+          VERSION ={' '}
+          <b style={{ color: '#ef4444', fontFamily: 'ui-monospace, monospace' }}>{VERSION}</b>
+        </div>
       </div>
 
       <div className="tree-demo">

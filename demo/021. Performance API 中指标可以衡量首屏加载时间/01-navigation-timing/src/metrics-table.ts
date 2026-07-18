@@ -73,8 +73,7 @@ export function renderRawEntry(rawEntry: RawNavigationEntry): void {
 
   Object.entries(rawEntry).forEach(([key, value]) => {
     const row = document.createElement('tr')
-    const display =
-      typeof value === 'number' ? `${value.toFixed(2)} ms` : String(value)
+    const display = typeof value === 'number' ? `${value.toFixed(2)} ms` : String(value)
     row.innerHTML = `
       <td><code>${key}</code></td>
       <td>${display}</td>

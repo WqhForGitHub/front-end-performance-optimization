@@ -59,10 +59,7 @@ function init(): void {
     (final) => {
       finalizeMetric('lcp')
       if (final) {
-        appendLog(
-          `用户首次交互，LCP 冻结为最终值：${final.startTime.toFixed(1)}ms`,
-          'final',
-        )
+        appendLog(`用户首次交互，LCP 冻结为最终值：${final.startTime.toFixed(1)}ms`, 'final')
       } else {
         appendLog('用户首次交互，但未捕获到 LCP 条目', 'final')
       }

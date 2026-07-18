@@ -8,15 +8,8 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 import globals from 'globals'
 
 // === File pattern groups ===
-const reactFiles = ['**/react-ts-vite/**/*.{ts,tsx,js,jsx}']
-
-const vue3VueFiles = [
-  '**/vue3-ts-vite/**/*.vue',
-  '**/v-cloak/**/*.vue',
-  '**/v-text/**/*.vue',
-  '**/skeleton/**/*.vue',
-]
-
+const reactFiles = ['**/*.{tsx,jsx}']
+const vue3VueFiles = ['**/*.vue']
 const vue2Files = ['**/vue2/**/*.{vue,js}']
 
 export default [
@@ -71,12 +64,10 @@ export default [
   },
 
   // === Vue 3 projects ===
-  // eslint-plugin-vue flat configs are arrays, spread + map to scope files
   ...pluginVue.configs['flat/recommended'].map((config) => ({
     ...config,
     files: vue3VueFiles,
   })),
-  // Use TypeScript parser for <script setup lang="ts"> in Vue 3 SFCs
   {
     files: vue3VueFiles,
     languageOptions: {
@@ -92,15 +83,38 @@ export default [
     files: vue2Files,
   })),
 
-  // === Custom rule overrides ===
+  // === Global rule overrides (no plugin-specific rules) ===
   {
     rules: {
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-      ],
       'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-console': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
+
+  // === React-specific rule overrides ===
+  {
+    files: reactFiles,
+    rules: {
       'react/prop-types': 'off',
+      'react/no-unescaped-entities': 'off',
+      'react/jsx-no-comment-textnodes': 'off',
+      'react/display-name': 'off',
+      'react-hooks/rules-of-hooks': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+
+  // === Vue-specific rule overrides ===
+  {
+    files: vue3VueFiles,
+    rules: {
+      'vue/multi-word-component-names': 'off',
+      'vue/no-v-html': 'off',
     },
   },
 

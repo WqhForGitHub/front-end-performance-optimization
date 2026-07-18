@@ -7,15 +7,11 @@ function StepCard({ step }: { step: FlowStep }) {
     <div className={`flow-step ${step.side} ${step.highlight ? 'highlight' : ''}`}>
       <div className="step-head">
         <span className={`side-tag ${step.side}`}>{isClient ? '浏览器' : '服务器'}</span>
-        {step.status ? (
-          <span className={`status-pill s${step.status}`}>{step.status}</span>
-        ) : null}
+        {step.status ? <span className={`status-pill s${step.status}`}>{step.status}</span> : null}
       </div>
       <div className="step-title">{step.title}</div>
       <div className="step-detail muted">{step.detail}</div>
-      {step.payload ? (
-        <pre className="step-payload">{step.payload}</pre>
-      ) : null}
+      {step.payload ? <pre className="step-payload">{step.payload}</pre> : null}
     </div>
   )
 }
@@ -30,22 +26,29 @@ export default function ConditionalRequestFlow() {
         <h2>协商请求交互流程</h2>
         <p>
           左侧为浏览器，右侧为服务器。首次请求拿到校验器后，后续请求会带上
-          <code className="inline-code">If-None-Match</code> / <code className="inline-code">If-Modified-Since</code>，
-          服务器比对后决定返回 304 还是 200。
+          <code className="inline-code">If-None-Match</code> /{' '}
+          <code className="inline-code">If-Modified-Since</code>， 服务器比对后决定返回 304 还是
+          200。
         </p>
       </div>
 
       <div className="mode-bar">
         <button
           className="chip"
-          style={mode === 'hit' ? { background: '#16a34a', color: '#fff', borderColor: '#16a34a' } : {}}
+          style={
+            mode === 'hit' ? { background: '#16a34a', color: '#fff', borderColor: '#16a34a' } : {}
+          }
           onClick={() => setMode('hit')}
         >
           场景 A：未变更 → 304
         </button>
         <button
           className="chip"
-          style={mode === 'modified' ? { background: '#dc2626', color: '#fff', borderColor: '#dc2626' } : {}}
+          style={
+            mode === 'modified'
+              ? { background: '#dc2626', color: '#fff', borderColor: '#dc2626' }
+              : {}
+          }
           onClick={() => setMode('modified')}
         >
           场景 B：已变更 {'->'} 200

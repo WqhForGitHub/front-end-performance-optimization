@@ -47,8 +47,8 @@ function clearDone() {
   <div class="list-view">
     <h2>待办列表</h2>
     <p class="desc">
-      添加 / 删除 / 切换状态后切到其他 Tab，再切回来，列表内容会被完整保留。
-      这是 KeepAlive 缓存组件内部复杂数据结构的典型场景。
+      添加 / 删除 / 切换状态后切到其他 Tab，再切回来，列表内容会被完整保留。 这是 KeepAlive
+      缓存组件内部复杂数据结构的典型场景。
     </p>
 
     <div class="add-bar">
@@ -70,7 +70,7 @@ function clearDone() {
       <li v-if="items.length === 0" class="empty">列表为空</li>
     </ul>
 
-    <div class="footer" v-if="items.length > 0">
+    <div v-if="items.length > 0" class="footer">
       <span>共 {{ items.length }} 项，已完成 {{ items.filter((i) => i.done).length }} 项</span>
       <button class="clear-btn" @click="clearDone">清除已完成</button>
     </div>

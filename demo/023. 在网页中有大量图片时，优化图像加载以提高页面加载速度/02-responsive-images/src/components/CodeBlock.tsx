@@ -20,11 +20,14 @@ export function CodeBlock({ title, code, language = 'html' }: CodeBlockProps) {
       window.setTimeout(() => setCopied(false), 1500)
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(code).then(done).catch(() => {
-        // 降级：使用临时 textarea
-        fallbackCopy(code)
-        done()
-      })
+      navigator.clipboard
+        .writeText(code)
+        .then(done)
+        .catch(() => {
+          // 降级：使用临时 textarea
+          fallbackCopy(code)
+          done()
+        })
     } else {
       fallbackCopy(code)
       done()
@@ -34,7 +37,7 @@ export function CodeBlock({ title, code, language = 'html' }: CodeBlockProps) {
   const headerStyle: CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   }
 
   return (

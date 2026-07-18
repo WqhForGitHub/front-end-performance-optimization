@@ -46,9 +46,15 @@ onDeactivated(() => {
       <button @click="counter++">+1</button>
     </div>
     <ul class="info">
-      <li>首次挂载时间：<b>{{ mountedAt || '-' }}</b></li>
-      <li>累计激活次数：<b>{{ activatedTimes }}</b></li>
-      <li>最近事件：<b class="event">{{ lastEvent }}</b></li>
+      <li>
+        首次挂载时间：<b>{{ mountedAt || '-' }}</b>
+      </li>
+      <li>
+        累计激活次数：<b>{{ activatedTimes }}</b>
+      </li>
+      <li>
+        最近事件：<b class="event">{{ lastEvent }}</b>
+      </li>
     </ul>
   </div>
 </template>

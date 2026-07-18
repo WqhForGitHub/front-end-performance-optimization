@@ -97,7 +97,15 @@ export default function MetricHistory({ history }: MetricHistoryProps) {
     <div style={wrapperStyle}>
       <h3 style={titleStyle}>指标采集历史（最新在前）</h3>
       <div style={listStyle}>
-        <div style={{ ...rowStyle('good'), fontWeight: 700, color: '#888', fontSize: '12px', textTransform: 'uppercase' }}>
+        <div
+          style={{
+            ...rowStyle('good'),
+            fontWeight: 700,
+            color: '#888',
+            fontSize: '12px',
+            textTransform: 'uppercase',
+          }}
+        >
           <div>序号</div>
           <div>指标</div>
           <div>数值</div>

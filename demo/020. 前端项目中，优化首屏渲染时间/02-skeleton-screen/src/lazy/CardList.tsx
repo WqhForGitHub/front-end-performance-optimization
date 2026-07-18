@@ -11,12 +11,48 @@ export interface CardItem {
 }
 
 const FAKE_DATA: CardItem[] = [
-  { id: 1, title: 'Vite 5 构建优化实践', desc: '通过依赖预构建、手动分包与 critical CSS 提升首屏速度。', author: '性能小组', tag: '工程化' },
-  { id: 2, title: 'React 18 并发渲染剖析', desc: 'Suspense + transition 让大数据列表也能保持响应。', author: '前端架构', tag: 'React' },
-  { id: 3, title: '首屏指标 LCP 优化路径', desc: '图片 preload、字体 display swap、关键资源 Early Hints。', author: '监控团队', tag: '性能' },
-  { id: 4, title: 'SSR 与 hydration 取舍', desc: '同构带来的 FCP 提升与 hydration 成本如何权衡。', author: '全栈组', tag: 'SSR' },
-  { id: 5, title: '骨架屏设计与实现', desc: '保持布局稳定，避免 CLS，提升感知性能。', author: '设计平台', tag: 'UX' },
-  { id: 6, title: 'Tree Shaking 实战', desc: 'sideEffects 字段与 ESM 静态分析的配合。', author: '构建工具', tag: 'Webpack' },
+  {
+    id: 1,
+    title: 'Vite 5 构建优化实践',
+    desc: '通过依赖预构建、手动分包与 critical CSS 提升首屏速度。',
+    author: '性能小组',
+    tag: '工程化',
+  },
+  {
+    id: 2,
+    title: 'React 18 并发渲染剖析',
+    desc: 'Suspense + transition 让大数据列表也能保持响应。',
+    author: '前端架构',
+    tag: 'React',
+  },
+  {
+    id: 3,
+    title: '首屏指标 LCP 优化路径',
+    desc: '图片 preload、字体 display swap、关键资源 Early Hints。',
+    author: '监控团队',
+    tag: '性能',
+  },
+  {
+    id: 4,
+    title: 'SSR 与 hydration 取舍',
+    desc: '同构带来的 FCP 提升与 hydration 成本如何权衡。',
+    author: '全栈组',
+    tag: 'SSR',
+  },
+  {
+    id: 5,
+    title: '骨架屏设计与实现',
+    desc: '保持布局稳定，避免 CLS，提升感知性能。',
+    author: '设计平台',
+    tag: 'UX',
+  },
+  {
+    id: 6,
+    title: 'Tree Shaking 实战',
+    desc: 'sideEffects 字段与 ESM 静态分析的配合。',
+    author: '构建工具',
+    tag: 'Webpack',
+  },
 ]
 
 const listStyle: CSSProperties = {

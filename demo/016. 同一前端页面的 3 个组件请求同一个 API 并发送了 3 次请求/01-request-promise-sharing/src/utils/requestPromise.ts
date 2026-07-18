@@ -19,10 +19,7 @@ const inflightCache = new Map<string, Promise<unknown>>()
  * @param requestFn  真正发起请求的函数，仅在缓存未命中时执行
  * @returns          所有相同 key 的调用方共享同一个 Promise
  */
-export function createRequestPromise<T>(
-  key: string,
-  requestFn: () => Promise<T>,
-): Promise<T> {
+export function createRequestPromise<T>(key: string, requestFn: () => Promise<T>): Promise<T> {
   // 1. 缓存命中：已有进行中的 Promise，直接复用，不再执行 requestFn
   const existing = inflightCache.get(key)
   if (existing) {

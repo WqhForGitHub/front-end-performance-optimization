@@ -1,0 +1,676 @@
+/* ==========================================================================
+   01-basic-sprites / styles.css
+   基础 CSS Sprites 演示样式
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 重置与基础样式
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-2: #334155;
+  --color-border: #475569;
+  --color-text: #e2e8f0;
+  --color-text-dim: #94a3b8;
+  --color-primary: #38bdf8;
+  --color-accent: #f472b6;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-code-bg: #0d1117;
+  --radius: 10px;
+  --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--color-bg);
+  color: var(--text);
+  color: var(--color-text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --------------------------------------------------------------------------
+   2. 页头
+   -------------------------------------------------------------------------- */
+.page-header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding: 56px 0 48px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.page-header .subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--color-primary);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   3. 章节通用
+   -------------------------------------------------------------------------- */
+section {
+  padding: 48px 0;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.4);
+}
+
+section h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+section h2 .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--color-primary);
+  color: #0f172a;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+section .lead {
+  color: var(--color-text-dim);
+  margin-bottom: 28px;
+  font-size: 1.02rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. 雪碧图定义（核心）
+   --------------------------------------------------------------------------
+   以下是本演示的核心：一张 256×128 的"雪碧图"通过内联 SVG data URI
+   实现，包含 4 列 × 2 行 = 8 个图标单元，每单元 64×64。
+   第 1 行为默认状态，第 2 行为 hover 状态（更亮背景）。
+   -------------------------------------------------------------------------- */
+
+.sprite {
+  /* 所有图标共用同一张"雪碧图" */
+  width: 64px;
+  height: 64px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='128' viewBox='0 0 256 128'%3E%3Crect width='64' height='64' fill='%232563eb'/%3E%3Cpath d='M14 38 L32 20 L50 38 L50 52 L38 52 L38 42 L26 42 L26 52 L14 52 Z' fill='%23fff'/%3E%3Crect x='64' width='64' height='64' fill='%23059669'/%3E%3Ccircle cx='96' cy='26' r='9' fill='%23fff'/%3E%3Cpath d='M80 52 a16 16 0 0 1 32 0 z' fill='%23fff'/%3E%3Crect x='128' width='64' height='64' fill='%23d97706'/%3E%3Cpath d='M160 16 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1 z' fill='%23fff'/%3E%3Crect x='192' width='64' height='64' fill='%23dc2626'/%3E%3Cpath d='M224 50 c-12 -10 -14 -22 -6 -26 c4 -2 6 2 6 6 c0 -4 2 -8 6 -6 c8 4 6 16 -6 26 z' fill='%23fff'/%3E%3Crect y='64' width='64' height='64' fill='%2360a5fa'/%3E%3Cpath d='M14 102 L32 84 L50 102 L50 116 L38 116 L38 106 L26 106 L26 116 L14 116 Z' fill='%23fff'/%3E%3Crect x='64' y='64' width='64' height='64' fill='%2334d399'/%3E%3Ccircle cx='96' cy='90' r='9' fill='%23fff'/%3E%3Cpath d='M80 116 a16 16 0 0 1 32 0 z' fill='%23fff'/%3E%3Crect x='128' y='64' width='64' height='64' fill='%23fbbf24'/%3E%3Cpath d='M160 80 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1 z' fill='%23fff'/%3E%3Crect x='192' y='64' width='64' height='64' fill='%23f87171'/%3E%3Cpath d='M224 114 c-12 -10 -14 -22 -6 -26 c4 -2 6 2 6 6 c0 -4 2 -8 6 -6 c8 4 6 16 -6 26 z' fill='%23fff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  /* 重要：禁止平铺，只显示背景图指定区域 */
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.18s ease;
+}
+
+/* --------------------------------------------------------------------------
+   5. 各图标的 background-position
+   --------------------------------------------------------------------------
+   每个图标元素使用同一张背景图，仅 background-position 不同。
+   负值表示将背景图向左/向上移动，使目标区域出现在 64×64 视窗内。
+   -------------------------------------------------------------------------- */
+
+/* 第 1 列：Home */
+.icon-home {
+  background-position: 0 0;
+}
+/* 第 2 列：User */
+.icon-user {
+  background-position: -64px 0;
+}
+/* 第 3 列：Star */
+.icon-star {
+  background-position: -128px 0;
+}
+/* 第 4 列：Heart */
+.icon-heart {
+  background-position: -192px 0;
+}
+
+/* hover 状态：切到第 2 行（y = -64px），背景色更亮 */
+.icon-home:hover {
+  background-position: 0 -64px;
+}
+.icon-user:hover {
+  background-position: -64px -64px;
+}
+.icon-star:hover {
+  background-position: -128px -64px;
+}
+.icon-heart:hover {
+  background-position: -192px -64px;
+}
+
+/* 通用 hover 微动效 */
+.sprite:hover {
+  transform: scale(1.08);
+}
+
+/* --------------------------------------------------------------------------
+   6. 雪碧图全貌展示
+   -------------------------------------------------------------------------- */
+.sprite-sheet-display {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sprite-sheet-display .sheet {
+  /* 直接展示完整雪碧图（256×128） */
+  width: 256px;
+  height: 128px;
+  background-image: var(--sheet-url, none);
+  margin: 0 auto 16px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 6px;
+}
+
+/* 用同一个 sprite 类放大显示整张图 */
+.sprite-sheet-full {
+  width: 256px;
+  height: 128px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='128' viewBox='0 0 256 128'%3E%3Crect width='64' height='64' fill='%232563eb'/%3E%3Cpath d='M14 38 L32 20 L50 38 L50 52 L38 52 L38 42 L26 42 L26 52 L14 52 Z' fill='%23fff'/%3E%3Crect x='64' width='64' height='64' fill='%23059669'/%3E%3Ccircle cx='96' cy='26' r='9' fill='%23fff'/%3E%3Cpath d='M80 52 a16 16 0 0 1 32 0 z' fill='%23fff'/%3E%3Crect x='128' width='64' height='64' fill='%23d97706'/%3E%3Cpath d='M160 16 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1 z' fill='%23fff'/%3E%3Crect x='192' width='64' height='64' fill='%23dc2626'/%3E%3Cpath d='M224 50 c-12 -10 -14 -22 -6 -26 c4 -2 6 2 6 6 c0 -4 2 -8 6 -6 c8 4 6 16 -6 26 z' fill='%23fff'/%3E%3Crect y='64' width='64' height='64' fill='%2360a5fa'/%3E%3Cpath d='M14 102 L32 84 L50 102 L50 116 L38 116 L38 106 L26 106 L26 116 L14 116 Z' fill='%23fff'/%3E%3Crect x='64' y='64' width='64' height='64' fill='%2334d399'/%3E%3Ccircle cx='96' cy='90' r='9' fill='%23fff'/%3E%3Cpath d='M80 116 a16 16 0 0 1 32 0 z' fill='%23fff'/%3E%3Crect x='128' y='64' width='64' height='64' fill='%23fbbf24'/%3E%3Cpath d='M160 80 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1 z' fill='%23fff'/%3E%3Crect x='192' y='64' width='64' height='64' fill='%23f87171'/%3E%3Cpath d='M224 114 c-12 -10 -14 -22 -6 -26 c4 -2 6 2 6 6 c0 -4 2 -8 6 -6 c8 4 6 16 -6 26 z' fill='%23fff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  margin: 0 auto 16px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 6px;
+}
+
+.sprite-sheet-display .label {
+  color: var(--color-text-dim);
+  font-size: 0.92rem;
+}
+
+.sprite-sheet-display .label strong {
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   7. 图标网格展示
+   -------------------------------------------------------------------------- */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.icon-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px 16px;
+  text-align: center;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.icon-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+}
+
+.icon-card .icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.icon-card .name {
+  font-weight: 600;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.icon-card .pos {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   8. background-position 原理可视化
+   -------------------------------------------------------------------------- */
+.diagram {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.diagram-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .diagram-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.diagram-label {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+/* 可视化：雪碧图 + 视窗框 */
+.viewport-demo {
+  position: relative;
+  width: 256px;
+  height: 128px;
+  margin: 0 auto;
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.viewport-demo .full-sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 128px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='128' viewBox='0 0 256 128'%3E%3Crect width='64' height='64' fill='%232563eb'/%3E%3Cpath d='M14 38 L32 20 L50 38 L50 52 L38 52 L38 42 L26 42 L26 52 L14 52 Z' fill='%23fff'/%3E%3Crect x='64' width='64' height='64' fill='%23059669'/%3E%3Ccircle cx='96' cy='26' r='9' fill='%23fff'/%3E%3Cpath d='M80 52 a16 16 0 0 1 32 0 z' fill='%23fff'/%3E%3Crect x='128' width='64' height='64' fill='%23d97706'/%3E%3Cpath d='M160 16 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1 z' fill='%23fff'/%3E%3Crect x='192' width='64' height='64' fill='%23dc2626'/%3E%3Cpath d='M224 50 c-12 -10 -14 -22 -6 -26 c4 -2 6 2 6 6 c0 -4 2 -8 6 -6 c8 4 6 16 -6 26 z' fill='%23fff'/%3E%3Crect y='64' width='64' height='64' fill='%2360a5fa'/%3E%3Cpath d='M14 102 L32 84 L50 102 L50 116 L38 116 L38 106 L26 106 L26 116 L14 116 Z' fill='%23fff'/%3E%3Crect x='64' y='64' width='64' height='64' fill='%2334d399'/%3E%3Ccircle cx='96' cy='90' r='9' fill='%23fff'/%3E%3Cpath d='M80 116 a16 16 0 0 1 32 0 z' fill='%23fff'/%3E%3Crect x='128' y='64' width='64' height='64' fill='%23fbbf24'/%3E%3Cpath d='M160 80 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1 z' fill='%23fff'/%3E%3Crect x='192' y='64' width='64' height='64' fill='%23f87171'/%3E%3Cpath d='M224 114 c-12 -10 -14 -22 -6 -26 c4 -2 6 2 6 6 c0 -4 2 -8 6 -6 c8 4 6 16 -6 26 z' fill='%23fff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 64×64 视窗框（固定不动，背景图在其下方移动） */
+.viewport-demo .viewport-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  border: 3px solid var(--color-warning);
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(251, 191, 36, 0.6);
+  pointer-events: none;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.viewport-demo .viewport-frame::after {
+  content: '64×64 视窗';
+  position: absolute;
+  top: -22px;
+  left: 0;
+  font-size: 0.7rem;
+  color: var(--color-warning);
+  font-family: var(--mono);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+/* 单独显示：用 sprite 类显示某个图标 */
+.single-icon-demo {
+  width: 64px;
+  height: 64px;
+  border: 3px solid var(--color-warning);
+  border-radius: 6px;
+  margin: 0 auto;
+}
+
+.position-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.position-controls button {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: var(--mono);
+  transition: all 0.18s;
+}
+
+.position-controls button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.position-controls button.active {
+  background: var(--color-primary);
+  color: #0f172a;
+  border-color: var(--color-primary);
+  font-weight: 700;
+}
+
+.current-position {
+  text-align: center;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--color-text-dim);
+}
+
+.current-position code {
+  color: var(--color-warning);
+  background: rgba(251, 191, 36, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   9. hover 效果演示区
+   -------------------------------------------------------------------------- */
+.hover-demo {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+}
+
+.hover-demo .hint {
+  color: var(--color-text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.hover-icons {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hover-icons .icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hover-icons .icon-item .label {
+  font-size: 0.82rem;
+  color: var(--color-text-dim);
+  font-family: var(--mono);
+}
+
+/* --------------------------------------------------------------------------
+   10. 代码块
+   -------------------------------------------------------------------------- */
+.code-block {
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.code-block .code-label {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-block pre {
+  margin: 0;
+}
+
+.code-block code {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: #c9d1d9;
+  white-space: pre;
+}
+
+/* 语法高亮（手工着色） */
+.tk-sel {
+  color: #ff7b72;
+} /* 选择器 */
+.tk-prop {
+  color: #79c0ff;
+} /* 属性 */
+.tk-val {
+  color: #a5d6ff;
+} /* 值 */
+.tk-num {
+  color: #fbbf24;
+} /* 数字 */
+.tk-comment {
+  color: #6a737d;
+  font-style: italic;
+} /* 注释 */
+.tk-tag {
+  color: #7ee787;
+} /* 标签 */
+.tk-attr {
+  color: #79c0ff;
+} /* 属性名 */
+.tk-str {
+  color: #a5d6ff;
+} /* 字符串 */
+
+/* --------------------------------------------------------------------------
+   11. 对比卡片：传统多图 vs 雪碧图
+   -------------------------------------------------------------------------- */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 760px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compare-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.compare-card.bad {
+  border-top: 3px solid var(--color-accent);
+}
+.compare-card.good {
+  border-top: 3px solid var(--color-success);
+}
+
+.compare-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-card .req-count {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.compare-card.bad .req-count {
+  color: var(--color-accent);
+}
+.compare-card.good .req-count {
+  color: var(--color-success);
+}
+
+.compare-card ul {
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--color-text-dim);
+}
+
+.compare-card ul li {
+  padding: 4px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.compare-card ul li::before {
+  content: '•';
+  position: absolute;
+  left: 6px;
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   12. 提示框
+   -------------------------------------------------------------------------- */
+.callout {
+  background: rgba(56, 189, 248, 0.08);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  color: var(--color-text);
+  font-size: 0.92rem;
+}
+
+.callout strong {
+  color: var(--color-primary);
+}
+
+.callout.warning {
+  background: rgba(251, 191, 36, 0.08);
+  border-left-color: var(--color-warning);
+}
+
+.callout.warning strong {
+  color: var(--color-warning);
+}
+
+/* --------------------------------------------------------------------------
+   13. 页脚
+   -------------------------------------------------------------------------- */
+.page-footer {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 0.86rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.page-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   14. 导航
+   -------------------------------------------------------------------------- */
+.nav {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav .container {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav a {
+  color: var(--color-text-dim);
+  text-decoration: none;
+  font-size: 0.88rem;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition:
+    color 0.18s,
+    border-color 0.18s;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.nav .back {
+  margin-left: auto;
+  color: var(--color-text-dim);
+  font-size: 0.82rem;
+}

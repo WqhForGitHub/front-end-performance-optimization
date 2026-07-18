@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 · 基础 CSS Sprites 演示 — 说说你对 CSS Sprites 的理解</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- ==================== 顶部导航 ==================== -->
+    <nav class="nav">
+      <div class="container">
+        <a href="#sheet">雪碧图全貌</a>
+        <a href="#grid">图标网格</a>
+        <a href="#diagram">原理可视化</a>
+        <a href="#hover">悬停效果</a>
+        <a href="#code">代码示例</a>
+        <a href="#compare">请求对比</a>
+        <a href="../02-automated-sprites/index.html" class="back">下一节：自动化雪碧图 →</a>
+      </div>
+    </nav>
+
+    <!-- ==================== 页头 ==================== -->
+    <header class="page-header">
+      <div class="container">
+        <span class="badge">01 / 02 · Basic CSS Sprites</span>
+        <h1>基础 CSS Sprites：background-position 切图</h1>
+        <p class="subtitle">
+          将多个小图标合并为一张大图，通过 <code>background-position</code> 在不同位置显示不同图标。
+          本演示使用内联 SVG data URI 模拟雪碧图，与真实 PNG 雪碧图的机制完全一致。
+        </p>
+      </div>
+    </header>
+
+    <!-- ==================== 第 1 节：雪碧图全貌 ==================== -->
+    <section id="sheet">
+      <div class="container">
+        <h2><span class="num">1</span> 雪碧图全貌</h2>
+        <p class="lead">
+          下方是一张 256×128 的"雪碧图"，包含 4 列 × 2 行共 8 个图标单元，每单元 64×64 像素。 第 1
+          行是默认状态，第 2 行是 hover 状态（背景更亮）。
+        </p>
+
+        <div class="sprite-sheet-display">
+          <!-- 完整雪碧图 -->
+          <div
+            class="sprite-sheet-full"
+            role="img"
+            aria-label="完整雪碧图 256x128，包含 8 个图标"
+          ></div>
+          <p class="label">
+            整张雪碧图尺寸：<strong>256 × 128 px</strong> &nbsp;|&nbsp; 单元格：<strong
+              >64 × 64 px</strong
+            >
+            &nbsp;|&nbsp; 布局：<strong>4 列 × 2 行</strong>
+          </p>
+          <p class="label" style="margin-top: 8px">
+            左上角坐标 <strong>(0, 0)</strong>，向右 X 增大，向下 Y 增大。
+            <code>background-position</code> 用负值把目标单元"推入" 64×64 视窗。
+          </p>
+        </div>
+
+        <div class="callout">
+          <strong>关键点：</strong>
+          整张雪碧图只需要 <strong>1 次 HTTP 请求</strong> 即可下载。
+          页面上无论出现多少个图标，浏览器都从同一张已缓存的图中"截取"对应区域， 不会产生额外请求。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 2 节：图标网格 ==================== -->
+    <section id="grid">
+      <div class="container">
+        <h2><span class="num">2</span> 图标网格（同一张图，不同 position）</h2>
+        <p class="lead">
+          下面 4 个图标全部使用 <code>.sprite</code> 基类（同一张背景图）， 仅
+          <code>background-position</code> 不同。把鼠标移上去可以看到 hover 效果。
+        </p>
+
+        <div class="icon-grid">
+          <div class="icon-card">
+            <div class="icon-wrap"><span class="sprite icon-home" aria-label="home"></span></div>
+            <div class="name">Home</div>
+            <div class="pos">background-position: 0 0</div>
+          </div>
+          <div class="icon-card">
+            <div class="icon-wrap"><span class="sprite icon-user" aria-label="user"></span></div>
+            <div class="name">User</div>
+            <div class="pos">background-position: -64px 0</div>
+          </div>
+          <div class="icon-card">
+            <div class="icon-wrap"><span class="sprite icon-star" aria-label="star"></span></div>
+            <div class="name">Star</div>
+            <div class="pos">background-position: -128px 0</div>
+          </div>
+          <div class="icon-card">
+            <div class="icon-wrap"><span class="sprite icon-heart" aria-label="heart"></span></div>
+            <div class="name">Heart</div>
+            <div class="pos">background-position: -192px 0</div>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <strong>注意：</strong>
+          每个图标的 HTML 都是同一个
+          <code>&lt;span class="sprite icon-xxx"&gt;&lt;/span&gt;</code>， 浏览器只下载一次雪碧图，4
+          个图标复用同一份资源。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 3 节：原理可视化 ==================== -->
+    <section id="diagram">
+      <div class="container">
+        <h2><span class="num">3</span> background-position 原理可视化</h2>
+        <p class="lead">
+          左侧是"视窗 + 完整雪碧图"模型：黄色框是 64×64 的固定视窗（即元素可见区域），
+          下方移动的是完整雪碧图。点击右侧按钮，观察背景图如何被"推"到正确位置，
+          使目标单元落入视窗。
+        </p>
+
+        <div class="diagram">
+          <div class="diagram-grid">
+            <!-- 左：可视化模型 -->
+            <div>
+              <div class="diagram-label">▼ 可视化模型（背景图在视窗下移动）</div>
+              <div class="viewport-demo" id="viewportDemo">
+                <!-- 完整雪碧图（会移动） -->
+                <div class="full-sheet" id="fullSheet"></div>
+                <!-- 固定视窗框 -->
+                <div class="viewport-frame" id="viewportFrame"></div>
+              </div>
+              <p class="current-position">
+                当前 background-position: <code id="currentPos">0 0</code>
+              </p>
+            </div>
+
+            <!-- 右：实际效果 + 控制 -->
+            <div>
+              <div class="diagram-label">▼ 实际显示效果（64×64 元素）</div>
+              <div class="single-icon-demo" id="singleIcon"></div>
+              <div class="position-controls" id="positionControls">
+                <button data-pos="0,0" data-label="Home" class="active">Home (0, 0)</button>
+                <button data-pos="-64,0" data-label="User">User (-64, 0)</button>
+                <button data-pos="-128,0" data-label="Star">Star (-128, 0)</button>
+                <button data-pos="-192,0" data-label="Heart">Heart (-192, 0)</button>
+                <button data-pos="0,-64" data-label="Home:hover">Home:hover (0, -64)</button>
+                <button data-pos="-64,-64" data-label="User:hover">User:hover (-64, -64)</button>
+                <button data-pos="-128,-64" data-label="Star:hover">Star:hover (-128, -64)</button>
+                <button data-pos="-192,-64" data-label="Heart:hover">
+                  Heart:hover (-192, -64)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>原理：</strong>
+          <code>background-position: -64px 0</code> 表示把背景图向左移动 64px， 使原图中横坐标
+          64~128 的区域（第 2 个图标）对齐到视窗的 0~64 区域。 负号 = 背景图向左/上移动；正值 =
+          向右/下移动。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 4 节：hover 效果 ==================== -->
+    <section id="hover">
+      <div class="container">
+        <h2><span class="num">4</span> 悬停切换状态（零额外请求）</h2>
+        <p class="lead">
+          把鼠标移到下面的图标上。hover 时切换到雪碧图第 2 行（更亮的版本），
+          由于整张图早已下载，<strong>不会产生任何闪烁或额外请求</strong>。
+        </p>
+
+        <div class="hover-demo">
+          <p class="hint">← 鼠标悬停观察颜色变化（默认态 ↔ hover 态）→</p>
+          <div class="hover-icons">
+            <div class="icon-item">
+              <span class="sprite icon-home"></span>
+              <span class="label">.icon-home:hover</span>
+            </div>
+            <div class="icon-item">
+              <span class="sprite icon-user"></span>
+              <span class="label">.icon-user:hover</span>
+            </div>
+            <div class="icon-item">
+              <span class="sprite icon-star"></span>
+              <span class="label">.icon-star:hover</span>
+            </div>
+            <div class="icon-item">
+              <span class="sprite icon-heart"></span>
+              <span class="label">.icon-heart:hover</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>对比传统方式：</strong>
+          如果每个图标用单独的 <code>&lt;img&gt;</code>，hover 时改
+          <code>src</code> 会触发新请求，出现"白闪"。雪碧图把两种状态放在同一张图里， 切换
+          <code>background-position</code> 是瞬时完成的。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 5 节：代码示例 ==================== -->
+    <section id="code">
+      <div class="container">
+        <h2><span class="num">5</span> 代码示例</h2>
+        <p class="lead">以下是本演示的核心 CSS 与 HTML，可直接复制使用。</p>
+
+        <div class="code-block">
+          <span class="code-label">CSS</span>
+          <pre><code><span class="tk-comment">/* 1. 基类：所有图标共用同一张雪碧图 */</span>
+<span class="tk-sel">.sprite</span> {
+  <span class="tk-prop">width</span>: <span class="tk-num">64px</span>;
+  <span class="tk-prop">height</span>: <span class="tk-num">64px</span>;
+  <span class="tk-prop">background-image</span>: <span class="tk-val">url("./sprite.png")</span>;  <span class="tk-comment">/* 真实项目用 PNG */</span>
+  <span class="tk-prop">background-repeat</span>: <span class="tk-val">no-repeat</span>;          <span class="tk-comment">/* 禁止平铺 */</span>
+  <span class="tk-prop">display</span>: <span class="tk-val">inline-block</span>;
+}
+
+<span class="tk-comment">/* 2. 每个图标只改 background-position */</span>
+<span class="tk-sel">.icon-home</span>  { <span class="tk-prop">background-position</span>: <span class="tk-num">0</span>      <span class="tk-num">0</span>;    }  <span class="tk-comment">/* 第 1 列 */</span>
+<span class="tk-sel">.icon-user</span>  { <span class="tk-prop">background-position</span>: <span class="tk-num">-64px</span>  <span class="tk-num">0</span>;    }  <span class="tk-comment">/* 第 2 列 */</span>
+<span class="tk-sel">.icon-star</span>  { <span class="tk-prop">background-position</span>: <span class="tk-num">-128px</span> <span class="tk-num">0</span>;    }  <span class="tk-comment">/* 第 3 列 */</span>
+<span class="tk-sel">.icon-heart</span> { <span class="tk-prop">background-position</span>: <span class="tk-num">-192px</span> <span class="tk-num">0</span>;    }  <span class="tk-comment">/* 第 4 列 */</span>
+
+<span class="tk-comment">/* 3. hover 切到第 2 行（y = -64px），无额外请求 */</span>
+<span class="tk-sel">.icon-home:hover</span>  { <span class="tk-prop">background-position</span>: <span class="tk-num">0</span>      <span class="tk-num">-64px</span>; }
+<span class="tk-sel">.icon-user:hover</span>  { <span class="tk-prop">background-position</span>: <span class="tk-num">-64px</span>  <span class="tk-num">-64px</span>; }
+<span class="tk-sel">.icon-star:hover</span>  { <span class="tk-prop">background-position</span>: <span class="tk-num">-128px</span> <span class="tk-num">-64px</span>; }
+<span class="tk-sel">.icon-heart:hover</span> { <span class="tk-prop">background-position</span>: <span class="tk-num">-192px</span> <span class="tk-num">-64px</span>; }</code></pre>
+        </div>
+
+        <div class="code-block">
+          <span class="code-label">HTML</span>
+          <pre><code><span class="tk-comment">&lt;!-- 每个图标只是同一个 span，类名不同 --&gt;</span>
+<span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"sprite icon-home"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+<span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"sprite icon-user"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+<span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"sprite icon-star"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+<span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"sprite icon-heart"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+
+<span class="tk-comment">&lt;!-- 真实场景：导航栏图标 --&gt;</span>
+<span class="tk-tag">&lt;nav&gt;</span>
+  <span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"sprite icon-home"</span><span class="tk-tag">&gt;&lt;/span&gt;</span> 首页<span class="tk-tag">&lt;/a&gt;</span>
+  <span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/user"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"sprite icon-user"</span><span class="tk-tag">&gt;&lt;/span&gt;</span> 我的<span class="tk-tag">&lt;/a&gt;</span>
+<span class="tk-tag">&lt;/nav&gt;</span></code></pre>
+        </div>
+
+        <div class="code-block">
+          <span class="code-label">Retina 适配（@2x）</span>
+          <pre><code><span class="tk-comment">/* 高分屏使用 2 倍图，再缩小到 1 倍尺寸 */</span>
+<span class="tk-sel">@media</span> <span class="tk-val">(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)</span> {
+  <span class="tk-sel">.sprite</span> {
+    <span class="tk-prop">background-image</span>: <span class="tk-val">url("./sprite@2x.png")</span>;
+    <span class="tk-prop">background-size</span>: <span class="tk-num">256px</span> <span class="tk-num">128px</span>;  <span class="tk-comment">/* 缩到 1 倍逻辑尺寸 */</span>
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第 6 节：请求对比 ==================== -->
+    <section id="compare">
+      <div class="container">
+        <h2><span class="num">6</span> 请求对比：传统多图 vs 雪碧图</h2>
+        <p class="lead">假设页面上有 4 个图标，对比两种方式的网络请求差异（HTTP/1.1 场景）。</p>
+
+        <div class="compare-grid">
+          <div class="compare-card bad">
+            <h3>✗ 传统方式：每个图标一张图</h3>
+            <div class="req-count">4 次请求</div>
+            <ul>
+              <li>home.png — 1.2 KB</li>
+              <li>user.png — 1.4 KB</li>
+              <li>star.png — 1.1 KB</li>
+              <li>heart.png — 1.3 KB</li>
+              <li>总计 ≈ 5.0 KB + 4 次 TCP/TLS 握手开销</li>
+              <li>hover 还需额外请求 hover 版本（共 8 次）</li>
+            </ul>
+          </div>
+          <div class="compare-card good">
+            <h3>✓ CSS Sprites：合并为一张图</h3>
+            <div class="req-count">1 次请求</div>
+            <ul>
+              <li>sprite.png — 3.8 KB（合并后更小）</li>
+              <li>1 次 TCP/TLS 握手</li>
+              <li>hover 状态已内置，0 次额外请求</li>
+              <li>浏览器缓存命中率更高</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <strong>HTTP/2 时代注意：</strong>
+          HTTP/2 支持多路复用，多个请求可共用一个连接，"减少请求数"的收益已大幅下降。 在 HTTP/2
+          环境下，雪碧图不再是必须，应根据实际场景评估。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="page-footer">
+      <div class="container">
+        <p>
+          01 · 基础 CSS Sprites 演示 &nbsp;|&nbsp;
+          <a href="../02-automated-sprites/index.html">下一节：02 · 自动化雪碧图与方案对比 →</a>
+        </p>
+        <p style="margin-top: 8px">
+          纯 HTML + CSS + JavaScript，无任何依赖，可直接在浏览器中运行。
+        </p>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

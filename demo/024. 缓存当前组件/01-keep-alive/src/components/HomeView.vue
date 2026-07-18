@@ -43,7 +43,8 @@ function increment() {
     <h2>首页</h2>
     <p class="desc">
       这里有一个计数器，切换到其他 Tab 再切回来，计数器的值会被保留（不会重置为 0）。
-      同时观察右下角的日志：<code>onActivated</code> 会触发，但 <code>onMounted</code> 只会触发一次。
+      同时观察右下角的日志：<code>onActivated</code> 会触发，但
+      <code>onMounted</code> 只会触发一次。
     </p>
 
     <div class="counter-card">

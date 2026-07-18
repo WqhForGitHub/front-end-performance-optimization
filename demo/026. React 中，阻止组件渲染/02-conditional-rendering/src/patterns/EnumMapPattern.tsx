@@ -130,9 +130,7 @@ return config.render()`}</pre>
 
         <div className="result-box">
           <h4>渲染结果（查表渲染）：</h4>
-          <div className="rendered">
-            {config.render()}
-          </div>
+          <div className="rendered">{config.render()}</div>
           <div className="hint">
             当前配置: label={config.label}, color={config.color}, hint={config.hint}
           </div>

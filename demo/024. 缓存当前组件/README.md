@@ -4,11 +4,11 @@
 
 ## 子项目一览
 
-| 子项目 | 端口 | 演示内容 |
-| --- | --- | --- |
-| `01-keep-alive` | 5249 | `<KeepAlive>` 基础缓存：Tab 切换保留组件状态、`onActivated` / `onDeactivated` 生命周期 |
-| `02-include-exclude` | 5250 | KeepAlive 的 `include` / `exclude` / `max` 精确控制（字符串、正则、数组三种形式） |
-| `03-cache-update` | 5251 | 缓存组件的 4 种更新策略：`onActivated`、`watch`、`:key` 强制重建、手动刷新 |
+| 子项目               | 端口 | 演示内容                                                                               |
+| -------------------- | ---- | -------------------------------------------------------------------------------------- |
+| `01-keep-alive`      | 5249 | `<KeepAlive>` 基础缓存：Tab 切换保留组件状态、`onActivated` / `onDeactivated` 生命周期 |
+| `02-include-exclude` | 5250 | KeepAlive 的 `include` / `exclude` / `max` 精确控制（字符串、正则、数组三种形式）      |
+| `03-cache-update`    | 5251 | 缓存组件的 4 种更新策略：`onActivated`、`watch`、`:key` 强制重建、手动刷新             |
 
 ## 快速开始
 
@@ -60,11 +60,11 @@ npm run preview
 
 ### 关键生命周期变化
 
-| 事件 | 无 KeepAlive | 有 KeepAlive |
-| --- | --- | --- |
-| 首次进入 | `onMounted` | `onMounted` + `onActivated` |
-| 切走 | `onUnmounted`（销毁） | `onDeactivated`（仅停用） |
-| 切回 | `onMounted`（重新创建） | `onActivated`（从缓存恢复） |
+| 事件     | 无 KeepAlive            | 有 KeepAlive                |
+| -------- | ----------------------- | --------------------------- |
+| 首次进入 | `onMounted`             | `onMounted` + `onActivated` |
+| 切走     | `onUnmounted`（销毁）   | `onDeactivated`（仅停用）   |
+| 切回     | `onMounted`（重新创建） | `onActivated`（从缓存恢复） |
 
 ### Demo 中的 4 个示例视图
 
@@ -100,11 +100,11 @@ npm run preview
 
 ### include / exclude 的三种值形式
 
-| 形式 | 示例 | 说明 |
-| --- | --- | --- |
-| 字符串 | `"AlphaComp,BetaComp"` | 逗号分隔的组件名 |
-| 正则 | `/^Alpha/` | 匹配组件名 |
-| 数组 | `['AlphaComp', 'BetaComp']` | 组件名数组 |
+| 形式   | 示例                        | 说明             |
+| ------ | --------------------------- | ---------------- |
+| 字符串 | `"AlphaComp,BetaComp"`      | 逗号分隔的组件名 |
+| 正则   | `/^Alpha/`                  | 匹配组件名       |
+| 数组   | `['AlphaComp', 'BetaComp']` | 组件名数组       |
 
 ### 组件名匹配规则
 
@@ -257,12 +257,12 @@ onUnmounted(() => {
 
 ### 4 种更新策略对比
 
-| 策略 | 触发时机 | 是否保留状态 | 适用场景 |
-| --- | --- | --- | --- |
-| `onActivated` | 切回 Tab 时 | 保留 | 列表页切回时拉取最新数据 |
-| `watch` prop | 父组件 prop 变化 | 保留 | 筛选条件、分类变化 |
-| `:key` 重建 | 父组件改 key | 不保留（重置） | 表单提交后清空、强刷新 |
-| 手动刷新 | 用户点击 | 保留 | 用户主动获取最新数据 |
+| 策略          | 触发时机         | 是否保留状态   | 适用场景                 |
+| ------------- | ---------------- | -------------- | ------------------------ |
+| `onActivated` | 切回 Tab 时      | 保留           | 列表页切回时拉取最新数据 |
+| `watch` prop  | 父组件 prop 变化 | 保留           | 筛选条件、分类变化       |
+| `:key` 重建   | 父组件改 key     | 不保留（重置） | 表单提交后清空、强刷新   |
+| 手动刷新      | 用户点击         | 保留           | 用户主动获取最新数据     |
 
 ### 常见坑
 

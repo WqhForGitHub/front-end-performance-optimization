@@ -40,7 +40,8 @@ const cacheHeaders: CacheHeader[] = [
   {
     header: 'ETag',
     value: '"abc123"',
-    description: '资源的唯一指纹。浏览器发送 If-None-Match 携带 ETag，服务端比对后返回 304 或 200。',
+    description:
+      '资源的唯一指纹。浏览器发送 If-None-Match 携带 ETag，服务端比对后返回 304 或 200。',
     type: 'negotiation',
   },
   {
@@ -99,8 +100,20 @@ const styles: Record<string, CSSProperties> = {
     color: '#475569',
   },
   td: { padding: '10px 12px', borderBottom: '1px solid #eef0f4' },
-  tag: { display: 'inline-block', padding: '2px 10px', borderRadius: 12, fontSize: 12, fontWeight: 500 },
-  flow: { display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' as const, marginBottom: 12 },
+  tag: {
+    display: 'inline-block',
+    padding: '2px 10px',
+    borderRadius: 12,
+    fontSize: 12,
+    fontWeight: 500,
+  },
+  flow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap' as const,
+    marginBottom: 12,
+  },
   flowBox: { padding: '8px 14px', borderRadius: 8, fontSize: 13, fontWeight: 500 },
   arrow: { color: '#94a3b8', fontSize: 18 },
   tab: {
@@ -175,10 +188,20 @@ function NginxConfigDemo() {
             <tbody>
               {cacheHeaders.map((h, i) => (
                 <tr key={i}>
-                  <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontWeight: 600 }}>{h.header}</td>
-                  <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontSize: 12 }}>{h.value}</td>
+                  <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontWeight: 600 }}>
+                    {h.header}
+                  </td>
+                  <td style={{ ...styles.td, fontFamily: 'Consolas, monospace', fontSize: 12 }}>
+                    {h.value}
+                  </td>
                   <td style={styles.td}>
-                    <span style={{ ...styles.tag, background: typeLabel[h.type].bg, color: typeLabel[h.type].color }}>
+                    <span
+                      style={{
+                        ...styles.tag,
+                        background: typeLabel[h.type].bg,
+                        color: typeLabel[h.type].color,
+                      }}
+                    >
                       {typeLabel[h.type].text}
                     </span>
                   </td>
@@ -284,11 +307,15 @@ http {
   └─ 备注：Cache-Control: no-cache 跳过强缓存，直接协商
            Cache-Control: no-store 完全不缓存`}</pre>
           <div style={styles.flow}>
-            <span style={{ ...styles.flowBox, background: '#dcfce7', color: '#166534' }}>200 (from cache)</span>
+            <span style={{ ...styles.flowBox, background: '#dcfce7', color: '#166534' }}>
+              200 (from cache)
+            </span>
             <span style={styles.arrow}>最快</span>
             <span style={{ ...styles.flowBox, background: '#dbeafe', color: '#1e40af' }}>304</span>
             <span style={styles.arrow}>较快</span>
-            <span style={{ ...styles.flowBox, background: '#fee2e2', color: '#991b1b' }}>200 (完整下载)</span>
+            <span style={{ ...styles.flowBox, background: '#fee2e2', color: '#991b1b' }}>
+              200 (完整下载)
+            </span>
             <span style={styles.arrow}>最慢</span>
           </div>
         </div>

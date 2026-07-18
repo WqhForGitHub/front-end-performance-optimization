@@ -108,9 +108,7 @@ export default function App() {
   return (
     <div style={pageStyle}>
       <div style={headerStyle}>
-        <h1 style={{ margin: '0 0 8px 0', fontSize: '26px' }}>
-          方案二：Context 状态提升
-        </h1>
+        <h1 style={{ margin: '0 0 8px 0', fontSize: '26px' }}>方案二：Context 状态提升</h1>
         <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
           请求提升到 Provider 顶层只发 1 次，子组件通过 Context 共享数据
         </p>
@@ -128,9 +126,9 @@ export default function App() {
       </div>
 
       <div style={descStyle}>
-        <strong>原理：</strong>将“请求 + 数据状态”提升到共同的 <code>DataProvider</code>，
-        在 Provider 内部用 <code>useEffect</code> 只发起 1 次请求，再通过 Context 向下分发。
-        3 个子组件用 <code>useContext</code> 读取同一份数据，天然不会重复请求。
+        <strong>原理：</strong>将“请求 + 数据状态”提升到共同的 <code>DataProvider</code>， 在
+        Provider 内部用 <code>useEffect</code> 只发起 1 次请求，再通过 Context 向下分发。 3
+        个子组件用 <code>useContext</code> 读取同一份数据，天然不会重复请求。
       </div>
 
       <div key={reloadKey}>

@@ -47,7 +47,15 @@ export function Timeline({ phases, total, height = 56 }: TimelineProps) {
               borderLeft: '1px dashed rgba(255,255,255,0.08)',
             }}
           >
-            <span style={{ position: 'absolute', top: height + 4, fontSize: 10, color: 'var(--muted)', transform: 'translateX(-50%)' }}>
+            <span
+              style={{
+                position: 'absolute',
+                top: height + 4,
+                fontSize: 10,
+                color: 'var(--muted)',
+                transform: 'translateX(-50%)',
+              }}
+            >
               {t}ms
             </span>
           </div>
@@ -107,7 +115,15 @@ export function Timeline({ phases, total, height = 56 }: TimelineProps) {
                 boxShadow: `0 0 0 2px ${m.color}`,
               }}
             />
-            <div style={{ fontSize: 10, color: m.color, marginTop: 4, whiteSpace: 'nowrap', transform: 'translateX(-50%)' }}>
+            <div
+              style={{
+                fontSize: 10,
+                color: m.color,
+                marginTop: 4,
+                whiteSpace: 'nowrap',
+                transform: 'translateX(-50%)',
+              }}
+            >
               {m.label}
             </div>
           </div>

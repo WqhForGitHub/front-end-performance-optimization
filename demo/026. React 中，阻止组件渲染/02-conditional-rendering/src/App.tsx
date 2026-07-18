@@ -44,13 +44,20 @@ const App: FC = () => {
 
   const renderPattern = (): ReactNode => {
     switch (active) {
-      case 'and':      return <AndPattern />
-      case 'ternary':  return <TernaryPattern />
-      case 'iife':     return <IifePattern />
-      case 'switch':   return <SwitchPattern />
-      case 'enum':     return <EnumMapPattern />
-      case 'pitfall':  return <PitfallZero />
-      default:         return null
+      case 'and':
+        return <AndPattern />
+      case 'ternary':
+        return <TernaryPattern />
+      case 'iife':
+        return <IifePattern />
+      case 'switch':
+        return <SwitchPattern />
+      case 'enum':
+        return <EnumMapPattern />
+      case 'pitfall':
+        return <PitfallZero />
+      default:
+        return null
     }
   }
 
@@ -75,8 +82,8 @@ const App: FC = () => {
         <div className="page">
           <h2>什么是条件渲染？</h2>
           <p>
-            条件渲染指的是<b>父组件</b>根据某个条件决定"要不要把子组件挂到 React 树中"。
-            与 01 的 <code>return null</code>（组件自己决定）不同，条件渲染由父组件控制。
+            条件渲染指的是<b>父组件</b>根据某个条件决定"要不要把子组件挂到 React 树中"。 与 01 的{' '}
+            <code>return null</code>（组件自己决定）不同，条件渲染由父组件控制。
           </p>
           <p>
             当前查看：<b>{current?.label}</b> - {current?.desc}

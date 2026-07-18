@@ -82,8 +82,7 @@ export function useSWR<T>(
     // 需要重新验证的条件：
     // 1. 没有缓存；或
     // 2. 没有 in-flight Promise，且距上次成功已超过 dedupingInterval
-    const needsRevalidate =
-      !entry || (!entry.promise && now - entry.timestamp > dedupingInterval)
+    const needsRevalidate = !entry || (!entry.promise && now - entry.timestamp > dedupingInterval)
 
     if (needsRevalidate) {
       if (!entry) {
@@ -122,7 +121,6 @@ export function useSWR<T>(
         emit(key)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key])
 
   const entry = cache.get(key)

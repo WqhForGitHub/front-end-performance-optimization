@@ -32,7 +32,7 @@ export default defineConfig({
     }
   }
 })`,
-    note: '稳定依赖单独成 chunk，文件名带内容 hash，浏览器可长期缓存；业务代码变更不会让 vendor chunk 失效。'
+    note: '稳定依赖单独成 chunk，文件名带内容 hash，浏览器可长期缓存；业务代码变更不会让 vendor chunk 失效。',
   },
   {
     key: 'external',
@@ -56,7 +56,7 @@ export default defineConfig({
 <!-- index.html -->
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>`,
-    note: 'react / react-dom 完全排除出自有产物，体积进一步下降；CDN 资源可跨站点复用缓存。'
+    note: 'react / react-dom 完全排除出自有产物，体积进一步下降；CDN 资源可跨站点复用缓存。',
   },
   {
     key: 'treeShake',
@@ -74,8 +74,8 @@ import _ from 'lodash'                  // 不会 tree shake，整包打入
 // utils.ts：保持纯函数，避免顶层副作用
 export function add(a, b) { return a + b }   // 未使用会被剔除
 console.log('init')                          // 副作用，会保留并阻止 tree shaking`,
-    note: '打包器基于 ESM 静态分析剔除未使用的导出；sideEffects: false 表示模块无副作用，可安全剔除未引用的导出。'
-  }
+    note: '打包器基于 ESM 静态分析剔除未使用的导出；sideEffects: false 表示模块无副作用，可安全剔除未引用的导出。',
+  },
 ]
 
 export const ViteConfigExample: FC = () => {

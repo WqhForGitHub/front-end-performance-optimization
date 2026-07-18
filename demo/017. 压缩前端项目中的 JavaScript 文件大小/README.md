@@ -8,11 +8,11 @@ JavaScript 文件体积直接影响页面加载速度和执行效率。减小 JS
 
 ## 方法总览
 
-| 序号 | 目录 | 压缩方式 | 作用 |
-|------|------|----------|------|
-| 01 | `01-vite-terser` | Vite + Terser 代码压缩 | 移除注释/空白/死代码，混淆变量名 |
-| 02 | `02-webpack-optimization` | Webpack 构建优化 | TerserPlugin + 代码分割 + Tree Shaking |
-| 03 | `03-gzip-brotli` | gzip / brotli 传输压缩 | 构建时预生成 .gz / .br 文件 |
+| 序号 | 目录                      | 压缩方式               | 作用                                   |
+| ---- | ------------------------- | ---------------------- | -------------------------------------- |
+| 01   | `01-vite-terser`          | Vite + Terser 代码压缩 | 移除注释/空白/死代码，混淆变量名       |
+| 02   | `02-webpack-optimization` | Webpack 构建优化       | TerserPlugin + 代码分割 + Tree Shaking |
+| 03   | `03-gzip-brotli`          | gzip / brotli 传输压缩 | 构建时预生成 .gz / .br 文件            |
 
 ## 通用约定
 
@@ -28,11 +28,11 @@ JavaScript 文件体积直接影响页面加载速度和执行效率。减小 JS
 
 ### 端口分配
 
-| 子项目 | 端口 |
-|--------|------|
-| 01-vite-terser | 5231 |
+| 子项目                  | 端口 |
+| ----------------------- | ---- |
+| 01-vite-terser          | 5231 |
 | 02-webpack-optimization | 5232 |
-| 03-gzip-brotli | 5233 |
+| 03-gzip-brotli          | 5233 |
 
 ## 各方法详解
 
@@ -51,8 +51,8 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,   // 移除 console.*
-        drop_debugger: true,  // 移除 debugger
+        drop_console: true, // 移除 console.*
+        drop_debugger: true, // 移除 debugger
         pure_funcs: ['console.log'], // 移除指定函数调用
       },
       mangle: {
@@ -68,12 +68,12 @@ export default defineConfig({
 
 **压缩效果：**
 
-| 压缩选项 | 原始大小 | 压缩后 | 压缩率 |
-|----------|----------|--------|--------|
-| 无压缩 | 528 KB | 528 KB | 0% |
-| 基础压缩 | 528 KB | 210 KB | 60% |
-| drop_console | 528 KB | 185 KB | 65% |
-| mangle + drop_console | 528 KB | 178 KB | 66% |
+| 压缩选项              | 原始大小 | 压缩后 | 压缩率 |
+| --------------------- | -------- | ------ | ------ |
+| 无压缩                | 528 KB   | 528 KB | 0%     |
+| 基础压缩              | 528 KB   | 210 KB | 60%    |
+| drop_console          | 528 KB   | 185 KB | 65%    |
+| mangle + drop_console | 528 KB   | 178 KB | 66%    |
 
 ---
 
@@ -93,8 +93,8 @@ export default {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        parallel: true,           // 多线程压缩
-        extractComments: false,   // 不提取注释到单独文件
+        parallel: true, // 多线程压缩
+        extractComments: false, // 不提取注释到单独文件
         terserOptions: {
           compress: {
             drop_console: true,
@@ -122,12 +122,12 @@ export default {
 
 **优化策略：**
 
-| 策略 | 说明 | 效果 |
-|------|------|------|
-| TerserPlugin | 代码压缩混淆 | 减少 60%~70% 体积 |
-| SplitChunks | 公共代码提取 | 利用浏览器缓存 |
-| Tree Shaking | 移除未使用代码 | 减少无用代码 |
-| 多线程压缩 | parallel: true | 加速构建 |
+| 策略         | 说明           | 效果              |
+| ------------ | -------------- | ----------------- |
+| TerserPlugin | 代码压缩混淆   | 减少 60%~70% 体积 |
+| SplitChunks  | 公共代码提取   | 利用浏览器缓存    |
+| Tree Shaking | 移除未使用代码 | 减少无用代码      |
+| 多线程压缩   | parallel: true | 加速构建          |
 
 ---
 
@@ -170,22 +170,22 @@ server {
 
 **压缩算法对比：**
 
-| 特性 | gzip | brotli |
-|------|------|--------|
-| 压缩率 | ~32%（相对压缩后） | ~27%（相对压缩后） |
-| 压缩等级 | 1-9（推荐 6-9） | 0-11（推荐 11） |
-| 浏览器兼容 | 所有现代浏览器 | 现代浏览器 |
-| HTTPS 要求 | 无 | 需要 HTTPS |
-| 压缩速度 | 快 | 慢（最高等级） |
+| 特性       | gzip               | brotli             |
+| ---------- | ------------------ | ------------------ |
+| 压缩率     | ~32%（相对压缩后） | ~27%（相对压缩后） |
+| 压缩等级   | 1-9（推荐 6-9）    | 0-11（推荐 11）    |
+| 浏览器兼容 | 所有现代浏览器     | 现代浏览器         |
+| HTTPS 要求 | 无                 | 需要 HTTPS         |
+| 压缩速度   | 快                 | 慢（最高等级）     |
 
 **实际体积对比（以 React 项目为例）：**
 
-| 资源 | 原始 | Terser 压缩 | gzip | brotli |
-|------|------|-------------|------|--------|
-| main.js | 528 KB | 179 KB | 56 KB | 48 KB |
-| vendor.js | 142 KB | 45 KB | 14 KB | 13 KB |
-| styles.css | 39 KB | 12 KB | 3 KB | 3 KB |
-| **合计** | **782 KB** | **261 KB** | **83 KB** | **71 KB** |
+| 资源       | 原始       | Terser 压缩 | gzip      | brotli    |
+| ---------- | ---------- | ----------- | --------- | --------- |
+| main.js    | 528 KB     | 179 KB      | 56 KB     | 48 KB     |
+| vendor.js  | 142 KB     | 45 KB       | 14 KB     | 13 KB     |
+| styles.css | 39 KB      | 12 KB       | 3 KB      | 3 KB      |
+| **合计**   | **782 KB** | **261 KB**  | **83 KB** | **71 KB** |
 
 ## 目录结构
 
@@ -264,11 +264,11 @@ npm run preview
 
 ## 方法分类
 
-| 分类 | 方法 | 解决的问题 | 适用场景 |
-|------|------|-----------|----------|
-| 代码压缩 | Terser | 代码体积大 | 所有生产构建 |
-| 构建优化 | Webpack SplitChunks | 重复代码、缓存利用率低 | 大型项目 |
-| 构建优化 | Tree Shaking | 未使用代码 | ES Module 项目 |
-| 传输压缩 | gzip | 传输体积大 | 所有 Web 资源 |
-| 传输压缩 | brotli | gzip 压缩率不够 | HTTPS 现代浏览器 |
-| 传输压缩 | 预压缩文件 | 运行时压缩 CPU 开销 | Nginx 静态资源服务 |
+| 分类     | 方法                | 解决的问题             | 适用场景           |
+| -------- | ------------------- | ---------------------- | ------------------ |
+| 代码压缩 | Terser              | 代码体积大             | 所有生产构建       |
+| 构建优化 | Webpack SplitChunks | 重复代码、缓存利用率低 | 大型项目           |
+| 构建优化 | Tree Shaking        | 未使用代码             | ES Module 项目     |
+| 传输压缩 | gzip                | 传输体积大             | 所有 Web 资源      |
+| 传输压缩 | brotli              | gzip 压缩率不够        | HTTPS 现代浏览器   |
+| 传输压缩 | 预压缩文件          | 运行时压缩 CPU 开销    | Nginx 静态资源服务 |

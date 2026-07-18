@@ -93,8 +93,9 @@ export default function App() {
       </div>
 
       <div style={noteStyle}>
-        <strong>说明：</strong>下方指标通过浏览器原生 PerformanceObserver 采集。首次加载会自动产生 LCP；
-        点击「主线程阻塞」按钮会让 INP 变差；点击「注入布局偏移」按钮会让 CLS 上升。请观察颜色徽章的变化。
+        <strong>说明：</strong>下方指标通过浏览器原生 PerformanceObserver 采集。首次加载会自动产生
+        LCP； 点击「主线程阻塞」按钮会让 INP 变差；点击「注入布局偏移」按钮会让 CLS
+        上升。请观察颜色徽章的变化。
       </div>
 
       <div style={gridStyle}>
@@ -132,7 +133,18 @@ export default function App() {
         {shiftInjected && (
           <div style={shiftBoxStyle}>
             已注入布局偏移：下方黄色占位框在渲染后突然出现，挤压了下方内容，产生 CLS。
-            <div style={{ height: '60px', backgroundColor: '#ffcc80', borderRadius: '4px', marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
+            <div
+              style={{
+                height: '60px',
+                backgroundColor: '#ffcc80',
+                borderRadius: '4px',
+                marginTop: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 600,
+              }}
+            >
               突然出现的占位元素（无预留空间）
             </div>
           </div>

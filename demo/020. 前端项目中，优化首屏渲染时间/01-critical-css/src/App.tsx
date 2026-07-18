@@ -86,7 +86,15 @@ export default function App() {
       </header>
 
       <section style={heroStyle}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 16,
+            flexWrap: 'wrap',
+          }}
+        >
           <div>
             <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 6 }}>切换加载模式</div>
             <Toggle
@@ -119,9 +127,24 @@ export default function App() {
       <section style={cardStyle}>
         <h2 style={{ margin: '0 0 14px', fontSize: 16 }}>📊 性能指标对比</h2>
         <div style={metricRowStyle}>
-          <MetricCell label="FCP 首次绘制" value={metrics.fcp} unit="ms" highlight={mode === 'critical'} />
-          <MetricCell label="LCP 最大绘制" value={metrics.lcp} unit="ms" highlight={mode === 'critical'} />
-          <MetricCell label="TSF 整体完成" value={metrics.tsf} unit="ms" highlight={mode === 'critical'} />
+          <MetricCell
+            label="FCP 首次绘制"
+            value={metrics.fcp}
+            unit="ms"
+            highlight={mode === 'critical'}
+          />
+          <MetricCell
+            label="LCP 最大绘制"
+            value={metrics.lcp}
+            unit="ms"
+            highlight={mode === 'critical'}
+          />
+          <MetricCell
+            label="TSF 整体完成"
+            value={metrics.tsf}
+            unit="ms"
+            highlight={mode === 'critical'}
+          />
           <MetricCell
             label="FCP 提升"
             value={Math.round((1 - metrics.fcp / METRICS_NO_CRITICAL.fcp) * 100)}
@@ -131,8 +154,8 @@ export default function App() {
         </div>
         <Timeline key={replayKey + mode} phases={phases} total={1000} />
         <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 12, lineHeight: 1.6 }}>
-          说明：上述时间为模拟数据，实际数值取决于网络、CSS 体积与设备性能。
-          关键 CSS 内联后，FCP 通常可从 500ms+ 降到 200ms 量级。
+          说明：上述时间为模拟数据，实际数值取决于网络、CSS 体积与设备性能。 关键 CSS 内联后，FCP
+          通常可从 500ms+ 降到 200ms 量级。
         </p>
       </section>
 
@@ -173,7 +196,13 @@ function MetricCell({
   return (
     <div style={metricCellStyle}>
       <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 22, fontWeight: 700, color: highlight ? 'var(--accent)' : 'var(--text)' }}>
+      <div
+        style={{
+          fontSize: 22,
+          fontWeight: 700,
+          color: highlight ? 'var(--accent)' : 'var(--text)',
+        }}
+      >
         {value}
         <span style={{ fontSize: 12, color: 'var(--muted)', marginLeft: 4 }}>{unit}</span>
       </div>
@@ -220,12 +249,29 @@ function LivePreview({ mode }: { mode: Mode }) {
         }}
       >
         {!visible && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <div style={{ width: '60%' }}>
               <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>
-                {mode === 'critical' ? '内联 CSS 已就绪，正在解析 HTML...' : '正在请求并下载外部 CSS...'}
+                {mode === 'critical'
+                  ? '内联 CSS 已就绪，正在解析 HTML...'
+                  : '正在请求并下载外部 CSS...'}
               </div>
-              <div style={{ height: 6, background: 'var(--border)', borderRadius: 4, overflow: 'hidden' }}>
+              <div
+                style={{
+                  height: 6,
+                  background: 'var(--border)',
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                }}
+              >
                 <div
                   style={{
                     width: `${progress * 100}%`,
@@ -240,16 +286,21 @@ function LivePreview({ mode }: { mode: Mode }) {
         )}
         {visible && (
           <div>
-            <h3 style={{ margin: '0 0 8px', color: 'var(--accent)', fontSize: 16 }}>🎉 首屏已绘制（FCP）</h3>
+            <h3 style={{ margin: '0 0 8px', color: 'var(--accent)', fontSize: 16 }}>
+              🎉 首屏已绘制（FCP）
+            </h3>
             <p style={{ margin: 0, fontSize: 13, color: 'var(--muted)', lineHeight: 1.7 }}>
-              这是首屏可见区域的最小内容。其余非关键样式（如折叠区、Modal、底部组件）
-              在异步 CSS 加载完成前可能仍不可见，但用户已经能感知到「页面已加载」。
+              这是首屏可见区域的最小内容。其余非关键样式（如折叠区、Modal、底部组件） 在异步 CSS
+              加载完成前可能仍不可见，但用户已经能感知到「页面已加载」。
             </p>
           </div>
         )}
       </div>
       <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 10 }}>
-        模拟：{mode === 'critical' ? '内联关键 CSS（约 200ms 触发 FCP）' : '外部全量 CSS（约 520ms 触发 FCP）'}
+        模拟：
+        {mode === 'critical'
+          ? '内联关键 CSS（约 200ms 触发 FCP）'
+          : '外部全量 CSS（约 520ms 触发 FCP）'}
       </p>
     </div>
   )
@@ -267,15 +318,15 @@ function ExtractGuide() {
     <div key="2">
       <strong>2. 使用工具自动提取</strong>
       <p style={{ margin: '4px 0 0', color: 'var(--muted)', lineHeight: 1.6 }}>
-        常用工具：<code>critical</code>（npm）、<code>penthouse</code>、<code>critters</code>（Vite/Webpack 插件）。
-        它们通过无头浏览器渲染目标视口，提取实际用到的 CSS 规则。
+        常用工具：<code>critical</code>（npm）、<code>penthouse</code>、<code>critters</code>
+        （Vite/Webpack 插件）。 它们通过无头浏览器渲染目标视口，提取实际用到的 CSS 规则。
       </p>
     </div>,
     <div key="3">
       <strong>3. 内联到 HTML head</strong>
       <p style={{ margin: '4px 0 0', color: 'var(--muted)', lineHeight: 1.6 }}>
-        将提取出的关键 CSS 用 <code>&lt;style&gt;</code> 标签内联到 HTML head 中，
-        其余 CSS 用 <code>rel="preload"</code> + <code>onload</code> 异步加载。
+        将提取出的关键 CSS 用 <code>&lt;style&gt;</code> 标签内联到 HTML head 中， 其余 CSS 用{' '}
+        <code>rel="preload"</code> + <code>onload</code> 异步加载。
       </p>
     </div>,
     <div key="4">
@@ -288,7 +339,13 @@ function ExtractGuide() {
   ]
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: 14,
+      }}
+    >
       {steps}
     </div>
   )
@@ -389,12 +446,29 @@ function Benefits() {
       desc="多页面场景下不同页面的关键 CSS 不同，需要按路由分别提取或使用流式内联。"
     />,
   ]
-  return <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>{items}</div>
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: 14,
+      }}
+    >
+      {items}
+    </div>
+  )
 }
 
 function BenefitItem({ title, desc }: { title: string; desc: string; key?: string | number }) {
   return (
-    <div style={{ background: '#0f1115', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
+    <div
+      style={{
+        background: '#0f1115',
+        border: '1px solid var(--border)',
+        borderRadius: 10,
+        padding: 14,
+      }}
+    >
       <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 13 }}>{title}</div>
       <div style={{ color: 'var(--muted)', fontSize: 12, lineHeight: 1.6 }}>{desc}</div>
     </div>

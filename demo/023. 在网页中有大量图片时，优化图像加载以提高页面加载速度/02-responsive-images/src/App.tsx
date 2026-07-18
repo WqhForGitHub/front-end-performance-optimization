@@ -9,7 +9,7 @@ type ViewMode = 'srcset' | 'picture' | 'compare'
 const VIEW_OPTIONS: { value: ViewMode; label: string; desc: string }[] = [
   { value: 'srcset', label: 'srcset + sizes', desc: '同一图片的不同分辨率版本' },
   { value: 'picture', label: '<picture> 艺术指导', desc: '不同视口使用不同构图' },
-  { value: 'compare', label: '对比演示', desc: '响应式 vs 固定尺寸对比' }
+  { value: 'compare', label: '对比演示', desc: '响应式 vs 固定尺寸对比' },
 ]
 
 const SRCSET_CODE = `<img
@@ -64,7 +64,7 @@ export default function App() {
   const containerStyle: CSSProperties = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-    gap: '18px'
+    gap: '18px',
   }
 
   return (
@@ -72,8 +72,8 @@ export default function App() {
       <header className="app-header">
         <h1>方案二：响应式图片（srcset / sizes / picture）</h1>
         <p>
-          让浏览器根据当前视口与 DPR 选择最合适尺寸的图片，
-          避免在小屏幕上下载 4K 大图，节省带宽并加快 LCP；
+          让浏览器根据当前视口与 DPR 选择最合适尺寸的图片， 避免在小屏幕上下载 4K
+          大图，节省带宽并加快 LCP；
           <code>&lt;picture&gt;</code> 还可做艺术指导（art direction）。
         </p>
       </header>
@@ -159,11 +159,7 @@ export default function App() {
             <div className="compare-item">
               <div className="compare-label bad">固定 2000px 大图</div>
               <div className="compare-media">
-                <img
-                  src={buildPicUrl('desert', 2000, 16 / 9)}
-                  alt="固定大图"
-                  loading="lazy"
-                />
+                <img src={buildPicUrl('desert', 2000, 16 / 9)} alt="固定大图" loading="lazy" />
               </div>
               <div className="compare-note">
                 无论视口多大，都下载 2000px 完整大图，移动端浪费带宽。
@@ -193,15 +189,18 @@ export default function App() {
 
         <h3>1. srcset：提供多个候选源</h3>
         <p>
-          通过 <code>srcset=&quot;url 400w, url 800w, ...&quot;</code> 提供同一图片的不同分辨率版本，
-          浏览器自行选择最合适的下载。<strong>关键字 <code>w</code> 描述图片实际宽度</strong>，
-          不是视口宽度。
+          通过 <code>srcset=&quot;url 400w, url 800w, ...&quot;</code>{' '}
+          提供同一图片的不同分辨率版本， 浏览器自行选择最合适的下载。
+          <strong>
+            关键字 <code>w</code> 描述图片实际宽度
+          </strong>
+          ， 不是视口宽度。
         </p>
 
         <h3>2. sizes：告诉浏览器图片显示尺寸</h3>
         <p>
-          <code>sizes</code> 是给浏览器的提示，描述图片在不同视口下占用多少视窗宽度。
-          浏览器据此结合 DPR 决定下载哪一张。<strong>必须配合 srcset 使用</strong>，
+          <code>sizes</code> 是给浏览器的提示，描述图片在不同视口下占用多少视窗宽度。 浏览器据此结合
+          DPR 决定下载哪一张。<strong>必须配合 srcset 使用</strong>，
           否则浏览器无法判断候选源对应的实际宽度。
         </p>
         <pre>
@@ -216,8 +215,8 @@ export default function App() {
 
         <h3>3. &lt;picture&gt; + &lt;source&gt;：艺术指导</h3>
         <p>
-          当不同视口需要<strong>不同的裁切/构图</strong>时（如手机端裁成正方形突出主体），
-          使用 <code>&lt;picture&gt;</code> + <code>&lt;source media=&quot;...&quot;&gt;</code>。
+          当不同视口需要<strong>不同的裁切/构图</strong>时（如手机端裁成正方形突出主体）， 使用{' '}
+          <code>&lt;picture&gt;</code> + <code>&lt;source media=&quot;...&quot;&gt;</code>。
           它还可用于提供不同格式（WebP / AVIF 优先，JPEG 降级）。
         </p>
         <pre>
@@ -230,11 +229,21 @@ export default function App() {
 
         <h3>选择建议</h3>
         <ul>
-          <li>同一图片不同分辨率：用 <code>srcset</code> + <code>sizes</code></li>
-          <li>不同视口不同构图：用 <code>&lt;picture&gt;</code> + <code>&lt;source media&gt;</code></li>
-          <li>不同格式降级：用 <code>&lt;picture&gt;</code> + <code>&lt;source type&gt;</code></li>
-          <li>务必设置 <code>width</code> / <code>height</code> 防止 CLS（布局抖动）</li>
-          <li>配合 <code>loading=&quot;lazy&quot;</code> 进一步优化非首屏图片</li>
+          <li>
+            同一图片不同分辨率：用 <code>srcset</code> + <code>sizes</code>
+          </li>
+          <li>
+            不同视口不同构图：用 <code>&lt;picture&gt;</code> + <code>&lt;source media&gt;</code>
+          </li>
+          <li>
+            不同格式降级：用 <code>&lt;picture&gt;</code> + <code>&lt;source type&gt;</code>
+          </li>
+          <li>
+            务必设置 <code>width</code> / <code>height</code> 防止 CLS（布局抖动）
+          </li>
+          <li>
+            配合 <code>loading=&quot;lazy&quot;</code> 进一步优化非首屏图片
+          </li>
         </ul>
 
         <div className="note">

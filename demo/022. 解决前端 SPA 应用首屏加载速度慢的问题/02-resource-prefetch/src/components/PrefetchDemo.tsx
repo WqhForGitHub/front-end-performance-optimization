@@ -14,7 +14,7 @@ const noPrefetchWaterfall: WaterfallItem[] = [
   { name: 'About.js (点击后)', start: 900, duration: 40, type: 'dns' },
   { name: 'About.js (点击后)', start: 940, duration: 80, type: 'conn' },
   { name: 'About.js (点击后)', start: 1020, duration: 30, type: 'req' },
-  { name: 'About.js (点击后)', start: 1050, duration: 180, type: 'res' }
+  { name: 'About.js (点击后)', start: 1050, duration: 180, type: 'res' },
 ]
 
 // 模拟 waterfall：idle 预取后，About.js 在空闲时段下载完成，点击时直接命中缓存
@@ -25,7 +25,7 @@ const withPrefetchWaterfall: WaterfallItem[] = [
   { name: 'About.js (idle 预取)', start: 350, duration: 80, type: 'conn' },
   { name: 'About.js (idle 预取)', start: 430, duration: 30, type: 'req' },
   { name: 'About.js (idle 预取)', start: 460, duration: 180, type: 'res' },
-  { name: 'About.js (命中缓存)', start: 900, duration: 5, type: 'res' }
+  { name: 'About.js (命中缓存)', start: 900, duration: 5, type: 'res' },
 ]
 
 interface LogItem {
@@ -42,23 +42,19 @@ export const PrefetchDemo: FC = () => {
   const log = (msg: string): void => {
     const now = new Date()
     const time =
-      now.toTimeString().slice(0, 8) +
-      '.' +
-      String(now.getMilliseconds()).padStart(3, '0')
+      now.toTimeString().slice(0, 8) + '.' + String(now.getMilliseconds()).padStart(3, '0')
     setLogs((prev) => [...prev, { time, msg }])
   }
 
   // idle 预取 About
-  const aboutPrefetch = usePrefetch(
-    () => import('../pages/About').then((m) => m.default),
-    { trigger: 'idle' }
-  )
+  const aboutPrefetch = usePrefetch(() => import('../pages/About').then((m) => m.default), {
+    trigger: 'idle',
+  })
 
   // 手动预取 Contact（hover 触发）
-  const contactPrefetch = usePrefetch(
-    () => import('../pages/Contact').then((m) => m.default),
-    { trigger: 'manual' }
-  )
+  const contactPrefetch = usePrefetch(() => import('../pages/Contact').then((m) => m.default), {
+    trigger: 'manual',
+  })
 
   // 监听预取状态变化，写日志
   useEffect(() => {
@@ -66,7 +62,6 @@ export const PrefetchDemo: FC = () => {
     if (aboutPrefetch.status === 'done')
       log('About chunk 预取完成，耗时 ' + Math.round(aboutPrefetch.duration) + 'ms')
     if (aboutPrefetch.status === 'error') log('About chunk 预取失败')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aboutPrefetch.status])
 
   useEffect(() => {
@@ -74,7 +69,6 @@ export const PrefetchDemo: FC = () => {
     if (contactPrefetch.status === 'done')
       log('Contact chunk 预取完成，耗时 ' + Math.round(contactPrefetch.duration) + 'ms')
     if (contactPrefetch.status === 'error') log('Contact chunk 预取失败')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contactPrefetch.status])
 
   const switchTo = (route: RouteName): void => {
@@ -86,8 +80,8 @@ export const PrefetchDemo: FC = () => {
     <div className="section">
       <h2>1. 路由级预取（idle / hover / manual）</h2>
       <div className="desc">
-        About 路由通过 <code>usePrefetch(trigger:'idle')</code> 在浏览器空闲时自动预取；
-        Contact 路由通过 hover 触发预取；切换路由时观察日志输出。
+        About 路由通过 <code>usePrefetch(trigger:'idle')</code> 在浏览器空闲时自动预取； Contact
+        路由通过 hover 触发预取；切换路由时观察日志输出。
       </div>
 
       <div className="route-grid">
@@ -114,15 +108,15 @@ export const PrefetchDemo: FC = () => {
                 (aboutPrefetch.status === 'done'
                   ? 'done'
                   : aboutPrefetch.status === 'loading'
-                  ? 'loading'
-                  : '')
+                    ? 'loading'
+                    : '')
               }
             >
               {aboutPrefetch.status === 'done'
                 ? '已预取'
                 : aboutPrefetch.status === 'loading'
-                ? '预取中'
-                : 'idle 触发'}
+                  ? '预取中'
+                  : 'idle 触发'}
             </span>
           </div>
           <div className="hint">
@@ -150,15 +144,15 @@ export const PrefetchDemo: FC = () => {
                 (contactPrefetch.status === 'done'
                   ? 'done'
                   : contactPrefetch.status === 'loading'
-                  ? 'loading'
-                  : '')
+                    ? 'loading'
+                    : '')
               }
             >
               {contactPrefetch.status === 'done'
                 ? '已预取'
                 : contactPrefetch.status === 'loading'
-                ? '预取中'
-                : 'hover 触发'}
+                  ? '预取中'
+                  : 'hover 触发'}
             </span>
           </div>
           <div className="hint">
@@ -177,7 +171,7 @@ export const PrefetchDemo: FC = () => {
             background: '#f9fafb',
             borderRadius: 6,
             border: '1px solid #e5e7eb',
-            minHeight: 80
+            minHeight: 80,
           }}
         >
           {activeRoute === 'home' && <Home />}

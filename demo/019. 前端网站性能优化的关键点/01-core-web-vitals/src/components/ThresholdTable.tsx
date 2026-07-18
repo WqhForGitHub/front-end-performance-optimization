@@ -137,10 +137,20 @@ export default function ThresholdTable({ currentRatings }: ThresholdTableProps) 
                   <div style={{ fontSize: '12px', color: '#999' }}>{row.description}</div>
                 </td>
                 <td style={{ ...ratingCellStyle('good'), textAlign: 'center' }}>{row.goodMax}</td>
-                <td style={{ ...ratingCellStyle('needs-improvement'), textAlign: 'center' }}>{row.needsMax}</td>
-                <td style={{ ...ratingCellStyle('poor'), textAlign: 'center' }}>{'> ' + row.needsMax.replace('≤ ', '')}</td>
+                <td style={{ ...ratingCellStyle('needs-improvement'), textAlign: 'center' }}>
+                  {row.needsMax}
+                </td>
+                <td style={{ ...ratingCellStyle('poor'), textAlign: 'center' }}>
+                  {'> ' + row.needsMax.replace('≤ ', '')}
+                </td>
                 <td style={ratingCellStyle(rating)}>
-                  {rating === 'pending' ? '采集中' : rating === 'good' ? '良好' : rating === 'needs-improvement' ? '需改进' : '较差'}
+                  {rating === 'pending'
+                    ? '采集中'
+                    : rating === 'good'
+                      ? '良好'
+                      : rating === 'needs-improvement'
+                        ? '需改进'
+                        : '较差'}
                 </td>
               </tr>
             )
@@ -148,7 +158,9 @@ export default function ThresholdTable({ currentRatings }: ThresholdTableProps) 
         </tbody>
       </table>
       <div style={legendStyle}>
-        <span>说明：良好阈值是 75% 的页面加载应达到的目标；FID 已被 INP 取代（2024 年 3 月起）。</span>
+        <span>
+          说明：良好阈值是 75% 的页面加载应达到的目标；FID 已被 INP 取代（2024 年 3 月起）。
+        </span>
       </div>
     </div>
   )

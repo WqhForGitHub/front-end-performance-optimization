@@ -70,9 +70,15 @@ export function ArticleList({ delay = 1800 }: ArticleListProps) {
       {data.map((item) => (
         <article key={item.id} style={articleStyle}>
           <h3 style={{ margin: '0 0 8px', fontSize: 16 }}>{item.title}</h3>
-          <div style={{ color: 'var(--accent)', fontSize: 12, marginBottom: 8 }}>{item.excerpt}</div>
-          <p style={{ margin: 0, color: 'var(--muted)', fontSize: 13, lineHeight: 1.7 }}>{item.body}</p>
-          <div style={{ marginTop: 10, fontSize: 11, color: 'var(--muted)' }}>预计阅读 {item.readTime} 分钟</div>
+          <div style={{ color: 'var(--accent)', fontSize: 12, marginBottom: 8 }}>
+            {item.excerpt}
+          </div>
+          <p style={{ margin: 0, color: 'var(--muted)', fontSize: 13, lineHeight: 1.7 }}>
+            {item.body}
+          </p>
+          <div style={{ marginTop: 10, fontSize: 11, color: 'var(--muted)' }}>
+            预计阅读 {item.readTime} 分钟
+          </div>
         </article>
       ))}
     </div>

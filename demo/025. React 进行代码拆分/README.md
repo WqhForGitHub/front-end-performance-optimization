@@ -25,11 +25,11 @@
 
 ## 三种方案对比
 
-| 方案 | 适用场景 | 拆分维度 | 触发时机 |
-|------|----------|----------|----------|
-| **01 React.lazy + Suspense** | 路由级 / 组件级 | 按路由或组件边界 | 路由切换、组件挂载 |
-| **02 Vite manualChunks** | 第三方库 / 稳定代码 | 按依赖分组的静态拆分 | 构建期决定 |
-| **03 动态 import()** | 重型工具 / 按需功能 | 按功能模块 | 用户交互、条件触发 |
+| 方案                         | 适用场景            | 拆分维度             | 触发时机           |
+| ---------------------------- | ------------------- | -------------------- | ------------------ |
+| **01 React.lazy + Suspense** | 路由级 / 组件级     | 按路由或组件边界     | 路由切换、组件挂载 |
+| **02 Vite manualChunks**     | 第三方库 / 稳定代码 | 按依赖分组的静态拆分 | 构建期决定         |
+| **03 动态 import()**         | 重型工具 / 按需功能 | 按功能模块           | 用户交互、条件触发 |
 
 > 三者并不互斥，实际项目通常组合使用：路由用 `React.lazy`，vendor 用 `manualChunks`，重型工具用 `import()`。
 
@@ -56,6 +56,7 @@ npm run type-check  # 类型检查
 ```
 
 各 demo 端口：
+
 - 01-lazy-suspense: http://localhost:5252
 - 02-manual-chunks: http://localhost:5253
 - 03-import-dynamic: http://localhost:5254
@@ -63,18 +64,21 @@ npm run type-check  # 类型检查
 ## 关键学习点
 
 ### 01 React.lazy + Suspense
+
 - `React.lazy()` 包装动态 `import()` 返回的 Promise，得到可延迟渲染的组件。
 - `<Suspense fallback={...}>` 在子组件代码未就绪时展示 fallback。
 - 路由级拆分让每个路由成为独立 chunk，首屏只加载首路由代码。
 - 配合 `ErrorBoundary` 处理 chunk 加载失败（如网络中断）。
 
 ### 02 Vite manualChunks
+
 - 在 `vite.config.ts` 的 `build.rollupOptions.output.manualChunks` 中配置。
 - 把 `react`/`react-dom` 拆成 `react-vendor`，把工具库拆成 `utils-vendor`。
 - 让稳定的第三方代码独立缓存，业务代码改动不会让 vendor 缓存失效。
 - 与 `React.lazy` 不同：manualChunks 是构建期静态拆分，不改变加载时机，只改变 chunk 划分。
 
 ### 03 动态 import()
+
 - `import('./module')` 是原生 ES 提案，返回 Promise。
 - Vite/Webpack 自动把动态 import 的模块拆成独立 chunk。
 - 适合「点一下才用」的重型功能：图表、Markdown、PDF 导出、文件解析等。

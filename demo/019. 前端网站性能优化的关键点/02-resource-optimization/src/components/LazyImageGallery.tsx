@@ -149,14 +149,18 @@ export default function LazyImageGallery(_: LazyImageGalleryProps) {
       <h3 style={titleStyle}>图片懒加载对比（loading="lazy"）</h3>
       <p style={descStyle}>
         左侧使用默认的 eager 加载，进入页面即下载全部 12 张图；右侧使用{' '}
-        <code style={{ backgroundColor: '#f0f0f0', padding: '1px 5px', borderRadius: '3px' }}>loading="lazy"</code>
+        <code style={{ backgroundColor: '#f0f0f0', padding: '1px 5px', borderRadius: '3px' }}>
+          loading="lazy"
+        </code>
         ，仅当图片滚动进入视口附近时才下载。向下滚动右侧区域，观察「已加载」计数的变化。
       </p>
       <div style={gridStyle}>
         <div style={panelStyle('#f44336')}>
           <div style={panelHeaderStyle('#f44336')}>
             <span>Eager（立即加载）</span>
-            <span style={countStyle}>已加载 {eagerLoaded} / {imageSeeds.length}</span>
+            <span style={countStyle}>
+              已加载 {eagerLoaded} / {imageSeeds.length}
+            </span>
           </div>
           <div style={imgGridStyle}>
             {imageSeeds.map((img) => (
@@ -168,7 +172,9 @@ export default function LazyImageGallery(_: LazyImageGalleryProps) {
         <div style={panelStyle('#4caf50')}>
           <div style={panelHeaderStyle('#4caf50')}>
             <span>Lazy（懒加载）</span>
-            <span style={countStyle}>已加载 {lazyLoaded} / {imageSeeds.length}</span>
+            <span style={countStyle}>
+              已加载 {lazyLoaded} / {imageSeeds.length}
+            </span>
           </div>
           <div style={scrollBoxStyle} ref={lazyContainerRef}>
             <div style={imgGridStyle}>

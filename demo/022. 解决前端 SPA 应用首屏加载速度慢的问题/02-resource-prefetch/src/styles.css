@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: #f5f7fa;
   color: #1f2937;
   line-height: 1.6;
@@ -159,10 +160,18 @@ body {
   background: #3b82f6;
 }
 
-.waterfall-fill.dns { background: #a78bfa; }
-.waterfall-fill.conn { background: #f59e0b; }
-.waterfall-fill.req { background: #3b82f6; }
-.waterfall-fill.res { background: #22c55e; }
+.waterfall-fill.dns {
+  background: #a78bfa;
+}
+.waterfall-fill.conn {
+  background: #f59e0b;
+}
+.waterfall-fill.req {
+  background: #3b82f6;
+}
+.waterfall-fill.res {
+  background: #22c55e;
+}
 
 .waterfall-time {
   text-align: right;
@@ -227,7 +236,9 @@ body {
   transition: opacity 0.15s ease;
 }
 
-.btn:hover { opacity: 0.9; }
+.btn:hover {
+  opacity: 0.9;
+}
 .btn.secondary {
   background: #fff;
   color: #3b82f6;
@@ -272,8 +283,23 @@ body {
   border: 1px solid #e5e7eb;
 }
 
-.kpi .label { font-size: 11px; color: #6b7280; }
-.kpi .value { font-size: 20px; font-weight: 700; color: #111827; margin-top: 4px; }
-.kpi .delta { font-size: 11px; margin-top: 2px; }
-.kpi .delta.down { color: #16a34a; }
-.kpi .delta.up { color: #dc2626; }
+.kpi .label {
+  font-size: 11px;
+  color: #6b7280;
+}
+.kpi .value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 4px;
+}
+.kpi .delta {
+  font-size: 11px;
+  margin-top: 2px;
+}
+.kpi .delta.down {
+  color: #16a34a;
+}
+.kpi .delta.up {
+  color: #dc2626;
+}

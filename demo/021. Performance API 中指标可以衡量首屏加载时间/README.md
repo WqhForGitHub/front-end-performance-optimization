@@ -45,16 +45,16 @@
 
 ## 衡量首屏加载的核心指标一览
 
-| 指标 | 全称 | 含义 | 良好 | 较差 | 采集 API |
-| --- | --- | --- | --- | --- | --- |
-| **FP** | First Paint | 浏览器首次渲染任何像素 | ≤ 1500ms | > 3000ms | `getEntriesByType('paint')` → `first-paint` |
-| **FCP** | First Contentful Paint | 首次渲染文本/图像/SVG/Canvas | ≤ 1800ms | > 3000ms | `getEntriesByType('paint')` → `first-contentful-paint` |
-| **LCP** | Largest Contentful Paint | 视口内最大内容元素完成渲染 | ≤ 2500ms | > 4000ms | `PerformanceObserver({type:'largest-contentful-paint'})` |
-| **FMP** | First Meaningful Paint | 首次有意义绘制（**已废弃**） | ≤ 2000ms | > 4000ms | 已废弃，用 LCP 替代 |
-| **TTI** | Time to Interactive | 可交互时间（主线程空闲） | ≤ 3800ms | > 7300ms | 需 Long Task + FCP 计算，无原生 API |
-| **TTFB** | Time to First Byte | 首字节时间 | ≤ 800ms | > 1800ms | `navigationTiming.responseStart - requestStart` |
-| **DOM Complete** | — | DOM 解析 + 同步资源加载完成 | ≤ 3000ms | > 5000ms | `navigationTiming.domComplete` |
-| **Load** | — | load 事件结束 | ≤ 3000ms | > 5000ms | `navigationTiming.loadEventEnd - startTime` |
+| 指标             | 全称                     | 含义                         | 良好     | 较差     | 采集 API                                                 |
+| ---------------- | ------------------------ | ---------------------------- | -------- | -------- | -------------------------------------------------------- |
+| **FP**           | First Paint              | 浏览器首次渲染任何像素       | ≤ 1500ms | > 3000ms | `getEntriesByType('paint')` → `first-paint`              |
+| **FCP**          | First Contentful Paint   | 首次渲染文本/图像/SVG/Canvas | ≤ 1800ms | > 3000ms | `getEntriesByType('paint')` → `first-contentful-paint`   |
+| **LCP**          | Largest Contentful Paint | 视口内最大内容元素完成渲染   | ≤ 2500ms | > 4000ms | `PerformanceObserver({type:'largest-contentful-paint'})` |
+| **FMP**          | First Meaningful Paint   | 首次有意义绘制（**已废弃**） | ≤ 2000ms | > 4000ms | 已废弃，用 LCP 替代                                      |
+| **TTI**          | Time to Interactive      | 可交互时间（主线程空闲）     | ≤ 3800ms | > 7300ms | 需 Long Task + FCP 计算，无原生 API                      |
+| **TTFB**         | Time to First Byte       | 首字节时间                   | ≤ 800ms  | > 1800ms | `navigationTiming.responseStart - requestStart`          |
+| **DOM Complete** | —                        | DOM 解析 + 同步资源加载完成  | ≤ 3000ms | > 5000ms | `navigationTiming.domComplete`                           |
+| **Load**         | —                        | load 事件结束                | ≤ 3000ms | > 5000ms | `navigationTiming.loadEventEnd - startTime`              |
 
 > **现代实践**：Core Web Vitals 已把 **LCP** 作为首屏加载的官方指标（替代已废弃的 FMP），
 > 辅以 FCP 反映首次内容出现、TTFB 反映服务端响应。
@@ -133,7 +133,7 @@ export function collectNavigationMetrics(nav: PerformanceNavigationTiming) {
   const fp = paint.find((e) => e.name === 'first-paint')?.startTime ?? 0
   const fcp = paint.find((e) => e.name === 'first-contentful-paint')?.startTime ?? 0
 
-  return { phases, keyMetrics: [{ key: 'fcp', value: fcp }, /* ... */] }
+  return { phases, keyMetrics: [{ key: 'fcp', value: fcp } /* ... */] }
 }
 ```
 
@@ -300,14 +300,14 @@ npm run type-check
 
 ## 两种方案对比
 
-| 维度 | 方案一：Navigation Timing | 方案二：Paint Timing + LCP |
-| --- | --- | --- |
-| 采集方式 | 一次性读取 `getEntriesByType('navigation')` | `PerformanceObserver` 实时订阅 |
-| 关注层面 | 网络/文档加载**过程**（DNS/TCP/DOM/Load） | 像素渲染**时刻**（FP/FCP/LCP） |
-| 是否含交互后冻结 | 否（load 事件后即完整） | 是（LCP 在用户首次交互后冻结） |
-| 是否反映用户感知 | 间接（DOM Complete / Load） | 直接（FCP / LCP） |
-| 典型用途 | 性能剖析、定位瓶颈阶段 | 真实用户体验监控、Core Web Vitals 上报 |
-| 推荐场景 | 性能优化排障 | 线上 RUM 监控 + 告警 |
+| 维度             | 方案一：Navigation Timing                   | 方案二：Paint Timing + LCP             |
+| ---------------- | ------------------------------------------- | -------------------------------------- |
+| 采集方式         | 一次性读取 `getEntriesByType('navigation')` | `PerformanceObserver` 实时订阅         |
+| 关注层面         | 网络/文档加载**过程**（DNS/TCP/DOM/Load）   | 像素渲染**时刻**（FP/FCP/LCP）         |
+| 是否含交互后冻结 | 否（load 事件后即完整）                     | 是（LCP 在用户首次交互后冻结）         |
+| 是否反映用户感知 | 间接（DOM Complete / Load）                 | 直接（FCP / LCP）                      |
+| 典型用途         | 性能剖析、定位瓶颈阶段                      | 真实用户体验监控、Core Web Vitals 上报 |
+| 推荐场景         | 性能优化排障                                | 线上 RUM 监控 + 告警                   |
 
 两种方案**互补**：Navigation Timing 帮你找到"为什么慢"，Paint Timing + LCP 告诉你
 "用户感受到多慢"。生产实践中通常把 LCP 作为首屏加载的核心 KPI，并用 Navigation Timing
@@ -317,11 +317,11 @@ npm run type-check
 
 ## 选型建议
 
-| 场景 | 推荐指标 | 推荐方案 |
-| --- | --- | --- |
-| 线上 RUM 监控 + Core Web Vitals 上报 | LCP + FCP | 方案二 |
-| 性能瓶颈排障（不知道慢在哪） | TTFB + 各阶段耗时 | 方案一 |
-| SSR / SSG 效果验证 | FCP + LCP | 方案二 |
-| CDN / 服务端响应优化 | TTFB | 方案一 |
-| 第三方脚本影响评估 | DOM Complete + Load | 方案一 |
-| 综合首屏体验评估 | LCP + FCP + TTI | 方案二 + Long Task 监控 |
+| 场景                                 | 推荐指标            | 推荐方案                |
+| ------------------------------------ | ------------------- | ----------------------- |
+| 线上 RUM 监控 + Core Web Vitals 上报 | LCP + FCP           | 方案二                  |
+| 性能瓶颈排障（不知道慢在哪）         | TTFB + 各阶段耗时   | 方案一                  |
+| SSR / SSG 效果验证                   | FCP + LCP           | 方案二                  |
+| CDN / 服务端响应优化                 | TTFB                | 方案一                  |
+| 第三方脚本影响评估                   | DOM Complete + Load | 方案一                  |
+| 综合首屏体验评估                     | LCP + FCP + TTI     | 方案二 + Long Task 监控 |

@@ -72,8 +72,8 @@ export const SwitchPattern: FC = () => {
     <div className="page">
       <h2>模式 4 · switch/case</h2>
       <p>
-        把 switch 写成独立函数（而非内联 IIFE），返回每个分支的 JSX。
-        比 IIFE 更正式、更易测试，也方便加注释。
+        把 switch 写成独立函数（而非内联 IIFE），返回每个分支的 JSX。 比 IIFE
+        更正式、更易测试，也方便加注释。
       </p>
 
       <pre className="code-block">{`function renderStatusDetail() {
@@ -105,9 +105,7 @@ return <div>{renderStatusDetail()}</div>`}</pre>
 
         <div className="result-box">
           <h4>渲染结果：</h4>
-          <div className="rendered">
-            {renderStatusDetail()}
-          </div>
+          <div className="rendered">{renderStatusDetail()}</div>
         </div>
       </div>
 

@@ -13,7 +13,10 @@ export interface CsvParseResult {
 }
 
 export function parseCsv(text: string, delimiter = ','): CsvParseResult {
-  const lines = text.replace(/\r\n/g, '\n').split('\n').filter((l) => l.trim() !== '')
+  const lines = text
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .filter((l) => l.trim() !== '')
   if (lines.length === 0) return { headers: [], rows: [], rowCount: 0 }
 
   const headers = splitLine(lines[0], delimiter)
@@ -59,7 +62,7 @@ function splitLine(line: string, delimiter: string): string[] {
 export function toCsv(rows: CsvRow[], headers?: string[]): string {
   if (rows.length === 0) return ''
   const cols = headers ?? Object.keys(rows[0])
-  const escape = (s: string) => /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s
+  const escape = (s: string) => (/[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s)
   const lines = [cols.join(',')]
   for (const row of rows) {
     lines.push(cols.map((c) => escape(row[c] ?? '')).join(','))

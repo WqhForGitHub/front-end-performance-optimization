@@ -40,8 +40,8 @@ const App: FC = () => {
         <h1>03 · 动态 import() 按需加载</h1>
         <p>
           端口：<span className="port">5254</span> &nbsp;|&nbsp; 通过原生
-          <code> import() </code>在用户真正需要时才下载重型模块（图表 / Markdown / CSV），
-          Vite 自动拆分独立 chunk。
+          <code> import() </code>在用户真正需要时才下载重型模块（图表 / Markdown / CSV）， Vite
+          自动拆分独立 chunk。
         </p>
       </div>
 
@@ -89,7 +89,9 @@ mod.renderBarChart(points)`}</pre>
             <span style={{ color: '#10b981', fontWeight: 600 }}>首屏立即可交互</span>
           </div>
           <div className="flow" style={{ marginTop: 8 }}>
-            <span className="bundle-box bg-chart" style={{ opacity: 0.4 }}>图表库</span>
+            <span className="bundle-box bg-chart" style={{ opacity: 0.4 }}>
+              图表库
+            </span>
             <span className="flow-arrow">=&gt;</span>
             <span style={{ color: '#64748b' }}>用户点击时才下载</span>
           </div>
@@ -115,18 +117,21 @@ const ModulesPlayground: FC = () => {
       const mod = await import('./heavy/chart')
       const duration = performance.now() - start
       const points = [
-        { label: 'Jan', value: 32 }, { label: 'Feb', value: 45 },
-        { label: 'Mar', value: 38 }, { label: 'Apr', value: 52 },
-        { label: 'May', value: 48 }, { label: 'Jun', value: 61 },
+        { label: 'Jan', value: 32 },
+        { label: 'Feb', value: 45 },
+        { label: 'Mar', value: 38 },
+        { label: 'Apr', value: 52 },
+        { label: 'May', value: 48 },
+        { label: 'Jun', value: 61 },
       ]
       const bars = mod.renderBarChart(points, { width: 80, height: 20, color: '#8b5cf6' })
       const stats = mod.computeStats(points)
       setChartResult(
         bars.join('\n') +
-        '\n\n--- 统计 ---\n' +
-        `sum=${stats.sum} mean=${stats.mean} std=${stats.std}\n` +
-        `range=[${stats.min}, ${stats.max}]\n` +
-        `lib: ${mod.CHART_LIB_VERSION}`,
+          '\n\n--- 统计 ---\n' +
+          `sum=${stats.sum} mean=${stats.mean} std=${stats.std}\n` +
+          `range=[${stats.min}, ${stats.max}]\n` +
+          `lib: ${mod.CHART_LIB_VERSION}`,
       )
       setChartStatus({ state: 'loaded', duration })
     } catch (e) {
@@ -144,9 +149,10 @@ const ModulesPlayground: FC = () => {
       const toc = mod.extractToc(SAMPLE_MD)
       setMdResult(
         '--- TOC ---\n' +
-        toc.map((t) => `${'  '.repeat(t.level - 1)}${t.text}`).join('\n') +
-        '\n\n--- HTML ---\n' + html +
-        `\n\nlib: ${mod.MARKDOWN_LIB_VERSION}`,
+          toc.map((t) => `${'  '.repeat(t.level - 1)}${t.text}`).join('\n') +
+          '\n\n--- HTML ---\n' +
+          html +
+          `\n\nlib: ${mod.MARKDOWN_LIB_VERSION}`,
       )
       setMdStatus({ state: 'loaded', duration })
     } catch (e) {
@@ -165,10 +171,7 @@ const ModulesPlayground: FC = () => {
       const rowsText = result.rows
         .map((r) => `  ${r.name} | ${r.age} | ${r.city} | ${r.role}`)
         .join('\n')
-      setCsvResult(
-        summary + '\n\n--- 数据 ---\n' + rowsText +
-        `\n\nlib: ${mod.CSV_LIB_VERSION}`,
-      )
+      setCsvResult(summary + '\n\n--- 数据 ---\n' + rowsText + `\n\nlib: ${mod.CSV_LIB_VERSION}`)
       setCsvStatus({ state: 'loaded', duration })
     } catch (e) {
       setCsvStatus({ state: 'error', duration: performance.now() - start, error: String(e) })
@@ -177,10 +180,12 @@ const ModulesPlayground: FC = () => {
 
   return (
     <div className="page">
-      <h2>按需加载演练 <span className="tag tag-info">点击触发 import()</span></h2>
+      <h2>
+        按需加载演练 <span className="tag tag-info">点击触发 import()</span>
+      </h2>
       <p>
-        三个重型模块（图表 / Markdown / CSV）默认不会下载。点击「加载」按钮，
-        浏览器才会发起对应 chunk 的请求。打开 DevTools Network 面板可观察到新的 .js 请求。
+        三个重型模块（图表 / Markdown / CSV）默认不会下载。点击「加载」按钮， 浏览器才会发起对应
+        chunk 的请求。打开 DevTools Network 面板可观察到新的 .js 请求。
       </p>
 
       <div className="modules-grid">
@@ -211,8 +216,8 @@ const ModulesPlayground: FC = () => {
       </div>
 
       <div className="note">
-        第二次点击同一按钮会「秒回」-- 因为模块一旦加载就会被浏览器缓存（HTTP 缓存 + 模块映射表缓存），
-        重复 import() 不会再次发起网络请求。
+        第二次点击同一按钮会「秒回」-- 因为模块一旦加载就会被浏览器缓存（HTTP 缓存 +
+        模块映射表缓存）， 重复 import() 不会再次发起网络请求。
       </div>
     </div>
   )
@@ -229,10 +234,13 @@ interface ModuleCardProps {
 
 const ModuleCard: FC<ModuleCardProps> = ({ name, size, color, status, result, onLoad }) => {
   const statusText =
-    status.state === 'idle' ? '未加载' :
-    status.state === 'loading' ? '加载中...' :
-    status.state === 'loaded' ? `已加载 (${status.duration.toFixed(1)}ms)` :
-    `失败: ${status.error}`
+    status.state === 'idle'
+      ? '未加载'
+      : status.state === 'loading'
+        ? '加载中...'
+        : status.state === 'loaded'
+          ? `已加载 (${status.duration.toFixed(1)}ms)`
+          : `失败: ${status.error}`
 
   return (
     <div className={'module-card ' + status.state}>
@@ -240,18 +248,18 @@ const ModuleCard: FC<ModuleCardProps> = ({ name, size, color, status, result, on
         <span className="name">{name}</span>
         <span className={'status ' + status.state}>{statusText}</span>
       </div>
-      <div className="meta">
-        模拟体积：{size} &nbsp;|&nbsp; 动态 import 后成为独立 chunk
-      </div>
+      <div className="meta">模拟体积：{size} &nbsp;|&nbsp; 动态 import 后成为独立 chunk</div>
       <div>
         <button className="btn" onClick={onLoad} disabled={status.state === 'loading'}>
           {status.state === 'loading' && <span className="spinner" />}
-          {status.state === 'idle' ? '加载模块' : status.state === 'loading' ? '加载中' : '重新执行'}
+          {status.state === 'idle'
+            ? '加载模块'
+            : status.state === 'loading'
+              ? '加载中'
+              : '重新执行'}
         </button>
       </div>
-      {result && (
-        <div className="result-box">{result}</div>
-      )}
+      {result && <div className="result-box">{result}</div>}
       {status.state === 'loaded' && (
         <div className="timing">
           首次加载耗时 <span className="num">{status.duration.toFixed(2)} ms</span>
@@ -272,10 +280,12 @@ const ChunkDiagram: FC = () => {
   ]
   return (
     <div className="page">
-      <h2>构建产物与加载边界 <span className="tag tag-info">visual</span></h2>
+      <h2>
+        构建产物与加载边界 <span className="tag tag-info">visual</span>
+      </h2>
       <p>
-        执行 <code>npm run build</code> 后，三个 heavy 模块各自成为独立 chunk。
-        首屏只会加载 main.js，其余按用户操作触发。
+        执行 <code>npm run build</code> 后，三个 heavy 模块各自成为独立 chunk。 首屏只会加载
+        main.js，其余按用户操作触发。
       </p>
 
       <div className="diagram">
@@ -303,9 +313,18 @@ const ChunkDiagram: FC = () => {
           </div>
         </div>
         <div className="legend">
-          <span className="legend-item"><span className="legend-dot" style={{ background: '#3b82f6' }} />首屏必加载</span>
-          <span className="legend-item"><span className="legend-dot" style={{ background: '#8b5cf6', opacity: 0.4 }} />按需加载</span>
-          <span className="legend-item"><span className="legend-dot" style={{ background: '#64748b' }} />vendor</span>
+          <span className="legend-item">
+            <span className="legend-dot" style={{ background: '#3b82f6' }} />
+            首屏必加载
+          </span>
+          <span className="legend-item">
+            <span className="legend-dot" style={{ background: '#8b5cf6', opacity: 0.4 }} />
+            按需加载
+          </span>
+          <span className="legend-item">
+            <span className="legend-dot" style={{ background: '#64748b' }} />
+            vendor
+          </span>
         </div>
       </div>
 
@@ -317,7 +336,11 @@ const ChunkDiagram: FC = () => {
             <div className="bar" style={{ height: '20%', background: '#64748b' }} title="vendor" />
             <div className="bar" style={{ height: '12%', background: '#3b82f6' }} title="main" />
             <div className="bar" style={{ height: '95%', background: '#8b5cf6' }} title="chart" />
-            <div className="bar" style={{ height: '52%', background: '#f59e0b' }} title="markdown" />
+            <div
+              className="bar"
+              style={{ height: '52%', background: '#f59e0b' }}
+              title="markdown"
+            />
             <div className="bar" style={{ height: '40%', background: '#ef4444' }} title="csv" />
           </div>
           <div style={{ fontSize: 12, color: '#ef4444', fontWeight: 600 }}>首屏 ~375 KB</div>
@@ -327,11 +350,25 @@ const ChunkDiagram: FC = () => {
           <div className="bar-chart">
             <div className="bar" style={{ height: '20%', background: '#64748b' }} title="vendor" />
             <div className="bar" style={{ height: '12%', background: '#3b82f6' }} title="main" />
-            <div className="bar" style={{ height: '4%', background: '#e2e8f0' }} title="chart (lazy)" />
-            <div className="bar" style={{ height: '4%', background: '#e2e8f0' }} title="markdown (lazy)" />
-            <div className="bar" style={{ height: '4%', background: '#e2e8f0' }} title="csv (lazy)" />
+            <div
+              className="bar"
+              style={{ height: '4%', background: '#e2e8f0' }}
+              title="chart (lazy)"
+            />
+            <div
+              className="bar"
+              style={{ height: '4%', background: '#e2e8f0' }}
+              title="markdown (lazy)"
+            />
+            <div
+              className="bar"
+              style={{ height: '4%', background: '#e2e8f0' }}
+              title="csv (lazy)"
+            />
           </div>
-          <div style={{ fontSize: 12, color: '#10b981', fontWeight: 600 }}>首屏 ~110 KB（-71%）</div>
+          <div style={{ fontSize: 12, color: '#10b981', fontWeight: 600 }}>
+            首屏 ~110 KB（-71%）
+          </div>
         </div>
       </div>
     </div>
@@ -349,7 +386,9 @@ const Comparison: FC = () => {
   ]
   return (
     <div className="page">
-      <h2>动态 import() vs React.lazy <span className="tag tag-good">对比</span></h2>
+      <h2>
+        动态 import() vs React.lazy <span className="tag tag-good">对比</span>
+      </h2>
       <p>
         React.lazy 本质上是对动态 import() 的封装，专门用于「组件」；而原生 import() 更通用，
         适合任意模块（工具函数、配置、副作用）。
@@ -357,9 +396,21 @@ const Comparison: FC = () => {
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
         <thead>
           <tr style={{ background: '#f1f5f9' }}>
-            <th style={{ textAlign: 'left', padding: '8px 10px', borderBottom: '2px solid #e2e8f0' }}>维度</th>
-            <th style={{ textAlign: 'left', padding: '8px 10px', borderBottom: '2px solid #e2e8f0' }}>React.lazy</th>
-            <th style={{ textAlign: 'left', padding: '8px 10px', borderBottom: '2px solid #e2e8f0' }}>动态 import()</th>
+            <th
+              style={{ textAlign: 'left', padding: '8px 10px', borderBottom: '2px solid #e2e8f0' }}
+            >
+              维度
+            </th>
+            <th
+              style={{ textAlign: 'left', padding: '8px 10px', borderBottom: '2px solid #e2e8f0' }}
+            >
+              React.lazy
+            </th>
+            <th
+              style={{ textAlign: 'left', padding: '8px 10px', borderBottom: '2px solid #e2e8f0' }}
+            >
+              动态 import()
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -397,12 +448,30 @@ if (supportsWebGL) {
 // ---- 拆分原则 ----
 const Principles: FC = () => {
   const items: Array<{ title: string; body: ReactNode }> = [
-    { title: '1. 体积门槛', body: '一般 > 30KB 且非首屏必需的模块才值得动态 import，否则拆分收益不及请求开销。' },
-    { title: '2. 低频优先', body: '使用频率越低，越该按需加载；高频功能反而应进首屏避免重复等待。' },
-    { title: '3. 错误处理', body: 'import() 可能失败（弱网/部署中），务必 try/catch 并提供重试入口。' },
-    { title: '4. 预取策略', body: '对高概率使用的下一功能，可用 import() 在空闲时预取，让真正使用时零延迟。' },
-    { title: '5. 状态管理', body: '手动管理 loading/error 状态较繁琐，可封装 hook 或直接用 React.lazy + Suspense。' },
-    { title: '6. 避免循环', body: '动态 import 的模块若反向引用主包，可能产生循环依赖，应保持工具模块单向依赖。' },
+    {
+      title: '1. 体积门槛',
+      body: '一般 > 30KB 且非首屏必需的模块才值得动态 import，否则拆分收益不及请求开销。',
+    },
+    {
+      title: '2. 低频优先',
+      body: '使用频率越低，越该按需加载；高频功能反而应进首屏避免重复等待。',
+    },
+    {
+      title: '3. 错误处理',
+      body: 'import() 可能失败（弱网/部署中），务必 try/catch 并提供重试入口。',
+    },
+    {
+      title: '4. 预取策略',
+      body: '对高概率使用的下一功能，可用 import() 在空闲时预取，让真正使用时零延迟。',
+    },
+    {
+      title: '5. 状态管理',
+      body: '手动管理 loading/error 状态较繁琐，可封装 hook 或直接用 React.lazy + Suspense。',
+    },
+    {
+      title: '6. 避免循环',
+      body: '动态 import 的模块若反向引用主包，可能产生循环依赖，应保持工具模块单向依赖。',
+    },
   ]
   return (
     <div className="page">

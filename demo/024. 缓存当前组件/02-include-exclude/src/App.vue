@@ -71,12 +71,22 @@ function buildValue(format: Format, strVal: string, regexVal: string, arrVal: st
 
 const includeValue = computed(() => {
   if (mode.value !== 'include' && mode.value !== 'both') return undefined
-  return buildValue(includeFormat.value, includeStr.value, includeRegexStr.value, includeArrStr.value)
+  return buildValue(
+    includeFormat.value,
+    includeStr.value,
+    includeRegexStr.value,
+    includeArrStr.value,
+  )
 })
 
 const excludeValue = computed(() => {
   if (mode.value !== 'exclude' && mode.value !== 'both') return undefined
-  return buildValue(excludeFormat.value, excludeStr.value, excludeRegexStr.value, excludeArrStr.value)
+  return buildValue(
+    excludeFormat.value,
+    excludeStr.value,
+    excludeRegexStr.value,
+    excludeArrStr.value,
+  )
 })
 
 const maxValue = computed(() => {
@@ -123,7 +133,10 @@ function matchName(name: string, pattern: any): boolean {
   if (pattern instanceof RegExp) return pattern.test(name)
   if (Array.isArray(pattern)) return pattern.includes(name)
   if (typeof pattern === 'string') {
-    return pattern.split(',').map((s) => s.trim()).includes(name)
+    return pattern
+      .split(',')
+      .map((s) => s.trim())
+      .includes(name)
   }
   return false
 }
@@ -138,9 +151,23 @@ function switchTab(name: string) {
 
 // 配置变更时给一个提示
 const configChangeTip = ref('')
-watch([mode, includeFormat, excludeFormat, includeStr, includeRegexStr, includeArrStr, excludeStr, excludeRegexStr, excludeArrStr, maxCount], () => {
-  configChangeTip.value = `配置已更新：${configDesc.value}（切换 Tab 验证效果）`
-})
+watch(
+  [
+    mode,
+    includeFormat,
+    excludeFormat,
+    includeStr,
+    includeRegexStr,
+    includeArrStr,
+    excludeStr,
+    excludeRegexStr,
+    excludeArrStr,
+    maxCount,
+  ],
+  () => {
+    configChangeTip.value = `配置已更新：${configDesc.value}（切换 Tab 验证效果）`
+  },
+)
 </script>
 
 <template>
@@ -148,8 +175,8 @@ watch([mode, includeFormat, excludeFormat, includeStr, includeRegexStr, includeA
     <header class="app-header">
       <h1>KeepAlive 的 include / exclude / max</h1>
       <p class="subtitle">
-        通过配置不同的 <code>include</code>、<code>exclude</code>、<code>max</code> 来精确控制哪些组件被缓存。
-        组件名匹配规则基于组件的 <code>name</code> 选项。
+        通过配置不同的 <code>include</code>、<code>exclude</code>、<code>max</code>
+        来精确控制哪些组件被缓存。 组件名匹配规则基于组件的 <code>name</code> 选项。
       </p>
     </header>
 
@@ -160,66 +187,66 @@ watch([mode, includeFormat, excludeFormat, includeStr, includeRegexStr, includeA
       <div class="config-row">
         <label>模式</label>
         <div class="radio-group">
-          <label><input type="radio" v-model="mode" value="none" /> 全部缓存</label>
-          <label><input type="radio" v-model="mode" value="include" /> 仅 include</label>
-          <label><input type="radio" v-model="mode" value="exclude" /> 仅 exclude</label>
-          <label><input type="radio" v-model="mode" value="both" /> include + exclude</label>
-          <label><input type="radio" v-model="mode" value="max" /> max 上限</label>
+          <label><input v-model="mode" type="radio" value="none" /> 全部缓存</label>
+          <label><input v-model="mode" type="radio" value="include" /> 仅 include</label>
+          <label><input v-model="mode" type="radio" value="exclude" /> 仅 exclude</label>
+          <label><input v-model="mode" type="radio" value="both" /> include + exclude</label>
+          <label><input v-model="mode" type="radio" value="max" /> max 上限</label>
         </div>
       </div>
 
       <!-- include 配置 -->
-      <div class="config-block" v-if="mode === 'include' || mode === 'both'">
+      <div v-if="mode === 'include' || mode === 'both'" class="config-block">
         <div class="block-title">include 配置</div>
         <div class="config-row">
           <label>格式</label>
           <div class="radio-group">
-            <label><input type="radio" v-model="includeFormat" value="string" /> 字符串</label>
-            <label><input type="radio" v-model="includeFormat" value="regex" /> 正则</label>
-            <label><input type="radio" v-model="includeFormat" value="array" /> 数组</label>
+            <label><input v-model="includeFormat" type="radio" value="string" /> 字符串</label>
+            <label><input v-model="includeFormat" type="radio" value="regex" /> 正则</label>
+            <label><input v-model="includeFormat" type="radio" value="array" /> 数组</label>
           </div>
         </div>
-        <div class="config-row" v-if="includeFormat === 'string'">
+        <div v-if="includeFormat === 'string'" class="config-row">
           <label>组件名（逗号分隔）</label>
           <input v-model="includeStr" type="text" placeholder="AlphaComp,BetaComp" />
         </div>
-        <div class="config-row" v-if="includeFormat === 'regex'">
+        <div v-if="includeFormat === 'regex'" class="config-row">
           <label>正则表达式</label>
           <input v-model="includeRegexStr" type="text" placeholder="^Alpha" />
         </div>
-        <div class="config-row" v-if="includeFormat === 'array'">
+        <div v-if="includeFormat === 'array'" class="config-row">
           <label>组件名（逗号分隔）</label>
           <input v-model="includeArrStr" type="text" placeholder="AlphaComp,BetaComp,GammaComp" />
         </div>
       </div>
 
       <!-- exclude 配置 -->
-      <div class="config-block" v-if="mode === 'exclude' || mode === 'both'">
+      <div v-if="mode === 'exclude' || mode === 'both'" class="config-block">
         <div class="block-title">exclude 配置</div>
         <div class="config-row">
           <label>格式</label>
           <div class="radio-group">
-            <label><input type="radio" v-model="excludeFormat" value="string" /> 字符串</label>
-            <label><input type="radio" v-model="excludeFormat" value="regex" /> 正则</label>
-            <label><input type="radio" v-model="excludeFormat" value="array" /> 数组</label>
+            <label><input v-model="excludeFormat" type="radio" value="string" /> 字符串</label>
+            <label><input v-model="excludeFormat" type="radio" value="regex" /> 正则</label>
+            <label><input v-model="excludeFormat" type="radio" value="array" /> 数组</label>
           </div>
         </div>
-        <div class="config-row" v-if="excludeFormat === 'string'">
+        <div v-if="excludeFormat === 'string'" class="config-row">
           <label>组件名（逗号分隔）</label>
           <input v-model="excludeStr" type="text" placeholder="DeltaComp" />
         </div>
-        <div class="config-row" v-if="excludeFormat === 'regex'">
+        <div v-if="excludeFormat === 'regex'" class="config-row">
           <label>正则表达式</label>
           <input v-model="excludeRegexStr" type="text" placeholder="Delta$" />
         </div>
-        <div class="config-row" v-if="excludeFormat === 'array'">
+        <div v-if="excludeFormat === 'array'" class="config-row">
           <label>组件名（逗号分隔）</label>
           <input v-model="excludeArrStr" type="text" placeholder="DeltaComp" />
         </div>
       </div>
 
       <!-- max 配置 -->
-      <div class="config-block" v-if="mode === 'max'">
+      <div v-if="mode === 'max'" class="config-block">
         <div class="block-title">max 配置（最多缓存的实例数，LRU 淘汰）</div>
         <div class="config-row">
           <label>max 数量</label>
@@ -230,7 +257,7 @@ watch([mode, includeFormat, excludeFormat, includeStr, includeRegexStr, includeA
       <div class="config-tip">
         当前生效配置：<code>{{ configDesc }}</code>
       </div>
-      <div class="config-tip updated" v-if="configChangeTip">{{ configChangeTip }}</div>
+      <div v-if="configChangeTip" class="config-tip updated">{{ configChangeTip }}</div>
     </section>
 
     <!-- 缓存状态概览 -->
@@ -238,14 +265,20 @@ watch([mode, includeFormat, excludeFormat, includeStr, includeRegexStr, includeA
       <h2>缓存状态预判</h2>
       <p class="hint">根据当前配置，预判每个组件是否会被缓存：</p>
       <div class="status-grid">
-        <div v-for="tab in tabs" :key="tab.name" class="status-item" :class="{ cached: isCached(tab.name), uncached: !isCached(tab.name) }">
+        <div
+          v-for="tab in tabs"
+          :key="tab.name"
+          class="status-item"
+          :class="{ cached: isCached(tab.name), uncached: !isCached(tab.name) }"
+        >
           <span class="dot"></span>
           <span class="name">{{ tab.name }}</span>
           <span class="badge">{{ isCached(tab.name) ? '会被缓存' : '不缓存' }}</span>
         </div>
       </div>
-      <div class="tip-box" v-if="mode === 'max'">
-        提示：当切换的组件数量超过 <code>max={{ maxCount }}</code> 时，最久未访问的组件会被从缓存中移除（LRU 策略）。
+      <div v-if="mode === 'max'" class="tip-box">
+        提示：当切换的组件数量超过
+        <code>max={{ maxCount }}</code> 时，最久未访问的组件会被从缓存中移除（LRU 策略）。
       </div>
     </section>
 
@@ -259,11 +292,15 @@ watch([mode, includeFormat, excludeFormat, includeStr, includeRegexStr, includeA
           @click="switchTab(tab.name)"
         >
           {{ tab.label }}
-          <span class="cache-dot" :class="{ on: isCached(tab.name) }" :title="isCached(tab.name) ? '此组件将被缓存' : '此组件不被缓存'"></span>
+          <span
+            class="cache-dot"
+            :class="{ on: isCached(tab.name) }"
+            :title="isCached(tab.name) ? '此组件将被缓存' : '此组件不被缓存'"
+          ></span>
         </button>
       </nav>
 
-      <div class="config-change-banner" v-if="configChangeTip">{{ configChangeTip }}</div>
+      <div v-if="configChangeTip" class="config-change-banner">{{ configChangeTip }}</div>
 
       <main class="content">
         <KeepAlive :include="includeValue" :exclude="excludeValue" :max="maxValue">

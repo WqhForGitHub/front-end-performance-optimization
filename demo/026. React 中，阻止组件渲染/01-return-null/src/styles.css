@@ -1,12 +1,18 @@
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   color: #1f2937;
   background: #f5f7fa;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-body { margin: 0; padding: 0; }
+body {
+  margin: 0;
+  padding: 0;
+}
 
 .app-shell {
   min-height: 100vh;
@@ -41,7 +47,9 @@ body { margin: 0; padding: 0; }
   transition: all 0.2s;
 }
 
-.nav-btn:hover { background: #334155; }
+.nav-btn:hover {
+  background: #334155;
+}
 
 .nav-btn.active {
   background: #3b82f6;
@@ -62,11 +70,17 @@ body { margin: 0; padding: 0; }
   border-radius: 10px;
   padding: 20px 24px;
   margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.page h2 { margin-top: 0; font-size: 20px; }
-.page h3 { font-size: 16px; margin-top: 20px; }
+.page h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+.page h3 {
+  font-size: 16px;
+  margin-top: 20px;
+}
 
 code {
   background: #f1f5f9;
@@ -106,8 +120,14 @@ code {
   margin-left: 8px;
   vertical-align: middle;
 }
-.tag-good { background: #dcfce7; color: #166534; }
-.tag-bad  { background: #fee2e2; color: #991b1b; }
+.tag-good {
+  background: #dcfce7;
+  color: #166534;
+}
+.tag-bad {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
 .row {
   display: flex;
@@ -126,7 +146,9 @@ code {
   cursor: pointer;
   font-size: 14px;
 }
-.btn-primary:hover { background: #2563eb; }
+.btn-primary:hover {
+  background: #2563eb;
+}
 
 .btn-secondary {
   background: #e5e7eb;
@@ -137,7 +159,9 @@ code {
   cursor: pointer;
   font-size: 14px;
 }
-.btn-secondary:hover { background: #d1d5db; }
+.btn-secondary:hover {
+  background: #d1d5db;
+}
 
 .btn-ghost {
   background: transparent;
@@ -148,8 +172,14 @@ code {
   cursor: pointer;
   font-size: 14px;
 }
-.btn-ghost:hover { background: #f3f4f6; }
-.btn-ghost.active { background: #1e293b; color: #fff; border-color: #1e293b; }
+.btn-ghost:hover {
+  background: #f3f4f6;
+}
+.btn-ghost.active {
+  background: #1e293b;
+  color: #fff;
+  border-color: #1e293b;
+}
 
 .btn-danger {
   background: #ef4444;
@@ -160,9 +190,14 @@ code {
   cursor: pointer;
   font-size: 14px;
 }
-.btn-danger:hover { background: #dc2626; }
+.btn-danger:hover {
+  background: #dc2626;
+}
 
-.hint { color: #6b7280; font-size: 13px; }
+.hint {
+  color: #6b7280;
+  font-size: 13px;
+}
 
 .kv {
   display: flex;
@@ -178,7 +213,7 @@ code {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,12 +225,18 @@ code {
   padding: 24px;
   min-width: 320px;
   max-width: 480px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-.modal-card h3 { margin-top: 0; }
+.modal-card h3 {
+  margin-top: 0;
+}
 
 /* List */
-.list { list-style: none; padding: 0; margin: 12px 0; }
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
 .list-item {
   padding: 10px 14px;
   background: #f9fafb;
@@ -231,7 +272,9 @@ code {
   flex-direction: column;
   gap: 10px;
 }
-.permission-demo h3 { margin: 0 0 4px; }
+.permission-demo h3 {
+  margin: 0 0 4px;
+}
 
 /* Compare grid */
 .compare-grid {
@@ -253,14 +296,21 @@ code {
   font-size: 12px;
   margin-bottom: 8px;
 }
-.pros, .cons {
+.pros,
+.cons {
   font-size: 13px;
   padding-left: 18px;
   margin: 8px 0 0;
   color: #4b5563;
 }
-.pros li { color: #166534; margin-bottom: 3px; }
-.cons li { color: #991b1b; margin-bottom: 3px; }
+.pros li {
+  color: #166534;
+  margin-bottom: 3px;
+}
+.cons li {
+  color: #991b1b;
+  margin-bottom: 3px;
+}
 
 /* Two col */
 .two-col {
@@ -269,11 +319,17 @@ code {
   gap: 16px;
 }
 @media (max-width: 720px) {
-  .two-col { grid-template-columns: 1fr; }
+  .two-col {
+    grid-template-columns: 1fr;
+  }
 }
 
-.good-title { color: #166534; }
-.bad-title { color: #991b1b; }
+.good-title {
+  color: #166534;
+}
+.bad-title {
+  color: #991b1b;
+}
 
 .info-grid {
   display: grid;
@@ -287,6 +343,14 @@ code {
   margin-bottom: 10px;
   border-left: 3px solid #9ca3af;
 }
-.info-card.good { border-left-color: #10b981; }
-.info-card.bad  { border-left-color: #ef4444; }
-.info-card .value { font-weight: 600; font-size: 14px; color: #1f2937; }
+.info-card.good {
+  border-left-color: #10b981;
+}
+.info-card.bad {
+  border-left-color: #ef4444;
+}
+.info-card .value {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f2937;
+}

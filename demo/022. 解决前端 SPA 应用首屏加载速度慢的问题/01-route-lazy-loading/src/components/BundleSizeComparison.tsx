@@ -1,9 +1,5 @@
 import type { FC, ReactNode } from 'react'
-import {
-  singleBundleChunks,
-  splitBundleChunks,
-  type ChunkInfo
-} from '../router'
+import { singleBundleChunks, splitBundleChunks, type ChunkInfo } from '../router'
 
 const MAX_KB = 340 // 单 bundle 320KB 为基准刻度
 
@@ -19,10 +15,7 @@ const renderChunkBar = (info: ChunkInfo, good: boolean): ReactNode => {
       </span>
       <span className="chunk-size">{info.sizeKB} KB</span>
       <div className="bar" style={{ width: '100%', marginTop: 4 }}>
-        <div
-          className={good ? 'bar-fill good' : 'bar-fill bad'}
-          style={{ width: pct + '%' }}
-        />
+        <div className={good ? 'bar-fill good' : 'bar-fill bad'} style={{ width: pct + '%' }} />
       </div>
     </div>
   )
@@ -30,9 +23,7 @@ const renderChunkBar = (info: ChunkInfo, good: boolean): ReactNode => {
 
 export const BundleSizeComparison: FC = () => {
   const singleTotal = singleBundleChunks.reduce((s, c) => s + c.sizeKB, 0)
-  const splitInitial = splitBundleChunks
-    .filter((c) => !c.lazy)
-    .reduce((s, c) => s + c.sizeKB, 0)
+  const splitInitial = splitBundleChunks.filter((c) => !c.lazy).reduce((s, c) => s + c.sizeKB, 0)
   const splitTotal = splitBundleChunks.reduce((s, c) => s + c.sizeKB, 0)
 
   return (
@@ -52,8 +43,12 @@ export const BundleSizeComparison: FC = () => {
             ))}
           </div>
           <div className="metric-row">
-            <span className="metric-pill">首屏下载 <b>{singleTotal} KB</b></span>
-            <span className="metric-pill">chunk 数量 <b>1</b></span>
+            <span className="metric-pill">
+              首屏下载 <b>{singleTotal} KB</b>
+            </span>
+            <span className="metric-pill">
+              chunk 数量 <b>1</b>
+            </span>
           </div>
         </div>
 
@@ -61,10 +56,7 @@ export const BundleSizeComparison: FC = () => {
           <div className="label">优化后：路由级拆分</div>
           <div className="value">{splitInitial} KB（首屏）</div>
           <div className="bar">
-            <div
-              className="bar-fill good"
-              style={{ width: (splitInitial / MAX_KB) * 100 + '%' }}
-            />
+            <div className="bar-fill good" style={{ width: (splitInitial / MAX_KB) * 100 + '%' }} />
           </div>
           <div className="chunk-list">
             {splitBundleChunks.map((c) => (
@@ -72,17 +64,23 @@ export const BundleSizeComparison: FC = () => {
             ))}
           </div>
           <div className="metric-row">
-            <span className="metric-pill">首屏下载 <b>{splitInitial} KB</b></span>
-            <span className="metric-pill">总产物 <b>{splitTotal} KB</b></span>
-            <span className="metric-pill">chunk 数量 <b>{splitBundleChunks.length}</b></span>
+            <span className="metric-pill">
+              首屏下载 <b>{splitInitial} KB</b>
+            </span>
+            <span className="metric-pill">
+              总产物 <b>{splitTotal} KB</b>
+            </span>
+            <span className="metric-pill">
+              chunk 数量 <b>{splitBundleChunks.length}</b>
+            </span>
           </div>
         </div>
       </div>
 
       <p style={{ marginTop: 12, color: '#4b5563', fontSize: 13 }}>
-        首屏体积从 <b>{singleTotal} KB</b> 下降到 <b>{splitInitial} KB</b>，
-        降幅 <b>{Math.round((1 - splitInitial / singleTotal) * 100)}%</b>；
-        其他路由 chunk 仅在用户点击对应路由时才下载。
+        首屏体积从 <b>{singleTotal} KB</b> 下降到 <b>{splitInitial} KB</b>， 降幅{' '}
+        <b>{Math.round((1 - splitInitial / singleTotal) * 100)}%</b>； 其他路由 chunk
+        仅在用户点击对应路由时才下载。
       </p>
     </div>
   )

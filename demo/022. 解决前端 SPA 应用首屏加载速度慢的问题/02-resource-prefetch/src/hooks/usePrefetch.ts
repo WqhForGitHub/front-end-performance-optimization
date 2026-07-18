@@ -50,7 +50,7 @@ const requestIdle: (cb: RicCallback) => number = (cb) => {
 
 export function usePrefetch(
   loader: () => Promise<unknown>,
-  options: PrefetchOptions = {}
+  options: PrefetchOptions = {},
 ): PrefetchResult {
   const { trigger = 'manual', useLink = false, linkHref } = options
   const [state, setState] = useState<PrefetchState>({ status: 'idle', duration: 0 })
@@ -80,7 +80,7 @@ export function usePrefetch(
     // 通过 dynamic import 提前下载并执行 chunk，建立模块映射
     loader().then(
       () => finish('done'),
-      () => finish('error')
+      () => finish('error'),
     )
   }, [loader, useLink, linkHref])
 
@@ -98,7 +98,7 @@ export function usePrefetch(
   return {
     status: state.status,
     duration: state.duration,
-    prefetch: run
+    prefetch: run,
   }
 }
 

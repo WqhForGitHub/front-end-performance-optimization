@@ -13,11 +13,41 @@ interface ChunkInfo {
 }
 
 const EXPECTED_CHUNKS: ChunkInfo[] = [
-  { name: 'react-vendor.js', color: 'bg-react', size: '~140 KB', contains: 'react, react-dom, scheduler', cache: '极稳定（半年级）' },
-  { name: 'utils-vendor.js', color: 'bg-utils', size: '~35 KB', contains: 'lodash 等通用工具', cache: '稳定（月级别）' },
-  { name: 'date-vendor.js', color: 'bg-date', size: '~12 KB', contains: 'dayjs', cache: '稳定（月级别）' },
-  { name: 'vendor.js', color: 'bg-vendor', size: '~20 KB', contains: '其余第三方', cache: '较稳定' },
-  { name: 'main.js', color: 'bg-app', size: '~25 KB', contains: '业务入口 + App', cache: '随业务频繁变化' },
+  {
+    name: 'react-vendor.js',
+    color: 'bg-react',
+    size: '~140 KB',
+    contains: 'react, react-dom, scheduler',
+    cache: '极稳定（半年级）',
+  },
+  {
+    name: 'utils-vendor.js',
+    color: 'bg-utils',
+    size: '~35 KB',
+    contains: 'lodash 等通用工具',
+    cache: '稳定（月级别）',
+  },
+  {
+    name: 'date-vendor.js',
+    color: 'bg-date',
+    size: '~12 KB',
+    contains: 'dayjs',
+    cache: '稳定（月级别）',
+  },
+  {
+    name: 'vendor.js',
+    color: 'bg-vendor',
+    size: '~20 KB',
+    contains: '其余第三方',
+    cache: '较稳定',
+  },
+  {
+    name: 'main.js',
+    color: 'bg-app',
+    size: '~25 KB',
+    contains: '业务入口 + App',
+    cache: '随业务频繁变化',
+  },
 ]
 
 const App: FC = () => {
@@ -26,8 +56,9 @@ const App: FC = () => {
       <div className="hero">
         <h1>02 · Vite manualChunks 配置拆分</h1>
         <p>
-          端口：<span className="port">5253</span> &nbsp;|&nbsp; 通过 rollupOptions.output.manualChunks
-          把第三方依赖按「稳定性 + 用途」拆成多个 vendor chunk，提升缓存命中率与并行下载能力。
+          端口：<span className="port">5253</span> &nbsp;|&nbsp; 通过
+          rollupOptions.output.manualChunks 把第三方依赖按「稳定性 + 用途」拆成多个 vendor
+          chunk，提升缓存命中率与并行下载能力。
         </p>
       </div>
 
@@ -47,7 +78,10 @@ const Playground: FC = () => {
   const [nums, setNums] = useState('12, 45, 78, 23, 56, 89, 34')
 
   const stats = useMemo(() => {
-    const arr = nums.split(/[,\s]+/).map(Number).filter((n) => !Number.isNaN(n))
+    const arr = nums
+      .split(/[,\s]+/)
+      .map(Number)
+      .filter((n) => !Number.isNaN(n))
     if (arr.length === 0) return null
     return {
       sum: round(sum(arr), 2),
@@ -59,35 +93,49 @@ const Playground: FC = () => {
     }
   }, [nums])
 
-  const strResults = useMemo(() => ({
-    camel: camelCase(raw),
-    kebab: kebabCase(raw),
-    trunc: truncate(raw, 16),
-    masked: mask(raw, 4),
-  }), [raw])
+  const strResults = useMemo(
+    () => ({
+      camel: camelCase(raw),
+      kebab: kebabCase(raw),
+      trunc: truncate(raw, 16),
+      masked: mask(raw, 4),
+    }),
+    [raw],
+  )
 
   return (
     <div className="page">
-      <h2>工具库演练 <span className="tag tag-info">uses utils-vendor</span></h2>
+      <h2>
+        工具库演练 <span className="tag tag-info">uses utils-vendor</span>
+      </h2>
       <p>
-        下面用到了三个「工具库」（本 demo 以本地 <code>src/utils/*</code> 模拟，真实项目里来自 node_modules）。
-        它们体积大、变化少，正是 manualChunks 要拆出去的对象。
+        下面用到了三个「工具库」（本 demo 以本地 <code>src/utils/*</code> 模拟，真实项目里来自
+        node_modules）。 它们体积大、变化少，正是 manualChunks 要拆出去的对象。
       </p>
 
       <div className="playground">
         <div className="input-card">
           <label>字符串（演示 string-utils）</label>
-          <input value={raw} onChange={(e: ChangeEvent<HTMLInputElement>) => setRaw(e.target.value)} />
-          <div style={{ marginTop: 8, fontSize: 12, color: '#64748b' }}>库版本：{STR_LIB_VERSION}</div>
+          <input
+            value={raw}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setRaw(e.target.value)}
+          />
+          <div style={{ marginTop: 8, fontSize: 12, color: '#64748b' }}>
+            库版本：{STR_LIB_VERSION}
+          </div>
           <div style={{ marginTop: 12 }}>
             <label>数字数组（演示 math-utils）</label>
-            <input value={nums} onChange={(e: ChangeEvent<HTMLInputElement>) => setNums(e.target.value)} />
+            <input
+              value={nums}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setNums(e.target.value)}
+            />
             <div style={{ fontSize: 12, color: '#64748b' }}>库版本：{MATH_LIB_VERSION}</div>
           </div>
           <div style={{ marginTop: 12 }}>
             <label>当前时间（演示 date-utils）</label>
             <div style={{ fontSize: 13, color: '#1e293b' }}>
-              {formatDate(Date.now())} &nbsp; <span style={{ color: '#64748b' }}>({fromNow(Date.now() - 3600_000)})</span>
+              {formatDate(Date.now())} &nbsp;{' '}
+              <span style={{ color: '#64748b' }}>({fromNow(Date.now() - 3600_000)})</span>
               <div style={{ fontSize: 12, color: '#64748b' }}>库版本：{DATE_LIB_VERSION}</div>
             </div>
           </div>
@@ -95,16 +143,22 @@ const Playground: FC = () => {
 
         <div className="result-card">
           <div>// 字符串处理</div>
-          <div>camelCase  =&gt; {strResults.camel}</div>
-          <div>kebabCase  =&gt; {strResults.kebab}</div>
+          <div>camelCase =&gt; {strResults.camel}</div>
+          <div>kebabCase =&gt; {strResults.kebab}</div>
           <div>truncate16 =&gt; {strResults.trunc}</div>
-          <div>mask(4)    =&gt; {strResults.masked}</div>
+          <div>mask(4) =&gt; {strResults.masked}</div>
           <div style={{ marginTop: 8 }}>// 数字统计</div>
           {stats ? (
             <div>
-              <div>sum = {stats.sum}, mean = {stats.mean}</div>
-              <div>range = [{stats.min}, {stats.max}]</div>
-              <div>p50 = {stats.p50}, p95 = {stats.p95}</div>
+              <div>
+                sum = {stats.sum}, mean = {stats.mean}
+              </div>
+              <div>
+                range = [{stats.min}, {stats.max}]
+              </div>
+              <div>
+                p50 = {stats.p50}, p95 = {stats.p95}
+              </div>
             </div>
           ) : (
             <div>请输入有效数字</div>
@@ -128,7 +182,9 @@ const SingleVsSplit: FC = () => (
 
     <div className="compare">
       <div className="compare-col bad">
-        <h4>未拆分：单个大 bundle <span className="tag tag-bad">缓存易失效</span></h4>
+        <h4>
+          未拆分：单个大 bundle <span className="tag tag-bad">缓存易失效</span>
+        </h4>
         <div className="bundle-stack">
           <div className="bundle-box bg-single" style={{ width: '100%' }}>
             main.js
@@ -141,7 +197,9 @@ const SingleVsSplit: FC = () => (
       </div>
 
       <div className="compare-col good">
-        <h4>拆分后：多个独立 chunk <span className="tag tag-good">缓存友好</span></h4>
+        <h4>
+          拆分后：多个独立 chunk <span className="tag tag-good">缓存友好</span>
+        </h4>
         <div className="bundle-row">
           <div className="bundle-box bg-react" style={{ flex: 1.3 }}>
             react-vendor
@@ -167,11 +225,25 @@ const SingleVsSplit: FC = () => (
     </div>
 
     <div className="legend">
-      <span className="legend-item"><span className="legend-dot" style={{ background: '#ef4444' }} />单 bundle</span>
-      <span className="legend-item"><span className="legend-dot" style={{ background: '#0891b2' }} />react-vendor</span>
-      <span className="legend-item"><span className="legend-dot" style={{ background: '#7c3aed' }} />utils-vendor</span>
-      <span className="legend-item"><span className="legend-dot" style={{ background: '#db2777' }} />date-vendor</span>
-      <span className="legend-item"><span className="legend-dot" style={{ background: '#10b981' }} />业务 main</span>
+      <span className="legend-item">
+        <span className="legend-dot" style={{ background: '#ef4444' }} />单 bundle
+      </span>
+      <span className="legend-item">
+        <span className="legend-dot" style={{ background: '#0891b2' }} />
+        react-vendor
+      </span>
+      <span className="legend-item">
+        <span className="legend-dot" style={{ background: '#7c3aed' }} />
+        utils-vendor
+      </span>
+      <span className="legend-item">
+        <span className="legend-dot" style={{ background: '#db2777' }} />
+        date-vendor
+      </span>
+      <span className="legend-item">
+        <span className="legend-dot" style={{ background: '#10b981' }} />
+        业务 main
+      </span>
     </div>
   </div>
 )
@@ -186,7 +258,9 @@ const CacheComparison: FC = () => {
   ]
   return (
     <div className="page">
-      <h2>缓存命中对比 <span className="tag tag-good">缓存收益</span></h2>
+      <h2>
+        缓存命中对比 <span className="tag tag-good">缓存收益</span>
+      </h2>
       <p>下表模拟用户在「已访问过一次」后，再次访问时各 chunk 的缓存命中情况：</p>
       <div className="cache-row head">
         <div>场景</div>
@@ -213,8 +287,12 @@ const CacheComparison: FC = () => {
 // ---- 预期构建产物表 ----
 const ChunkStructure: FC = () => (
   <div className="page">
-    <h2>预期构建产物 <span className="tag tag-info">dist/assets/</span></h2>
-    <p>执行 <code>npm run build</code> 后，<code>dist/assets</code> 下会得到如下结构：</p>
+    <h2>
+      预期构建产物 <span className="tag tag-info">dist/assets/</span>
+    </h2>
+    <p>
+      执行 <code>npm run build</code> 后，<code>dist/assets</code> 下会得到如下结构：
+    </p>
     <table className="chunk-table">
       <thead>
         <tr>
@@ -241,13 +319,21 @@ const ChunkStructure: FC = () => (
 
     <h3>加载时序</h3>
     <div className="flow">
-      <span className="bundle-box bg-react" style={{ minWidth: 100 }}>react-vendor</span>
+      <span className="bundle-box bg-react" style={{ minWidth: 100 }}>
+        react-vendor
+      </span>
       <span className="flow-arrow">+</span>
-      <span className="bundle-box bg-utils" style={{ minWidth: 80 }}>utils-vendor</span>
+      <span className="bundle-box bg-utils" style={{ minWidth: 80 }}>
+        utils-vendor
+      </span>
       <span className="flow-arrow">+</span>
-      <span className="bundle-box bg-date" style={{ minWidth: 70 }}>date-vendor</span>
+      <span className="bundle-box bg-date" style={{ minWidth: 70 }}>
+        date-vendor
+      </span>
       <span className="flow-arrow">+</span>
-      <span className="bundle-box bg-app" style={{ minWidth: 60 }}>main</span>
+      <span className="bundle-box bg-app" style={{ minWidth: 60 }}>
+        main
+      </span>
       <span className="flow-arrow">=&gt;</span>
       <span style={{ color: '#10b981', fontWeight: 600 }}>并行下载 + 渲染</span>
     </div>
@@ -273,7 +359,9 @@ function colorOf(cls: string): string {
 const ConfigExplained: FC = () => (
   <div className="page">
     <h2>vite.config.ts 关键配置</h2>
-    <p>核心是 <code>build.rollupOptions.output.manualChunks</code>，支持两种写法：</p>
+    <p>
+      核心是 <code>build.rollupOptions.output.manualChunks</code>，支持两种写法：
+    </p>
 
     <h3>写法一：对象形式（简单分组）</h3>
     <pre className="code-block">{`manualChunks: {
@@ -299,8 +387,8 @@ const ConfigExplained: FC = () => (
 }`}</pre>
 
     <div className="note">
-      参数 <code>id</code> 是模块的绝对路径。函数返回字符串即为 chunk 名称；
-      返回 undefined 则该模块不被强制分组，由 Rollup 自行决定归属。
+      参数 <code>id</code> 是模块的绝对路径。函数返回字符串即为 chunk 名称； 返回 undefined
+      则该模块不被强制分组，由 Rollup 自行决定归属。
     </div>
 
     <h3>常见坑</h3>
@@ -328,12 +416,30 @@ const ConfigExplained: FC = () => (
 // ---- 拆分原则 ----
 const Principles: FC = () => {
   const items: Array<{ title: string; body: string }> = [
-    { title: '1. 按稳定性拆分', body: '稳定不变的第三方库单独成 chunk，业务代码变动不影响其 hash，缓存长期有效。' },
-    { title: '2. 按用途分组', body: 'react、工具库、日期库用途不同，分组后便于针对性升级与缓存管理。' },
-    { title: '3. 兼顾体积', body: '过大的单 vendor 可再拆（如把 react 与大型 UI 库分开），过小的可合并。' },
-    { title: '4. 与 lazy 配合', body: 'manualChunks 决定「怎么切」，React.lazy 决定「何时加载」，两者正交组合。' },
-    { title: '5. 保留兜底 vendor', body: '未显式归类的第三方依赖放入通用 vendor chunk，避免散落到业务 chunk 中。' },
-    { title: '6. 验证产物', body: '每次调整后用 build + 包分析插件（rollup-plugin-visualizer）核对 chunk 归属。' },
+    {
+      title: '1. 按稳定性拆分',
+      body: '稳定不变的第三方库单独成 chunk，业务代码变动不影响其 hash，缓存长期有效。',
+    },
+    {
+      title: '2. 按用途分组',
+      body: 'react、工具库、日期库用途不同，分组后便于针对性升级与缓存管理。',
+    },
+    {
+      title: '3. 兼顾体积',
+      body: '过大的单 vendor 可再拆（如把 react 与大型 UI 库分开），过小的可合并。',
+    },
+    {
+      title: '4. 与 lazy 配合',
+      body: 'manualChunks 决定「怎么切」，React.lazy 决定「何时加载」，两者正交组合。',
+    },
+    {
+      title: '5. 保留兜底 vendor',
+      body: '未显式归类的第三方依赖放入通用 vendor chunk，避免散落到业务 chunk 中。',
+    },
+    {
+      title: '6. 验证产物',
+      body: '每次调整后用 build + 包分析插件（rollup-plugin-visualizer）核对 chunk 归属。',
+    },
   ]
   return (
     <div className="page">

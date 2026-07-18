@@ -42,6 +42,7 @@
 浏览器解析 HTML 后无需等待外部 CSS 请求即可触发首次内容绘制（FCP）；其余非关键 CSS 通过 `rel="preload"` + `onload` 异步加载。
 
 **Demo 看点**：
+
 - 一键切换「关键 CSS 内联」/「外部全量 CSS」两种模式，直观对比 FCP / LCP 时间线
 - 实时演示首屏可见性：内联模式下 200ms 触发 FCP，外部 CSS 模式下要等到 520ms
 - 加载时间线可视化（HTML 下载、CSS 阻塞、JS 执行、FCP/LCP 标记点）
@@ -54,11 +55,13 @@
 ### 方案二：骨架屏 + 代码分割（`02-skeleton-screen`，端口 5241）
 
 **核心思想**：
+
 1. 用 `React.lazy` + `Suspense` 把不同模块拆成独立 chunk，缩小首屏 JS 体积
 2. 在 chunk 下载与数据请求期间渲染与真实内容结构一致的骨架屏，避免空白闪烁
 3. 骨架屏保持布局稳定（CLS 友好），让用户感知到「正在加载」而非「卡死」
 
 **Demo 看点**：
+
 - 模拟网络切换（4G 快速 / 3G 慢速），观察 chunk 下载与数据请求耗时
 - 一键切换「骨架屏」/「空白占位」，对比感知体验差异
 - 切换「卡片列表」/「文章列表」模块，演示按需加载（lazy chunk）
@@ -73,10 +76,12 @@
 ### 方案三：SSR / 预渲染（`03-ssr-prerender`，端口 5242）
 
 **核心思想**：让浏览器拿到的 HTML 已经包含首屏 DOM，无需等待 JS 下载与执行即可显示内容。
+
 - **SSR（服务端渲染）**：每次请求由 Node 实时渲染首屏 HTML，再由客户端 `hydrateRoot` 接管
 - **SSG / 预渲染**：构建期就把首屏 HTML 渲染好作为静态文件，CDN 直接返回
 
 **Demo 看点**：
+
 - 一键切换 CSR / SSR / SSG 三种模式，对比 FCP / LCP / TTI 指标
 - 三种模式的加载时间线可视化（HTML 下载、JS 下载、hydrate、关键节点标记）
 - 浏览器视角演示：CSR 收到空 #root，SSR/SSG 收到含首屏 DOM 的 HTML
@@ -113,11 +118,12 @@ npm run preview
 ```
 
 各 Demo 的开发端口：
-| Demo | 端口 |
-| --- | --- |
-| 01-critical-css | http://localhost:5240 |
+
+| Demo               | 端口                  |
+| ------------------ | --------------------- |
+| 01-critical-css    | http://localhost:5240 |
 | 02-skeleton-screen | http://localhost:5241 |
-| 03-ssr-prerender | http://localhost:5242 |
+| 03-ssr-prerender   | http://localhost:5242 |
 
 ---
 
@@ -140,14 +146,15 @@ npm run type-check
 
 ## 方案选型建议
 
-| 场景 | 推荐方案 |
-| --- | --- |
-| 后台管理系统（无 SEO 需求） | 骨架屏 + 代码分割（方案二） |
+| 场景                                      | 推荐方案                                 |
+| ----------------------------------------- | ---------------------------------------- |
+| 后台管理系统（无 SEO 需求）               | 骨架屏 + 代码分割（方案二）              |
 | 营销页 / 落地页 / 博客 / 文档（静态内容） | SSG 预渲染 + 关键 CSS（方案三 + 方案一） |
-| 电商详情页 / 新闻列表（动态 + SEO） | SSR + 关键 CSS（方案三 + 方案一） |
-| 任意项目都适用的基线优化 | 关键 CSS 内联（方案一） |
+| 电商详情页 / 新闻列表（动态 + SEO）       | SSR + 关键 CSS（方案三 + 方案一）        |
+| 任意项目都适用的基线优化                  | 关键 CSS 内联（方案一）                  |
 
 三种方案并非互斥，实际项目中常常组合使用：
+
 - SSR / SSG 解决「HTML 到达即绘制」
 - 关键 CSS 内联解决「CSS 不阻塞首次绘制」
 - 骨架屏解决「数据未到时的感知体验」
@@ -157,10 +164,10 @@ npm run type-check
 
 ## 关键指标对照
 
-| 指标 | 含义 | 三种方案的典型提升 |
-| --- | --- | --- |
-| FCP（First Contentful Paint） | 首次内容绘制 | 关键 CSS：500ms -> 200ms；SSR/SSG：900ms -> 100~200ms |
-| LCP（Largest Contentful Paint） | 最大内容绘制 | 同上量级 |
-| CLS（Cumulative Layout Shift） | 累计布局偏移 | 骨架屏：显著改善（占位尺寸与真实内容一致） |
-| TTI（Time to Interactive） | 可交互时间 | SSR/SSG 不一定改善（仍需 hydrate）；代码分割可改善 |
-| INP（Interaction to Next Paint） | 交互响应延迟 | 减少首屏主线程阻塞可改善 |
+| 指标                             | 含义         | 三种方案的典型提升                                    |
+| -------------------------------- | ------------ | ----------------------------------------------------- |
+| FCP（First Contentful Paint）    | 首次内容绘制 | 关键 CSS：500ms -> 200ms；SSR/SSG：900ms -> 100~200ms |
+| LCP（Largest Contentful Paint）  | 最大内容绘制 | 同上量级                                              |
+| CLS（Cumulative Layout Shift）   | 累计布局偏移 | 骨架屏：显著改善（占位尺寸与真实内容一致）            |
+| TTI（Time to Interactive）       | 可交互时间   | SSR/SSG 不一定改善（仍需 hydrate）；代码分割可改善    |
+| INP（Interaction to Next Paint） | 交互响应延迟 | 减少首屏主线程阻塞可改善                              |

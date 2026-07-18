@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -11,8 +11,9 @@
         padding: 0;
       }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
-          'Microsoft YaHei', sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei',
+          sans-serif;
         background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
         color: #e0e0e0;
         min-height: 100vh;
@@ -71,7 +72,9 @@
         border-radius: 12px;
         padding: 20px;
         position: relative;
-        transition: border-color 0.3s, box-shadow 0.3s;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
       .dash-card.rating-good {
         border-color: rgba(76, 175, 80, 0.5);
@@ -219,7 +222,9 @@
       .stage-block {
         opacity: 0;
         transform: translateY(12px);
-        transition: opacity 0.4s, transform 0.4s;
+        transition:
+          opacity 0.4s,
+          transform 0.4s;
         margin-bottom: 16px;
       }
       .stage-block.visible {
@@ -266,7 +271,9 @@
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.4s, transform 0.4s;
+        transition:
+          opacity 0.4s,
+          transform 0.4s;
         z-index: 10;
       }
       #interaction-tip.visible {
@@ -393,7 +400,9 @@
       <section>
         <h2>实时指标仪表盘</h2>
         <p class="section-desc">
-          下方三张卡片在 PerformanceObserver 收到条目时实时刷新。白色刻度线表示当前数值在阈值区间内的位置，用户首次交互后 LCP 会被冻结。
+          下方三张卡片在 PerformanceObserver
+          收到条目时实时刷新。白色刻度线表示当前数值在阈值区间内的位置，用户首次交互后 LCP
+          会被冻结。
         </p>
         <div id="dashboard"></div>
       </section>
@@ -411,7 +420,8 @@
       <section>
         <h2>模拟首屏内容渐进式渲染</h2>
         <p class="section-desc">
-          下方区域会按时间分阶段插入内容（标题 -> 段落 -> 主图 -> 大卡片），观察仪表盘 LCP 数值的变化过程。
+          下方区域会按时间分阶段插入内容（标题 -> 段落 -> 主图 -> 大卡片），观察仪表盘 LCP
+          数值的变化过程。
         </p>
         <div class="demo-stage">
           <div id="stage-1" class="stage-block">
@@ -463,9 +473,7 @@
         </div>
       </section>
 
-      <footer>
-        Demo 021-02 | 纯 TypeScript 实现，无任何框架依赖
-      </footer>
+      <footer>Demo 021-02 | 纯 TypeScript 实现，无任何框架依赖</footer>
     </div>
 
     <div id="interaction-tip">点击页面或滚动以冻结 LCP（模拟用户首次交互）</div>

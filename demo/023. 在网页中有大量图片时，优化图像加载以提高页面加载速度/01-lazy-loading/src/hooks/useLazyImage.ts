@@ -45,7 +45,7 @@ export function useIntersectionLazy(options?: {
           }
         })
       },
-      { rootMargin, threshold }
+      { rootMargin, threshold },
     )
 
     observer.observe(el)
@@ -90,6 +90,6 @@ export function useImageLoadStats(total: number) {
     markRequested,
     markLoaded,
     markFailed,
-    reset
+    reset,
   }
 }

@@ -40,9 +40,11 @@ export default function App() {
               <div className="stage-num">01</div>
               <h3>强缓存 (Freshness)</h3>
               <p className="muted">
-                通过 <code className="inline-code">max-age</code> / <code className="inline-code">Expires</code> 判断本地副本是否过期。
-                未过期直接使用，<strong>不发任何网络请求</strong>，状态码 200，DevTools 显示
-                <code className="inline-code">from disk cache</code> 或 <code className="inline-code">from memory cache</code>。
+                通过 <code className="inline-code">max-age</code> /{' '}
+                <code className="inline-code">Expires</code> 判断本地副本是否过期。 未过期直接使用，
+                <strong>不发任何网络请求</strong>，状态码 200，DevTools 显示
+                <code className="inline-code">from disk cache</code> 或{' '}
+                <code className="inline-code">from memory cache</code>。
               </p>
               <div className="stage-result">命中 → 0 次请求 · 0 字节传输</div>
             </div>
@@ -51,8 +53,10 @@ export default function App() {
               <h3>协商缓存 (Revalidation)</h3>
               <p className="muted">
                 副本过期或标记 <code className="inline-code">no-cache</code> 时，携带
-                <code className="inline-code">If-None-Match</code> / <code className="inline-code">If-Modified-Since</code>
-                向服务器校验。未改返回 <strong>304</strong>，改了返回 <strong>200</strong> 并下载新内容。
+                <code className="inline-code">If-None-Match</code> /{' '}
+                <code className="inline-code">If-Modified-Since</code>
+                向服务器校验。未改返回 <strong>304</strong>，改了返回 <strong>200</strong>{' '}
+                并下载新内容。
               </p>
               <div className="stage-result">命中 → 1 次请求 · 仅头部传输</div>
             </div>
@@ -61,9 +65,18 @@ export default function App() {
           <div className="note-box">
             <strong>关键区别：</strong>
             <ul>
-              <li><code className="inline-code">no-cache</code> = 总是协商（仍可能 304 复用），而 <code className="inline-code">no-store</code> = 完全不存。</li>
-              <li><code className="inline-code">max-age=0, must-revalidate</code> 等价于“每次都协商”，但允许 304。</li>
-              <li><code className="inline-code">immutable</code> 让强缓存在用户主动刷新（F5）时也生效，适合带 hash 的产物。</li>
+              <li>
+                <code className="inline-code">no-cache</code> = 总是协商（仍可能 304 复用），而{' '}
+                <code className="inline-code">no-store</code> = 完全不存。
+              </li>
+              <li>
+                <code className="inline-code">max-age=0, must-revalidate</code>{' '}
+                等价于“每次都协商”，但允许 304。
+              </li>
+              <li>
+                <code className="inline-code">immutable</code>{' '}
+                让强缓存在用户主动刷新（F5）时也生效，适合带 hash 的产物。
+              </li>
             </ul>
           </div>
         </section>
@@ -71,7 +84,9 @@ export default function App() {
         <section className="card">
           <div className="card-head">
             <h2>Vite 中的配置示例</h2>
-            <p>本项目的 vite.config.ts 已经为不同阶段配置了响应头。生产环境中通常由 Nginx 统一设置。</p>
+            <p>
+              本项目的 vite.config.ts 已经为不同阶段配置了响应头。生产环境中通常由 Nginx 统一设置。
+            </p>
           </div>
           <pre className="code-block">{`// vite.config.ts
 export default defineConfig({

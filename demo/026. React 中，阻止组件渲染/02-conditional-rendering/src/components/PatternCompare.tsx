@@ -51,7 +51,10 @@ export const PatternCompare: FC = () => {
   return (
     <div className="page">
       <h2>5 种模式对比</h2>
-      <p>实际项目中往往组合使用：简单显隐用 <code>&&</code>，二选用三目，多分支用 switch 或 enum map。</p>
+      <p>
+        实际项目中往往组合使用：简单显隐用 <code>&&</code>，二选用三目，多分支用 switch 或 enum
+        map。
+      </p>
       <div className="table-wrapper">
         <table className="compare-table">
           <thead>
@@ -66,8 +69,12 @@ export const PatternCompare: FC = () => {
           <tbody>
             {rows.map((r) => (
               <tr key={r.pattern}>
-                <td className="col-pattern"><b>{r.pattern}</b></td>
-                <td><code>{r.syntax}</code></td>
+                <td className="col-pattern">
+                  <b>{r.pattern}</b>
+                </td>
+                <td>
+                  <code>{r.syntax}</code>
+                </td>
                 <td>{r.scene}</td>
                 <td className="col-pros">{r.pros}</td>
                 <td className="col-cons">{r.cons}</td>
@@ -78,8 +85,8 @@ export const PatternCompare: FC = () => {
       </div>
 
       <div className="note">
-        <b>选择建议：</b>分支数 &lt;= 2 用 <code>&&</code> 或三目；3-5 分支用 switch；分支多且配置化用 enum map。
-        任何模式超过 20 行都应该抽子组件。
+        <b>选择建议：</b>分支数 &lt;= 2 用 <code>&&</code> 或三目；3-5 分支用
+        switch；分支多且配置化用 enum map。 任何模式超过 20 行都应该抽子组件。
       </div>
     </div>
   )

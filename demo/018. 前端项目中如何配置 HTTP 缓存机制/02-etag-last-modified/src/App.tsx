@@ -10,8 +10,9 @@ export default function App() {
           <span className="hero-badge">方案二</span>
           <h1>ETag / Last-Modified 协商缓存</h1>
           <p className="hero-sub">
-            当强缓存过期或被 <code className="hero-code">no-cache</code> 标记时，浏览器进入协商缓存阶段：
-            携带校验器向服务器确认资源是否变更，未变则返回 304 复用本地副本。
+            当强缓存过期或被 <code className="hero-code">no-cache</code>{' '}
+            标记时，浏览器进入协商缓存阶段： 携带校验器向服务器确认资源是否变更，未变则返回 304
+            复用本地副本。
           </p>
           <div className="hero-meta">
             <span className="meta-item">端口 5235</span>
@@ -40,16 +41,18 @@ export default function App() {
               <div className="trigger-tag t1">情况一</div>
               <h3>no-cache 标记</h3>
               <p className="muted">
-                响应头 <code className="inline-code">Cache-Control: no-cache</code> 表示“可以存，但每次用前必须校验”。
-                浏览器每次都会发协商请求，命中则 304。适合 HTML 入口或频繁可能更新的 API。
+                响应头 <code className="inline-code">Cache-Control: no-cache</code>{' '}
+                表示“可以存，但每次用前必须校验”。 浏览器每次都会发协商请求，命中则 304。适合 HTML
+                入口或频繁可能更新的 API。
               </p>
             </div>
             <div className="trigger-card">
               <div className="trigger-tag t2">情况二</div>
               <h3>max-age 过期</h3>
               <p className="muted">
-                响应头 <code className="inline-code">Cache-Control: max-age=60</code>，60 秒内走强缓存，
-                60 秒后过期，下次请求自动带上校验器进入协商。适合更新频率可预估的静态资源。
+                响应头 <code className="inline-code">Cache-Control: max-age=60</code>，60
+                秒内走强缓存， 60
+                秒后过期，下次请求自动带上校验器进入协商。适合更新频率可预估的静态资源。
               </p>
             </div>
           </div>
@@ -114,14 +117,17 @@ export default function App() {
               <span className="tip-num">1</span>
               <div>
                 <strong>不要给带 hash 的产物用 no-cache。</strong>
-                hash 变了就是新文件，应直接 <code className="inline-code">max-age=31536000, immutable</code> 走强缓存，避免不必要的协商。
+                hash 变了就是新文件，应直接{' '}
+                <code className="inline-code">max-age=31536000, immutable</code>{' '}
+                走强缓存，避免不必要的协商。
               </div>
             </div>
             <div className="tip-item">
               <span className="tip-num">2</span>
               <div>
                 <strong>HTML 入口用 no-cache。</strong>
-                保证用户总能拿到引用了最新 JS/CSS 文件名的 HTML，否则强缓存的旧 HTML 会指向已失效的旧 hash 文件。
+                保证用户总能拿到引用了最新 JS/CSS 文件名的 HTML，否则强缓存的旧 HTML
+                会指向已失效的旧 hash 文件。
               </div>
             </div>
             <div className="tip-item">
@@ -135,7 +141,8 @@ export default function App() {
               <span className="tip-num">4</span>
               <div>
                 <strong>分布式部署注意 ETag 一致性。</strong>
-                若多台机器各自计算 ETag（基于 mtime/size），同一资源可能 ETag 不同导致命中率下降，建议用内容 hash 或关闭 ETag 仅用 Last-Modified。
+                若多台机器各自计算 ETag（基于 mtime/size），同一资源可能 ETag
+                不同导致命中率下降，建议用内容 hash 或关闭 ETag 仅用 Last-Modified。
               </div>
             </div>
           </div>

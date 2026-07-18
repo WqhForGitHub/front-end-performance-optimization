@@ -8,9 +8,7 @@ const KPI_LIST = [
   { label: '转化率', value: 0.0382, delta: '-1.2%' },
 ]
 
-const CHART_DATA = [
-  32, 45, 38, 52, 48, 61, 55, 70, 63, 78, 72, 85,
-]
+const CHART_DATA = [32, 45, 38, 52, 48, 61, 55, 70, 63, 78, 72, 85]
 
 export default function Dashboard() {
   const [range, setRange] = useState<'7d' | '30d' | '90d'>('30d')
@@ -25,7 +23,9 @@ export default function Dashboard() {
 
   return (
     <div className="page">
-      <h2>Dashboard 数据看板 <span className="tag tag-load">lazy chunk</span></h2>
+      <h2>
+        Dashboard 数据看板 <span className="tag tag-load">lazy chunk</span>
+      </h2>
       <p>
         Dashboard 通常依赖图表库与大量数据展示逻辑，体积较大。将其拆成独立 chunk，
         可以让首屏（Home）不必等待图表代码下载完成。
@@ -34,9 +34,13 @@ export default function Dashboard() {
       <div className="diagram">
         <div className="diagram-title">本页 chunk 的依赖关系</div>
         <div className="flow">
-          <span className="bundle-box bg-vendor" style={{ minWidth: 80 }}>vendor</span>
+          <span className="bundle-box bg-vendor" style={{ minWidth: 80 }}>
+            vendor
+          </span>
           <span className="flow-arrow">-&gt;</span>
-          <span className="bundle-box bg-dashboard" style={{ minWidth: 110 }}>Dashboard.js</span>
+          <span className="bundle-box bg-dashboard" style={{ minWidth: 110 }}>
+            Dashboard.js
+          </span>
           <span className="flow-arrow">-&gt;</span>
           <span style={{ color: '#475569' }}>渲染图表 / KPI</span>
         </div>
@@ -53,7 +57,13 @@ export default function Dashboard() {
               {typeof kpi.value === 'number' && kpi.value > 1000
                 ? kpi.value.toLocaleString()
                 : kpi.value}
-              <span style={{ marginLeft: 8, fontSize: 12, color: kpi.delta.startsWith('-') ? '#ef4444' : '#10b981' }}>
+              <span
+                style={{
+                  marginLeft: 8,
+                  fontSize: 12,
+                  color: kpi.delta.startsWith('-') ? '#ef4444' : '#10b981',
+                }}
+              >
                 {kpi.delta}
               </span>
             </div>
@@ -62,7 +72,17 @@ export default function Dashboard() {
       </div>
 
       <h3>访问趋势（模拟柱状图）</h3>
-      <div style={{ display: 'flex', gap: 4, alignItems: 'flex-end', height: 120, padding: '12px 0', opacity: mounted ? 1 : 0, transition: 'opacity 0.5s' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 4,
+          alignItems: 'flex-end',
+          height: 120,
+          padding: '12px 0',
+          opacity: mounted ? 1 : 0,
+          transition: 'opacity 0.5s',
+        }}
+      >
         {CHART_DATA.map((v, i) => (
           <div
             key={i}
@@ -91,8 +111,8 @@ export default function Dashboard() {
       </div>
 
       <div className="note">
-        若 Dashboard 真的引入了 echarts/antv 等图表库，本 chunk 可能超过 200KB。
-        通过路由级 lazy，未访问 Dashboard 的用户完全不必下载这些代码。
+        若 Dashboard 真的引入了 echarts/antv 等图表库，本 chunk 可能超过 200KB。 通过路由级
+        lazy，未访问 Dashboard 的用户完全不必下载这些代码。
       </div>
     </div>
   )

@@ -10,11 +10,7 @@
 
 import { collectNavigationMetrics } from './navigation-metrics'
 import { renderTimeline } from './timeline-renderer'
-import {
-  renderKeyMetricsCards,
-  renderMetricsTable,
-  renderRawEntry,
-} from './metrics-table'
+import { renderKeyMetricsCards, renderMetricsTable, renderRawEntry } from './metrics-table'
 
 function renderUnsupported(message: string): void {
   const root = document.getElementById('app')
@@ -42,8 +38,7 @@ function init(): void {
     return
   }
 
-  const { phases, keyMetrics, rawEntry, totalDuration } =
-    collectNavigationMetrics(nav)
+  const { phases, keyMetrics, rawEntry, totalDuration } = collectNavigationMetrics(nav)
 
   renderKeyMetricsCards(keyMetrics)
   renderTimeline(phases, totalDuration)

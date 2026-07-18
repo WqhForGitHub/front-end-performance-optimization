@@ -19,10 +19,38 @@ interface RouteMeta {
 }
 
 const ROUTES: RouteMeta[] = [
-  { key: 'home', label: 'Home', color: 'bg-home', component: Home, size: '~60 KB', desc: '首屏入口' },
-  { key: 'dashboard', label: 'Dashboard', color: 'bg-dashboard', component: Dashboard, size: '~95 KB', desc: '图表数据' },
-  { key: 'settings', label: 'Settings', color: 'bg-settings', component: Settings, size: '~30 KB', desc: '低频设置' },
-  { key: 'profile', label: 'Profile', color: 'bg-profile', component: Profile, size: '~45 KB', desc: '用户中心' },
+  {
+    key: 'home',
+    label: 'Home',
+    color: 'bg-home',
+    component: Home,
+    size: '~60 KB',
+    desc: '首屏入口',
+  },
+  {
+    key: 'dashboard',
+    label: 'Dashboard',
+    color: 'bg-dashboard',
+    component: Dashboard,
+    size: '~95 KB',
+    desc: '图表数据',
+  },
+  {
+    key: 'settings',
+    label: 'Settings',
+    color: 'bg-settings',
+    component: Settings,
+    size: '~30 KB',
+    desc: '低频设置',
+  },
+  {
+    key: 'profile',
+    label: 'Profile',
+    color: 'bg-profile',
+    component: Profile,
+    size: '~45 KB',
+    desc: '用户中心',
+  },
 ]
 
 const Loading: FC<{ route: string }> = ({ route }) => (
@@ -87,7 +115,9 @@ function parseHash(): RouteKey {
 // ---- 可视化：拆分后的 chunk 结构 ----
 const BundleDiagram: FC<{ current: RouteKey }> = ({ current }) => (
   <div className="page" style={{ marginTop: 24 }}>
-    <h2>Bundle 拆分结构图 <span className="tag tag-split">visual</span></h2>
+    <h2>
+      Bundle 拆分结构图 <span className="tag tag-split">visual</span>
+    </h2>
     <p>
       下面是 <code>npm run build</code> 后 <code>dist/assets</code> 的预期产物。
       每个路由对应一个独立 <code>.js</code> 文件，首屏只会请求当前路由的 chunk。
@@ -127,19 +157,34 @@ const BundleDiagram: FC<{ current: RouteKey }> = ({ current }) => (
         ))}
       </div>
       <div className="legend">
-        <span className="legend-item"><span className="legend-dot" style={{ background: '#3b82f6' }} />实色 = 已下载</span>
-        <span className="legend-item"><span className="legend-dot" style={{ background: '#3b82f6', opacity: 0.45 }} />半透明 = 未下载</span>
-        <span className="legend-item"><span className="legend-dot" style={{ background: '#64748b' }} />vendor = 第三方库</span>
+        <span className="legend-item">
+          <span className="legend-dot" style={{ background: '#3b82f6' }} />
+          实色 = 已下载
+        </span>
+        <span className="legend-item">
+          <span className="legend-dot" style={{ background: '#3b82f6', opacity: 0.45 }} />
+          半透明 = 未下载
+        </span>
+        <span className="legend-item">
+          <span className="legend-dot" style={{ background: '#64748b' }} />
+          vendor = 第三方库
+        </span>
       </div>
     </div>
 
     <h3>加载流程</h3>
     <div className="flow">
-      <span className="bundle-box bg-main" style={{ minWidth: 80 }}>main.js</span>
+      <span className="bundle-box bg-main" style={{ minWidth: 80 }}>
+        main.js
+      </span>
       <span className="flow-arrow">-&gt;</span>
-      <span className="bundle-box bg-vendor" style={{ minWidth: 90 }}>vendor.js</span>
+      <span className="bundle-box bg-vendor" style={{ minWidth: 90 }}>
+        vendor.js
+      </span>
       <span className="flow-arrow">-&gt;</span>
-      <span className="bundle-box bg-home" style={{ minWidth: 80 }}>Home.js</span>
+      <span className="bundle-box bg-home" style={{ minWidth: 80 }}>
+        Home.js
+      </span>
       <span className="flow-arrow">=&gt;</span>
       <span style={{ color: '#10b981', fontWeight: 600 }}>首屏渲染完成</span>
     </div>

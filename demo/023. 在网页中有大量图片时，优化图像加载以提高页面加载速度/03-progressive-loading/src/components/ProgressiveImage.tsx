@@ -21,7 +21,7 @@ const STATE_TEXT: Record<LoadState, string> = {
   idle: '等待中',
   loading: '加载主图...',
   loaded: '主图已加载',
-  error: '加载失败'
+  error: '加载失败',
 }
 
 /**
@@ -39,17 +39,17 @@ export function ProgressiveImage({
   alt,
   aspect = 4 / 3,
   lazy = true,
-  showState = true
+  showState = true,
 }: ProgressiveImageProps) {
   const { ref, state, mainReady } = useProgressiveImage({
     placeholderSrc,
     src,
-    lazy
+    lazy,
   })
   const [placeholderLoaded, setPlaceholderLoaded] = useState(false)
 
   const wrapperStyle: CSSProperties = {
-    aspectRatio: `${aspect}`
+    aspectRatio: `${aspect}`,
   }
 
   const stateClass = state
@@ -66,21 +66,11 @@ export function ProgressiveImage({
           onLoad={() => setPlaceholderLoaded(true)}
         />
         {/* 主图层：加载完成后淡入覆盖在 LQIP 之上 */}
-        {mainReady && (
-          <img
-            src={src}
-            alt={alt}
-            className="main-image loaded"
-          />
-        )}
+        {mainReady && <img src={src} alt={alt} className="main-image loaded" />}
         {/* 状态徽章 */}
-        {showState && (
-          <div className={`state-badge ${stateClass}`}>{STATE_TEXT[state]}</div>
-        )}
+        {showState && <div className={`state-badge ${stateClass}`}>{STATE_TEXT[state]}</div>}
         {/* 加载失败时显示错误层 */}
-        {state === 'error' && (
-          <div className="error-overlay">图片加载失败</div>
-        )}
+        {state === 'error' && <div className="error-overlay">图片加载失败</div>}
       </div>
     </div>
   )

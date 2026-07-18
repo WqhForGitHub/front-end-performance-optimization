@@ -17,9 +17,7 @@ export const AndPattern: FC = () => {
   return (
     <div className="page">
       <h2>模式 1 · && 短路</h2>
-      <p>
-        最常用的条件渲染方式。条件为 truthy 时渲染右侧，否则不输出任何 DOM。
-      </p>
+      <p>最常用的条件渲染方式。条件为 truthy 时渲染右侧，否则不输出任何 DOM。</p>
 
       <pre className="code-block">{`{loggedIn && <WelcomeBanner />}
 {hasNotification && <NotificationDot />}`}</pre>
@@ -38,9 +36,7 @@ export const AndPattern: FC = () => {
           <h4>渲染结果：</h4>
           <div className="rendered">
             {loggedIn && (
-              <div className="banner banner-success">
-                欢迎回来，用户！(loggedIn 为 true 时显示)
-              </div>
+              <div className="banner banner-success">欢迎回来，用户！(loggedIn 为 true 时显示)</div>
             )}
             {hasNotification && (
               <span className="notification-dot" title="有新通知">

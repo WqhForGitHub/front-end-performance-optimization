@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -11,8 +11,9 @@
         padding: 0;
       }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
-          'Microsoft YaHei', sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei',
+          sans-serif;
         background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
         color: #e0e0e0;
         min-height: 100vh;
@@ -311,7 +312,8 @@
       <header>
         <h1>Navigation Timing API - 首屏加载指标</h1>
         <p class="subtitle">
-          使用 performance.getEntriesByType('navigation') 拆解 DNS / TCP / TTFB / DOM 解析 / Load 全过程
+          使用 performance.getEntriesByType('navigation') 拆解 DNS / TCP / TTFB / DOM 解析 / Load
+          全过程
         </p>
         <div id="meta-info"></div>
       </header>
@@ -319,7 +321,8 @@
       <section>
         <h2>关键首屏指标</h2>
         <p class="section-desc">
-          以下指标由 Navigation Timing 与 Paint Timing 共同计算得出，颜色代表性能评级（绿=良好 / 橙=需优化 / 红=较差）。
+          以下指标由 Navigation Timing 与 Paint Timing 共同计算得出，颜色代表性能评级（绿=良好 /
+          橙=需优化 / 红=较差）。
         </p>
         <div id="key-metrics">
           <div class="section-desc">等待 window.load 事件完成以采集数据...</div>
@@ -358,7 +361,8 @@
       <section>
         <h2>原始 Navigation Timing 时间戳</h2>
         <p class="section-desc">
-          PerformanceNavigationTiming 对象上的全部字段，包含 transferSize / decodedBodySize 等资源体积信息。
+          PerformanceNavigationTiming 对象上的全部字段，包含 transferSize / decodedBodySize
+          等资源体积信息。
         </p>
         <div class="scroll-wrap">
           <table>
@@ -373,9 +377,7 @@
         </div>
       </section>
 
-      <footer>
-        Demo 021-01 | 纯 TypeScript 实现，无任何框架依赖
-      </footer>
+      <footer>Demo 021-01 | 纯 TypeScript 实现，无任何框架依赖</footer>
     </div>
 
     <script type="module" src="src/main.ts"></script>

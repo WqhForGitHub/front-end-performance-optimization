@@ -100,11 +100,8 @@ export default function App() {
   const singleBundle = chunkSplitData[0]
   // 多 chunk 总体积（实际比单 bundle 略大，因为各 chunk 间有少量重复声明，
   // 但首屏只需加载 main + react，体验更好；这里为了对比，用各 chunk 之和）
-  const multiChunkTotal = chunkSplitData
-    .slice(1)
-    .reduce((sum, c) => sum + c.size, 0)
-  const multiChunkFirstLoad =
-    chunkSplitData[1].size + chunkSplitData[2].size // main + react
+  const multiChunkTotal = chunkSplitData.slice(1).reduce((sum, c) => sum + c.size, 0)
+  const multiChunkFirstLoad = chunkSplitData[1].size + chunkSplitData[2].size // main + react
 
   return (
     <div style={pageStyle}>
@@ -148,15 +145,21 @@ export default function App() {
         <strong>原理：</strong>Webpack 在 <code>mode: 'production'</code> 下自动开启 Tree
         Shaking、Scope Hoisting 与压缩。通过 <code>optimization.minimizer</code> 注入
         <code>TerserPlugin</code> 可细粒度控制 <code>drop_console</code>、<code>mangle</code>
-        等；<code>splitChunks</code> 把 <code>node_modules</code> 与 react 拆出独立 chunk，
-        配合 <code>[contenthash]</code> 文件名实现长缓存，大幅减小首屏需要下载的 JS 体积。
+        等；<code>splitChunks</code> 把 <code>node_modules</code> 与 react 拆出独立 chunk， 配合{' '}
+        <code>[contenthash]</code> 文件名实现长缓存，大幅减小首屏需要下载的 JS 体积。
       </div>
 
       <div style={tabRowStyle}>
-        <button style={tabStyle(activeTab === 'strategies')} onClick={() => setActiveTab('strategies')}>
+        <button
+          style={tabStyle(activeTab === 'strategies')}
+          onClick={() => setActiveTab('strategies')}
+        >
           优化策略
         </button>
-        <button style={tabStyle(activeTab === 'splitting')} onClick={() => setActiveTab('splitting')}>
+        <button
+          style={tabStyle(activeTab === 'splitting')}
+          onClick={() => setActiveTab('splitting')}
+        >
           代码分割对比
         </button>
         <button style={tabStyle(activeTab === 'config')} onClick={() => setActiveTab('config')}>
@@ -184,9 +187,8 @@ export default function App() {
           </h3>
           <div style={{ marginBottom: '8px', fontSize: '13px', color: '#666' }}>
             单 bundle 方案：所有代码（react + 业务 + 工具库）打到 1 个文件，首屏需全量下载。
-            <br />
-            多 chunk 方案：按 splitChunks 规则拆成多个 chunk，首屏只需加载 main + react，
-            其余 chunk 按需异步加载。
+            <br />多 chunk 方案：按 splitChunks 规则拆成多个 chunk，首屏只需加载 main + react， 其余
+            chunk 按需异步加载。
           </div>
           {chunkSplitData.map((chunk, idx) => (
             <div key={idx}>
@@ -203,10 +205,10 @@ export default function App() {
               color: '#4a148c',
             }}
           >
-            分包后总下载量略增（{multiChunkTotal.toFixed(1)} KB &gt;{' '}
-            {singleBundle.size.toFixed(1)} KB，因为各 chunk 间有少量模块边界声明），
-            但首屏只需 <strong>{multiChunkFirstLoad.toFixed(1)} KB</strong>，
-            可显著提升首屏加载速度；同时 vendor/react chunk 命中长缓存，二次访问更快。
+            分包后总下载量略增（{multiChunkTotal.toFixed(1)} KB &gt; {singleBundle.size.toFixed(1)}{' '}
+            KB，因为各 chunk 间有少量模块边界声明）， 但首屏只需{' '}
+            <strong>{multiChunkFirstLoad.toFixed(1)} KB</strong>， 可显著提升首屏加载速度；同时
+            vendor/react chunk 命中长缓存，二次访问更快。
           </div>
         </div>
       )}

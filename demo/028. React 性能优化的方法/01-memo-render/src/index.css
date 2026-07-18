@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #f5f7fa;
+  color: #1f2933;
+  line-height: 1.6;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.app h1 {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.app .subtitle {
+  color: #64748b;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.section {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-left: 4px solid #3b82f6;
+  padding-left: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  border: 1px solid #3b82f6;
+  background: #3b82f6;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #2563eb;
+}
+
+.btn.ghost {
+  background: #fff;
+  color: #3b82f6;
+}
+
+.btn.ghost:hover {
+  background: #eff6ff;
+}
+
+.input {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #f8fafc;
+}
+
+.card .label {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.card .value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.badge.warn {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.badge.bad {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+table.cmp {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table.cmp th,
+table.cmp td {
+  border: 1px solid #e2e8f0;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.cmp th {
+  background: #f1f5f9;
+}
+
+table.cmp tr:nth-child(even) td {
+  background: #fafbfc;
+}
+
+.note {
+  font-size: 13px;
+  color: #64748b;
+  background: #f8fafc;
+  border-left: 3px solid #94a3b8;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+  color: #2563eb;
+  font-weight: 600;
+}

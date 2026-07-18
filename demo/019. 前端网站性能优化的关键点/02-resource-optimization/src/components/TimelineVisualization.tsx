@@ -14,7 +14,12 @@ interface TimelineVisualizationProps {
  * 资源加载时间线可视化
  * 把每个阶段渲染为按比例宽度的色条，并显示总耗时
  */
-export default function TimelineVisualization({ title, stages, totalSpan, optimized }: TimelineVisualizationProps) {
+export default function TimelineVisualization({
+  title,
+  stages,
+  totalSpan,
+  optimized,
+}: TimelineVisualizationProps) {
   const wrapperStyle: CSSProperties = {
     backgroundColor: '#ffffff',
     borderRadius: '12px',

@@ -33,7 +33,7 @@ export function LazyImage({
   rootMargin = '200px 0px',
   onRequested,
   onLoaded,
-  onError
+  onError,
 }: LazyImageProps) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
@@ -50,7 +50,6 @@ export function LazyImage({
       onRequested?.()
     }
     // 仅依赖 shouldLoad 的切换
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldLoad])
 
   const handleLoad = useCallback(() => {
@@ -65,7 +64,7 @@ export function LazyImage({
   }, [onError])
 
   const wrapperStyle: CSSProperties = {
-    aspectRatio: `${width} / ${height}`
+    aspectRatio: `${width} / ${height}`,
   }
 
   return (

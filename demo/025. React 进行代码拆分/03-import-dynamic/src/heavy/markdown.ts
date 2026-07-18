@@ -51,15 +51,17 @@ export function renderMarkdown(src: string): string {
 }
 
 function inline(text: string): string {
-  return text
-    // 行内代码 `code`
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    // 粗体 **text**
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    // 斜体 *text*
-    .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>')
-    // 链接 [text](url)
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+  return (
+    text
+      // 行内代码 `code`
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // 粗体 **text**
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      // 斜体 *text*
+      .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>')
+      // 链接 [text](url)
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+  )
 }
 
 export function extractToc(src: string): Array<{ level: number; text: string }> {

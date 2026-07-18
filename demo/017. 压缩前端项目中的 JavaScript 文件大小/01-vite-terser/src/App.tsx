@@ -115,11 +115,10 @@ export default function App() {
   return (
     <div style={pageStyle}>
       <div style={headerStyle}>
-        <h1 style={{ margin: '0 0 8px 0', fontSize: '26px' }}>
-          方案一：Vite + Terser 代码压缩
-        </h1>
+        <h1 style={{ margin: '0 0 8px 0', fontSize: '26px' }}>方案一：Vite + Terser 代码压缩</h1>
         <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
-          通过 build.minify='terser' + terserOptions 控制 drop_console / mangle / dead_code 等压缩行为
+          通过 build.minify='terser' + terserOptions 控制 drop_console / mangle / dead_code
+          等压缩行为
         </p>
       </div>
 
@@ -152,14 +151,17 @@ export default function App() {
 
       <div style={descStyle}>
         <strong>原理：</strong>Terser 基于 UglifyJS 演进，使用 <code>parse</code> -&gt;{' '}
-        <code>compress</code>（压缩）-&gt; <code>mangle</code>（混淆）-&gt;{' '}
-        <code>format</code>（输出）流水线，移除注释 / 空白、消除死代码、缩短变量名。
-        Vite 5 默认使用 <code>esbuild</code> 压缩（速度快），切换为 <code>terser</code>
+        <code>compress</code>（压缩）-&gt; <code>mangle</code>（混淆）-&gt; <code>format</code>
+        （输出）流水线，移除注释 / 空白、消除死代码、缩短变量名。 Vite 5 默认使用{' '}
+        <code>esbuild</code> 压缩（速度快），切换为 <code>terser</code>
         可获得更细粒度的控制（如 <code>drop_console</code>、<code>pure_funcs</code>）。
       </div>
 
       <div style={tabRowStyle}>
-        <button style={tabStyle(activeTab === 'comparison')} onClick={() => setActiveTab('comparison')}>
+        <button
+          style={tabStyle(activeTab === 'comparison')}
+          onClick={() => setActiveTab('comparison')}
+        >
           体积对比
         </button>
         <button style={tabStyle(activeTab === 'options')} onClick={() => setActiveTab('options')}>
@@ -172,7 +174,9 @@ export default function App() {
 
       {activeTab === 'comparison' && (
         <div>
-          <h3 style={{ margin: '0 0 12px 0', fontSize: '16px' }}>构建产物：原始 vs Terser 压缩后</h3>
+          <h3 style={{ margin: '0 0 12px 0', fontSize: '16px' }}>
+            构建产物：原始 vs Terser 压缩后
+          </h3>
           {sizeEntries.map((entry) => (
             <div key={entry.name}>
               <SizeBar entry={entry} />

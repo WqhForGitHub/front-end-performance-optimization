@@ -11,16 +11,20 @@ export default function Home() {
 
   return (
     <div className="page">
-      <h2>Home 首页 <span className="tag tag-load">lazy chunk</span></h2>
+      <h2>
+        Home 首页 <span className="tag tag-load">lazy chunk</span>
+      </h2>
       <p>
-        这是首页组件。它通过 <code>React.lazy</code> 包装，只有当用户访问 <code>/home</code> 路由时，
-        对应的 chunk 才会被浏览器请求并下载。
+        这是首页组件。它通过 <code>React.lazy</code> 包装，只有当用户访问 <code>/home</code>{' '}
+        路由时， 对应的 chunk 才会被浏览器请求并下载。
       </p>
 
       <div className="diagram">
         <div className="diagram-title">拆分前后对比</div>
         <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>拆分前：单一大 bundle</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>
+            拆分前：单一大 bundle
+          </div>
           <div className="bundle-row">
             <div className="bundle-box bg-main" style={{ width: '100%' }}>
               app.js (react + router + home + dashboard + settings + profile)
@@ -29,7 +33,9 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>拆分后：首屏只加载需要的 chunk</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>
+            拆分后：首屏只加载需要的 chunk
+          </div>
           <div className="bundle-row">
             <div className="bundle-box bg-vendor" style={{ flex: 1 }}>
               vendor.js
@@ -80,8 +86,8 @@ const Home = lazy(() => import('./pages/Home'))
 </Suspense>`}</pre>
 
       <div className="note">
-        提示：点击上方导航切换路由，可观察到 loading fallback 与新 chunk 的加载过程。
-        打开 DevTools 的 Network 面板可以看到每个路由对应一个独立的 .js 请求。
+        提示：点击上方导航切换路由，可观察到 loading fallback 与新 chunk 的加载过程。 打开 DevTools
+        的 Network 面板可以看到每个路由对应一个独立的 .js 请求。
       </div>
     </div>
   )

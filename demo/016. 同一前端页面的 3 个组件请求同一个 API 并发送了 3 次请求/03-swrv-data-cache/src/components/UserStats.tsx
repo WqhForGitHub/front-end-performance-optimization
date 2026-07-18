@@ -6,11 +6,9 @@ import { useSWR } from '../hooks/useSWR'
 import { fetchUser, UserData } from '../api/mockApi'
 
 export default function UserStats() {
-  const { data, loading, error, isValidating } = useSWR<UserData>(
-    'user',
-    fetchUser,
-    { dedupingInterval: 5000 },
-  )
+  const { data, loading, error, isValidating } = useSWR<UserData>('user', fetchUser, {
+    dedupingInterval: 5000,
+  })
 
   const cardStyle: Record<string, string | number | undefined> = {
     border: '1px solid #e0e0e0',

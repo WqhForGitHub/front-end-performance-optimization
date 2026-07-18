@@ -56,9 +56,9 @@ onUnmounted(() => {
   <div class="other-view">
     <h2>其他页面</h2>
     <p class="desc">
-      这是一个用于"切换离开"的辅助页面。它有一个实时时钟（每 100ms 更新），
-      演示 KeepAlive 场景下的最佳实践：在 <code>onActivated</code> 启动定时器，
-      在 <code>onDeactivated</code> 清理定时器，避免缓存期间浪费资源。
+      这是一个用于"切换离开"的辅助页面。它有一个实时时钟（每 100ms 更新）， 演示 KeepAlive
+      场景下的最佳实践：在 <code>onActivated</code> 启动定时器， 在
+      <code>onDeactivated</code> 清理定时器，避免缓存期间浪费资源。
     </p>
 
     <div class="clock-card">
@@ -67,8 +67,12 @@ onUnmounted(() => {
     </div>
 
     <ul class="info">
-      <li>累计被激活次数：<b>{{ activatedCount }}</b></li>
-      <li>最近事件：<b class="event">{{ lastEvent }}</b></li>
+      <li>
+        累计被激活次数：<b>{{ activatedCount }}</b>
+      </li>
+      <li>
+        最近事件：<b class="event">{{ lastEvent }}</b>
+      </li>
     </ul>
 
     <div class="hint">

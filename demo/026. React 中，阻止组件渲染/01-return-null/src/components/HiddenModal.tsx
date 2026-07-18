@@ -32,9 +32,7 @@ export const HiddenModal: FC<HiddenModalProps> = ({ open, onClose, children }) =
 
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-card">
-        {children}
-      </div>
+      <div className="modal-card">{children}</div>
     </div>
   )
 }

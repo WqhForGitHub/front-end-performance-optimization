@@ -39,17 +39,23 @@ onDeactivated(() => {
     </div>
     <p class="desc">
       每次切换到本 Tab，观察下方的"最近事件"：
-      <br />- 如果显示 <b>onActivated</b>，说明被缓存（计数器值保留）
-      <br />- 如果显示 <b>onMounted</b>，说明未缓存（计数器被重置为 0）
+      <br />- 如果显示 <b>onActivated</b>，说明被缓存（计数器值保留） <br />- 如果显示
+      <b>onMounted</b>，说明未缓存（计数器被重置为 0）
     </p>
     <div class="counter-box">
       <span class="num">{{ counter }}</span>
       <button @click="counter++">+1</button>
     </div>
     <ul class="info">
-      <li>首次挂载时间：<b>{{ mountedAt || '-' }}</b></li>
-      <li>累计激活次数：<b>{{ activatedTimes }}</b></li>
-      <li>最近事件：<b class="event">{{ lastEvent }}</b></li>
+      <li>
+        首次挂载时间：<b>{{ mountedAt || '-' }}</b>
+      </li>
+      <li>
+        累计激活次数：<b>{{ activatedTimes }}</b>
+      </li>
+      <li>
+        最近事件：<b class="event">{{ lastEvent }}</b>
+      </li>
     </ul>
   </div>
 </template>

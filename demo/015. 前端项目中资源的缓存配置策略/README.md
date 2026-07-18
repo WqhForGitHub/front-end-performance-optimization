@@ -15,21 +15,21 @@ Web 性能优化中，**缓存**是收益最高、成本最低的手段之一。
 
 ## 方案总览
 
-| 方案 | 目录 | 技术栈 | 端口 | 核心思路 |
-|------|------|--------|------|----------|
-| 方案一：基于内容哈希的缓存 | `01-hash-based-caching` | TypeScript + Vite + React | 5225 | 文件名注入内容 hash，内容变则文件名变 |
-| 方案二：分级缓存策略 | `02-split-cache-strategy` | TypeScript + Vite + React | 5226 | 按资源类型配置差异化缓存规则 |
-| 方案三：Nginx 服务端缓存配置 | `03-nginx-config` | TypeScript + Vite + React + Nginx | 5227 | nginx.conf 实现强缓存、协商缓存、代理缓存 |
+| 方案                         | 目录                      | 技术栈                            | 端口 | 核心思路                                  |
+| ---------------------------- | ------------------------- | --------------------------------- | ---- | ----------------------------------------- |
+| 方案一：基于内容哈希的缓存   | `01-hash-based-caching`   | TypeScript + Vite + React         | 5225 | 文件名注入内容 hash，内容变则文件名变     |
+| 方案二：分级缓存策略         | `02-split-cache-strategy` | TypeScript + Vite + React         | 5226 | 按资源类型配置差异化缓存规则              |
+| 方案三：Nginx 服务端缓存配置 | `03-nginx-config`         | TypeScript + Vite + React + Nginx | 5227 | nginx.conf 实现强缓存、协商缓存、代理缓存 |
 
 ## 缓存基础理论
 
 ### 强缓存 vs 协商缓存
 
-| 类型 | 触发条件 | 响应 | 性能 |
-|------|----------|------|------|
-| 强缓存 | `Cache-Control: max-age` 未过期 | 200 (from disk/memory cache) | 最快，零请求 |
-| 协商缓存 | 强缓存过期，携带 `If-None-Match` / `If-Modified-Since` | 304 Not Modified | 较快，有请求无 body |
-| 不缓存 | `no-store` | 200 (完整下载) | 最慢 |
+| 类型     | 触发条件                                               | 响应                         | 性能                |
+| -------- | ------------------------------------------------------ | ---------------------------- | ------------------- |
+| 强缓存   | `Cache-Control: max-age` 未过期                        | 200 (from disk/memory cache) | 最快，零请求        |
+| 协商缓存 | 强缓存过期，携带 `If-None-Match` / `If-Modified-Since` | 304 Not Modified             | 较快，有请求无 body |
+| 不缓存   | `no-store`                                             | 200 (完整下载)               | 最慢                |
 
 ### 关键 HTTP 响应头
 
@@ -84,11 +84,11 @@ export default defineConfig({
 
 ### 三种哈希占位符对比（Webpack 体系）
 
-| 占位符 | 计算范围 | 修改源码 | 修改样式 | 推荐度 |
-|--------|----------|----------|----------|--------|
-| `[hash]` | 整个构建 | 所有文件变 | 所有文件变 | 不推荐 |
-| `[chunkhash]` | 单个 chunk | 仅该 chunk 变 | 仅对应 chunk 变 | 较推荐 |
-| `[contenthash]` | 文件最终内容 | 仅内容变才变 | 仅内容变才变 | 最推荐 |
+| 占位符          | 计算范围     | 修改源码      | 修改样式        | 推荐度 |
+| --------------- | ------------ | ------------- | --------------- | ------ |
+| `[hash]`        | 整个构建     | 所有文件变    | 所有文件变      | 不推荐 |
+| `[chunkhash]`   | 单个 chunk   | 仅该 chunk 变 | 仅对应 chunk 变 | 较推荐 |
+| `[contenthash]` | 文件最终内容 | 仅内容变才变  | 仅内容变才变    | 最推荐 |
 
 > 注：Vite/Rollup 默认的 `[hash]` 已基于 chunk 内容计算，效果类似 `[contenthash]`。
 
@@ -124,13 +124,13 @@ npm run preview  # 预览构建产物
 
 不同类型的资源有不同的更新频率和重要性，一刀切的缓存策略无法兼顾。按资源类型分级配置缓存规则：
 
-| 资源类型 | 缓存策略 | max-age | 原因 |
-|----------|----------|---------|------|
-| HTML 入口 | no-cache | 0 | 必须每次获取最新 hash 引用 |
-| JS/CSS（带 hash） | 长期强缓存 | 1 年 | hash 变化即文件名变化，安全 |
-| 图片/字体（带 hash） | 中期缓存 | 30 天 | 更新频率低，平衡命中率 |
-| 第三方依赖 vendor | 长期强缓存 | 1 年 | 单独分包，业务变化不影响 |
-| API 接口 | no-store | 0 | 实时数据，禁止缓存 |
+| 资源类型             | 缓存策略   | max-age | 原因                        |
+| -------------------- | ---------- | ------- | --------------------------- |
+| HTML 入口            | no-cache   | 0       | 必须每次获取最新 hash 引用  |
+| JS/CSS（带 hash）    | 长期强缓存 | 1 年    | hash 变化即文件名变化，安全 |
+| 图片/字体（带 hash） | 中期缓存   | 30 天   | 更新频率低，平衡命中率      |
+| 第三方依赖 vendor    | 长期强缓存 | 1 年    | 单独分包，业务变化不影响    |
+| API 接口             | no-store   | 0       | 实时数据，禁止缓存          |
 
 ### Vite 配置：按类型分目录输出
 
@@ -147,10 +147,8 @@ export default defineConfig({
         assetFileNames: (assetInfo) => {
           const name = assetInfo.name || ''
           if (name.endsWith('.css')) return 'assets/css/[name].[hash].[ext]'
-          if (/\.(png|jpe?g|gif|webp|svg)$/.test(name))
-            return 'assets/images/[name].[hash].[ext]'
-          if (/\.(woff2?|ttf|eot|otf)$/.test(name))
-            return 'assets/fonts/[name].[hash].[ext]'
+          if (/\.(png|jpe?g|gif|webp|svg)$/.test(name)) return 'assets/images/[name].[hash].[ext]'
+          if (/\.(woff2?|ttf|eot|otf)$/.test(name)) return 'assets/fonts/[name].[hash].[ext]'
           return 'assets/misc/[name].[hash].[ext]'
         },
         // 第三方依赖单独分包

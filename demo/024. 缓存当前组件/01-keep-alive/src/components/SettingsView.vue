@@ -32,8 +32,8 @@ function toggle(setting: Setting) {
   <div class="settings-view">
     <h2>设置</h2>
     <p class="desc">
-      切换这些开关状态后离开本 Tab，再切回来，开关状态会被完整保留。
-      这展示了 KeepAlive 对组件内部响应式状态的缓存能力。
+      切换这些开关状态后离开本 Tab，再切回来，开关状态会被完整保留。 这展示了 KeepAlive
+      对组件内部响应式状态的缓存能力。
     </p>
 
     <ul class="settings-list">
@@ -42,8 +42,8 @@ function toggle(setting: Setting) {
         <button
           class="switch"
           :class="{ on: setting.value }"
-          @click="toggle(setting)"
           :aria-pressed="setting.value"
+          @click="toggle(setting)"
         >
           <span class="thumb"></span>
         </button>

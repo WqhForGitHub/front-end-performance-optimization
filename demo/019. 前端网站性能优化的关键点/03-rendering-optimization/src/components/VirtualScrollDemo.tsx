@@ -37,10 +37,7 @@ export default function VirtualScrollDemo() {
   // 虚拟滚动计算
   const { visibleItems, totalHeight, offsetY } = useMemo(() => {
     const startIndex = Math.max(0, Math.floor(scrollTop / ITEM_HEIGHT) - 3)
-    const endIndex = Math.min(
-      TOTAL,
-      Math.ceil((scrollTop + VISIBLE_HEIGHT) / ITEM_HEIGHT) + 3,
-    )
+    const endIndex = Math.min(TOTAL, Math.ceil((scrollTop + VISIBLE_HEIGHT) / ITEM_HEIGHT) + 3)
     const items = allData.slice(startIndex, endIndex).map((item, i) => ({
       ...item,
       index: startIndex + i,
@@ -162,9 +159,10 @@ export default function VirtualScrollDemo() {
     <div style={wrapperStyle}>
       <h3 style={titleStyle}>长列表渲染对比（{TOTAL.toLocaleString()} 行）</h3>
       <p style={descStyle}>
-        切换「全量渲染」与「虚拟滚动」对比。全量渲染会一次性创建 {TOTAL.toLocaleString()} 个 DOM 节点，
-        切换时明显卡顿；虚拟滚动只创建可视区域内的 ~{Math.ceil(VISIBLE_HEIGHT / ITEM_HEIGHT) + 6} 个节点，
-        滚动流畅。滚动事件使用 requestAnimationFrame 节流。
+        切换「全量渲染」与「虚拟滚动」对比。全量渲染会一次性创建 {TOTAL.toLocaleString()} 个 DOM
+        节点， 切换时明显卡顿；虚拟滚动只创建可视区域内的 ~
+        {Math.ceil(VISIBLE_HEIGHT / ITEM_HEIGHT) + 6} 个节点， 滚动流畅。滚动事件使用
+        requestAnimationFrame 节流。
       </p>
 
       <div style={tabRowStyle}>
@@ -177,9 +175,21 @@ export default function VirtualScrollDemo() {
       </div>
 
       <div style={statBoxStyle}>
-        <span>当前模式：<strong>{mode === 'virtual' ? '虚拟滚动' : '全量渲染'}</strong></span>
-        <span>DOM 节点数：<strong style={{ color: mode === 'virtual' ? '#4caf50' : '#f44336' }}>{renderedCount.toLocaleString()}</strong></span>
-        <span>切换渲染耗时：<strong style={{ color: renderTime > 100 ? '#f44336' : '#4caf50' }}>{renderTime}ms</strong></span>
+        <span>
+          当前模式：<strong>{mode === 'virtual' ? '虚拟滚动' : '全量渲染'}</strong>
+        </span>
+        <span>
+          DOM 节点数：
+          <strong style={{ color: mode === 'virtual' ? '#4caf50' : '#f44336' }}>
+            {renderedCount.toLocaleString()}
+          </strong>
+        </span>
+        <span>
+          切换渲染耗时：
+          <strong style={{ color: renderTime > 100 ? '#f44336' : '#4caf50' }}>
+            {renderTime}ms
+          </strong>
+        </span>
         <span>总数据量：{TOTAL.toLocaleString()}</span>
       </div>
 
@@ -192,7 +202,9 @@ export default function VirtualScrollDemo() {
                   <span style={indexStyle}>{item.name}</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={valueBarStyle(item.value)} />
-                    <span style={{ color: '#999', fontSize: '12px', width: '40px' }}>{item.value}</span>
+                    <span style={{ color: '#999', fontSize: '12px', width: '40px' }}>
+                      {item.value}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -205,7 +217,9 @@ export default function VirtualScrollDemo() {
                 <span style={indexStyle}>{item.name}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={valueBarStyle(item.value)} />
-                  <span style={{ color: '#999', fontSize: '12px', width: '40px' }}>{item.value}</span>
+                  <span style={{ color: '#999', fontSize: '12px', width: '40px' }}>
+                    {item.value}
+                  </span>
                 </div>
               </div>
             ))}

@@ -4,11 +4,11 @@
 
 ## 文件说明
 
-| 文件 | 说明 |
-|------|------|
-| `nginx.conf` | Nginx 完整配置，含分级缓存、gzip、代理缓存 |
-| `src/App.tsx` | React 应用，可视化展示缓存响应头、nginx.conf、缓存流程 |
-| `vite.config.ts` | Vite 配置（端口 5227） |
+| 文件             | 说明                                                   |
+| ---------------- | ------------------------------------------------------ |
+| `nginx.conf`     | Nginx 完整配置，含分级缓存、gzip、代理缓存             |
+| `src/App.tsx`    | React 应用，可视化展示缓存响应头、nginx.conf、缓存流程 |
+| `vite.config.ts` | Vite 配置（端口 5227）                                 |
 
 ## nginx.conf 关键配置解读
 
@@ -123,11 +123,11 @@ curl -I -H 'If-None-Match: "abc123"' http://localhost:8080/assets/js/main.a1b2c3
 
 ## X-Cache-Status 状态说明
 
-| 状态 | 含义 |
-|------|------|
-| HIT | 命中代理缓存 |
-| MISS | 未命中，已回源 |
-| EXPIRED | 缓存已过期，已回源 |
-| STALE | 后端异常，使用旧缓存兜底 |
-| UPDATING | 缓存正在更新，返回旧内容 |
+| 状态        | 含义                                   |
+| ----------- | -------------------------------------- |
+| HIT         | 命中代理缓存                           |
+| MISS        | 未命中，已回源                         |
+| EXPIRED     | 缓存已过期，已回源                     |
+| STALE       | 后端异常，使用旧缓存兜底               |
+| UPDATING    | 缓存正在更新，返回旧内容               |
 | REVALIDATED | 启用 proxy_cache_revalidate 时验证通过 |

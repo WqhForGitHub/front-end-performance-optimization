@@ -70,19 +70,19 @@ export const BundleTable: FC<BundleTableProps> = ({ title, rows, showTotal }) =>
 
 // 三组数据：基线 / manualChunks / manualChunks + CDN externals
 export const baselineRows: BundleRow[] = [
-  { name: 'main.js（含 react + lodash + 业务）', sizeKB: 320, gzipKB: 102, type: 'bad' }
+  { name: 'main.js（含 react + lodash + 业务）', sizeKB: 320, gzipKB: 102, type: 'bad' },
 ]
 
 export const manualChunksRows: BundleRow[] = [
   { name: 'main.js（业务代码）', sizeKB: 95, gzipKB: 32, type: 'good' },
   { name: 'vendor-react.js', sizeKB: 140, gzipKB: 45, type: 'mid' },
   { name: 'vendor-lodash.js', sizeKB: 70, gzipKB: 22, type: 'mid' },
-  { name: 'vendor-chart.js', sizeKB: 15, gzipKB: 5, type: 'good' }
+  { name: 'vendor-chart.js', sizeKB: 15, gzipKB: 5, type: 'good' },
 ]
 
 export const cdnExternalsRows: BundleRow[] = [
   { name: 'main.js（业务代码）', sizeKB: 95, gzipKB: 32, type: 'good' },
   { name: 'vendor-lodash.js', sizeKB: 70, gzipKB: 22, type: 'mid' },
-  { name: 'vendor-chart.js', sizeKB: 15, gzipKB: 5, type: 'good' }
+  { name: 'vendor-chart.js', sizeKB: 15, gzipKB: 5, type: 'good' },
   // react / react-dom 通过 CDN 加载，不计入自有产物
 ]

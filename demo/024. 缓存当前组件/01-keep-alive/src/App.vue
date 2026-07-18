@@ -31,7 +31,10 @@ const logs = ref<LogEntry[]>([])
 
 function pushLog(tab: string, event: string) {
   const now = new Date()
-  const time = now.toLocaleTimeString('zh-CN', { hour12: false }) + '.' + String(now.getMilliseconds()).padStart(3, '0')
+  const time =
+    now.toLocaleTimeString('zh-CN', { hour12: false }) +
+    '.' +
+    String(now.getMilliseconds()).padStart(3, '0')
   logs.value.unshift({ time, tab, event })
   if (logs.value.length > 20) logs.value.pop()
 }
@@ -54,7 +57,8 @@ function switchTab(name: string) {
     <header class="app-header">
       <h1>Vue3 KeepAlive 基础缓存</h1>
       <p class="subtitle">
-        切换 Tab 时观察：组件状态被保留，仅触发 <code>onActivated</code> / <code>onDeactivated</code>，不再触发 <code>onMounted</code> / <code>onUnmounted</code>
+        切换 Tab 时观察：组件状态被保留，仅触发 <code>onActivated</code> /
+        <code>onDeactivated</code>，不再触发 <code>onMounted</code> / <code>onUnmounted</code>
       </p>
     </header>
 
@@ -71,7 +75,7 @@ function switchTab(name: string) {
 
     <main class="content">
       <KeepAlive>
-        <component :is="currentComponent" @lifecycle="handleLifecycle" :tab-name="activeTab" />
+        <component :is="currentComponent" :tab-name="activeTab" @lifecycle="handleLifecycle" />
       </KeepAlive>
     </main>
 

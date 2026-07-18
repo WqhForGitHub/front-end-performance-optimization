@@ -1,0 +1,62 @@
+/* ============================================================
+ * 全局 CSS（演示传统写法的命名冲突问题）
+ * 这个文件故意定义一些"通用"的类名，例如 .card / .title
+ * 稍后我们在 .module.css 里也会用同样的类名，
+ * 但因为 CSS Modules 会把类名 hash 化，所以不会冲突。
+ * ============================================================ */
+
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* 以下是全局 .card 样式 - 紫色主题 */
+.card {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border: 2px solid #c4b5fd;
+  border-radius: 12px;
+  padding: 20px;
+  color: #ffffff;
+}
+
+.card .title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #fde68a;
+}
+
+.card .desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 通用 .button - 全局样式 */
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ec4899;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #db2777;
+}
+
+/* 标记一下：这些类名是全局的，到处可见 */
+.global-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  background: rgba(236, 72, 153, 0.2);
+  color: #f9a8d4;
+  border: 1px solid rgba(236, 72, 153, 0.4);
+  border-radius: 999px;
+  margin-bottom: 8px;
+}

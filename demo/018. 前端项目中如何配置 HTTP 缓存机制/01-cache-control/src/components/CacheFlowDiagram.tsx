@@ -6,7 +6,7 @@ const nodeStyle: Record<string, CSSProperties> = {
   decision: { background: '#fef9c3', borderColor: '#ca8a04', color: '#713f12' },
   action: { background: '#e0f2fe', borderColor: '#0284c7', color: '#075985' },
   'end-hit': { background: '#dcfce7', borderColor: '#16a34a', color: '#14532d' },
-  'end-miss': { background: '#fee2e2', borderColor: '#dc2626', color: '#7f1d1d' }
+  'end-miss': { background: '#fee2e2', borderColor: '#dc2626', color: '#7f1d1d' },
 }
 
 const nodeLabel: Record<string, string> = {
@@ -14,7 +14,7 @@ const nodeLabel: Record<string, string> = {
   decision: '判断',
   action: '动作',
   'end-hit': '命中',
-  'end-miss': '未命中'
+  'end-miss': '未命中',
 }
 
 /** 简化的浏览器缓存决策路径：根据用户选择的场景高亮走哪条分支 */
@@ -25,38 +25,38 @@ const scenarios: { key: Scenario; label: string; path: string[]; desc: string }[
     key: 'fresh',
     label: '强缓存命中 (未过期)',
     desc: '本地有副本且 max-age 未过期，直接使用，不发请求',
-    path: ['req', 'store', 'noStore', 'fresh', 'hit']
+    path: ['req', 'store', 'noStore', 'fresh', 'hit'],
   },
   {
     key: 'expired',
     label: '协商缓存 (已过期)',
     desc: '本地副本过期，发协商请求，服务器确认未改返回 304',
-    path: ['req', 'store', 'noStore', 'fresh', 'revalidate', '304', 'use304']
+    path: ['req', 'store', 'noStore', 'fresh', 'revalidate', '304', 'use304'],
   },
   {
     key: 'noCache',
     label: 'no-cache 总是校验',
     desc: '响应标记 no-cache，每次必须协商，命中则 304',
-    path: ['req', 'store', 'noStore', 'fresh', 'revalidate', '304', 'use304']
+    path: ['req', 'store', 'noStore', 'fresh', 'revalidate', '304', 'use304'],
   },
   {
     key: 'immutable',
     label: 'immutable 强刷新也命中',
     desc: '带 immutable 且未过期，即使用户按 F5 也不发请求',
-    path: ['req', 'store', 'noStore', 'fresh', 'immutable', 'hit']
+    path: ['req', 'store', 'noStore', 'fresh', 'immutable', 'hit'],
   },
   {
     key: 'noStore',
     label: 'no-store 完全不缓存',
     desc: '响应禁止存储，每次都完整下载',
-    path: ['req', 'store', 'noStore', 'fetch']
+    path: ['req', 'store', 'noStore', 'fetch'],
   },
   {
     key: 'normal',
     label: '服务器已更新',
     desc: '协商请求后服务器返回新内容 200',
-    path: ['req', 'store', 'noStore', 'fresh', 'revalidate', '304', 'fetch']
-  }
+    path: ['req', 'store', 'noStore', 'fresh', 'revalidate', '304', 'fetch'],
+  },
 ]
 
 export default function CacheFlowDiagram() {
@@ -68,7 +68,9 @@ export default function CacheFlowDiagram() {
     <section className="card">
       <div className="card-head">
         <h2>浏览器缓存决策流程</h2>
-        <p>当浏览器要加载一个资源时，会按下面的流程判断是直接用本地副本、协商校验还是重新下载。点击下方按钮查看不同场景下走过的分支。</p>
+        <p>
+          当浏览器要加载一个资源时，会按下面的流程判断是直接用本地副本、协商校验还是重新下载。点击下方按钮查看不同场景下走过的分支。
+        </p>
       </div>
 
       <div className="scenario-bar">
@@ -105,7 +107,7 @@ export default function CacheFlowDiagram() {
                 style={{
                   background: onPath ? st.background : '#f8fafc',
                   borderColor: onPath ? st.borderColor : '#e2e8f0',
-                  color: onPath ? st.color : '#94a3b8'
+                  color: onPath ? st.color : '#94a3b8',
                 }}
               >
                 <div className="flow-type">{nodeLabel[node.type]}</div>

@@ -6,8 +6,11 @@ export const Dashboard: FC = () => {
 
   const data: Record<typeof range, number[]> = {
     '7d': [120, 200, 150, 80, 70, 110, 130],
-    '30d': [890, 760, 920, 870, 810, 700, 930, 880, 910, 850, 790, 940, 870, 920, 880, 850, 790, 940, 870, 920, 880, 850, 790, 940, 870, 920, 880, 850, 790, 940],
-    '90d': new Array(90).fill(0).map((_, i) => 600 + Math.round(Math.sin(i / 5) * 200 + i))
+    '30d': [
+      890, 760, 920, 870, 810, 700, 930, 880, 910, 850, 790, 940, 870, 920, 880, 850, 790, 940, 870,
+      920, 880, 850, 790, 940, 870, 920, 880, 850, 790, 940,
+    ],
+    '90d': new Array(90).fill(0).map((_, i) => 600 + Math.round(Math.sin(i / 5) * 200 + i)),
   }
 
   const max = Math.max(...data[range])
@@ -16,7 +19,9 @@ export const Dashboard: FC = () => {
   return (
     <div>
       <h2>仪表盘 Dashboard</h2>
-      <p>该页面通过 <code>React.lazy</code> 异步加载，独立成一个 chunk。</p>
+      <p>
+        该页面通过 <code>React.lazy</code> 异步加载，独立成一个 chunk。
+      </p>
 
       <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
         {(['7d', '30d', '90d'] as const).map((r) => (
@@ -31,7 +36,7 @@ export const Dashboard: FC = () => {
               color: r === range ? '#fff' : '#4b5563',
               borderRadius: 4,
               cursor: 'pointer',
-              fontSize: 13
+              fontSize: 13,
             }}
           >
             {r}
@@ -39,7 +44,9 @@ export const Dashboard: FC = () => {
         ))}
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 160, padding: '8px 0' }}>
+      <div
+        style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 160, padding: '8px 0' }}
+      >
         {data[range].slice(0, 30).map((v, i) => (
           <div
             key={i}
@@ -48,7 +55,7 @@ export const Dashboard: FC = () => {
               height: (v / max) * 100 + '%',
               background: 'linear-gradient(180deg, #818cf8 0%, #6366f1 100%)',
               borderRadius: '2px 2px 0 0',
-              minHeight: 4
+              minHeight: 4,
             }}
             title={String(v)}
           />

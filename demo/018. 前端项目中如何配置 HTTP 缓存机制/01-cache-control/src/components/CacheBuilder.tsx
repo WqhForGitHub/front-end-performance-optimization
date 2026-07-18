@@ -19,7 +19,13 @@ const toggles: Toggle[] = [
   { key: 'immutable', label: 'immutable', desc: '永不变更' },
   { key: 'must-revalidate', label: 'must-revalidate', desc: '过期必校验' },
   { key: 'no-transform', label: 'no-transform', desc: '禁止转码' },
-  { key: 'stale-while-revalidate', label: 'stale-while-revalidate', desc: '过期后台刷新', hasValue: true, defaultValue: '600' }
+  {
+    key: 'stale-while-revalidate',
+    label: 'stale-while-revalidate',
+    desc: '过期后台刷新',
+    hasValue: true,
+    defaultValue: '600',
+  },
 ]
 
 /** 根据当前勾选项模拟出最终的 Cache-Control 头 */
@@ -38,7 +44,9 @@ function buildHeader(state: Record<string, { on: boolean; value: string }>): str
 }
 
 /** 简单语义校验，给出提示 */
-function lint(state: Record<string, { on: boolean; value: string }>): { level: 'warn' | 'ok' | 'err'; msg: string }[] {
+function lint(
+  state: Record<string, { on: boolean; value: string }>,
+): { level: 'warn' | 'ok' | 'err'; msg: string }[] {
   const out: { level: 'warn' | 'ok' | 'err'; msg: string }[] = []
   const on = (k: string) => state[k]?.on
   if (on('no-store')) {
@@ -102,10 +110,18 @@ export default function CacheBuilder() {
                     onChange={() => toggle(t.key)}
                     style={{ marginRight: 8 }}
                   />
-                  <code className="tag" style={{ background: s.on ? '#1e293b' : '#e2e8f0', color: s.on ? '#fff' : '#475569' }}>
+                  <code
+                    className="tag"
+                    style={{
+                      background: s.on ? '#1e293b' : '#e2e8f0',
+                      color: s.on ? '#fff' : '#475569',
+                    }}
+                  >
                     {t.label}
                   </code>
-                  <span className="muted" style={{ marginLeft: 8 }}>{t.desc}</span>
+                  <span className="muted" style={{ marginLeft: 8 }}>
+                    {t.desc}
+                  </span>
                 </label>
                 {t.hasValue && s.on ? (
                   <input
@@ -126,7 +142,9 @@ export default function CacheBuilder() {
           <pre className="code-block header-preview">
             <span className="hdr-key">Cache-Control:</span> {header}
           </pre>
-          <div className="output-label" style={{ marginTop: 16 }}>语义检查</div>
+          <div className="output-label" style={{ marginTop: 16 }}>
+            语义检查
+          </div>
           <ul className="lint-list">
             {checks.map((c, i) => (
               <li key={i} className={`lint lint-${c.level}`}>

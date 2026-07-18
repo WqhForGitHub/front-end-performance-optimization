@@ -57,11 +57,16 @@ export default function App() {
   const [reloadKey, setReloadKey] = useState(0)
 
   const delay = NETWORK_DELAY[network]
-  const fallback = loadingStyle === 'skeleton' ? (
-    tab === 'cards' ? <SkeletonList count={4} type="card" /> : <SkeletonList count={3} type="article" />
-  ) : (
-    <div style={blankFallbackStyle}>⏳ 加载中（空白占位）...</div>
-  )
+  const fallback =
+    loadingStyle === 'skeleton' ? (
+      tab === 'cards' ? (
+        <SkeletonList count={4} type="card" />
+      ) : (
+        <SkeletonList count={3} type="article" />
+      )
+    ) : (
+      <div style={blankFallbackStyle}>⏳ 加载中（空白占位）...</div>
+    )
 
   return (
     <div>
@@ -126,7 +131,8 @@ export default function App() {
 
       <section style={cardStyle}>
         <h2 style={{ margin: '0 0 14px', fontSize: 16 }}>
-          🧪 实时演示（{network === 'slow' ? '3G 慢速' : '4G 快速'} · {loadingStyle === 'skeleton' ? '骨架屏' : '空白'}）
+          🧪 实时演示（{network === 'slow' ? '3G 慢速' : '4G 快速'} ·{' '}
+          {loadingStyle === 'skeleton' ? '骨架屏' : '空白'}）
         </h2>
         <div style={panelStyle}>
           <LoadingProgress network={network} />
@@ -162,7 +168,14 @@ export default function App() {
   )
 }
 
-function Control({ label, children }: { label: string; children?: ReactNode; key?: string | number }) {
+function Control({
+  label,
+  children,
+}: {
+  label: string
+  children?: ReactNode
+  key?: string | number
+}) {
   return (
     <div>
       <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>{label}</div>
@@ -215,12 +228,27 @@ function LoadingProgress({ network }: { network: NetworkSpeed }) {
 
   return (
     <div style={{ marginBottom: 14 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--muted)', marginBottom: 4 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: 11,
+          color: 'var(--muted)',
+          marginBottom: 4,
+        }}
+      >
         <span>阶段：{label}</span>
         <span>{Math.round(progress * 100)}%</span>
       </div>
       <div style={{ height: 4, background: 'var(--border)', borderRadius: 3, overflow: 'hidden' }}>
-        <div style={{ width: `${progress * 100}%`, height: '100%', background: color, transition: 'width 60ms linear' }} />
+        <div
+          style={{
+            width: `${progress * 100}%`,
+            height: '100%',
+            background: color,
+            transition: 'width 60ms linear',
+          }}
+        />
       </div>
     </div>
   )
@@ -228,9 +256,27 @@ function LoadingProgress({ network }: { network: NetworkSpeed }) {
 
 function ComparisonTable() {
   const rows: ReactNode[] = [
-    <Row key="1" dim="首次内容绘制（FCP）" blank="较晚（chunk 下载完才绘制）" skeleton="早（骨架立即可见）" winner="skeleton" />,
-    <Row key="2" dim="视觉稳定性（CLS）" blank="差（内容突然撑开布局）" skeleton="好（骨架占位尺寸一致）" winner="skeleton" />,
-    <Row key="3" dim="用户焦虑感" blank="高（白屏 → 怀疑卡死）" skeleton="低（看到结构 → 觉得在加载）" winner="skeleton" />,
+    <Row
+      key="1"
+      dim="首次内容绘制（FCP）"
+      blank="较晚（chunk 下载完才绘制）"
+      skeleton="早（骨架立即可见）"
+      winner="skeleton"
+    />,
+    <Row
+      key="2"
+      dim="视觉稳定性（CLS）"
+      blank="差（内容突然撑开布局）"
+      skeleton="好（骨架占位尺寸一致）"
+      winner="skeleton"
+    />,
+    <Row
+      key="3"
+      dim="用户焦虑感"
+      blank="高（白屏 → 怀疑卡死）"
+      skeleton="低（看到结构 → 觉得在加载）"
+      winner="skeleton"
+    />,
     <Row key="4" dim="加载总耗时" blank="相同" skeleton="相同（不改变真实耗时）" winner="tie" />,
     <Row key="5" dim="实现成本" blank="零" skeleton="需设计与维护骨架" winner="blank" />,
   ]
@@ -264,12 +310,27 @@ const tdStyle: CSSProperties = {
   borderBottom: '1px solid var(--border)',
 }
 
-function Row({ dim, blank, skeleton, winner }: { dim: string; blank: string; skeleton: string; winner: 'skeleton' | 'blank' | 'tie'; key?: string | number }) {
+function Row({
+  dim,
+  blank,
+  skeleton,
+  winner,
+}: {
+  dim: string
+  blank: string
+  skeleton: string
+  winner: 'skeleton' | 'blank' | 'tie'
+  key?: string | number
+}) {
   return (
     <tr>
       <td style={{ ...tdStyle, color: 'var(--text)', fontWeight: 600 }}>{dim}</td>
-      <td style={{ ...tdStyle, color: winner === 'blank' ? 'var(--accent)' : 'var(--muted)' }}>{blank}</td>
-      <td style={{ ...tdStyle, color: winner === 'skeleton' ? 'var(--accent)' : 'var(--muted)' }}>{skeleton}</td>
+      <td style={{ ...tdStyle, color: winner === 'blank' ? 'var(--accent)' : 'var(--muted)' }}>
+        {blank}
+      </td>
+      <td style={{ ...tdStyle, color: winner === 'skeleton' ? 'var(--accent)' : 'var(--muted)' }}>
+        {skeleton}
+      </td>
     </tr>
   )
 }
@@ -378,12 +439,29 @@ function Tips() {
       desc="数据到达后骨架应立即被替换；若 loading < 200ms，可不显示骨架避免闪烁。"
     />,
   ]
-  return <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>{items}</div>
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: 14,
+      }}
+    >
+      {items}
+    </div>
+  )
 }
 
 function TipItem({ title, desc }: { title: string; desc: string; key?: string | number }) {
   return (
-    <div style={{ background: '#0f1115', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
+    <div
+      style={{
+        background: '#0f1115',
+        border: '1px solid var(--border)',
+        borderRadius: 10,
+        padding: 14,
+      }}
+    >
       <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 13 }}>{title}</div>
       <div style={{ color: 'var(--muted)', fontSize: 12, lineHeight: 1.6 }}>{desc}</div>
     </div>

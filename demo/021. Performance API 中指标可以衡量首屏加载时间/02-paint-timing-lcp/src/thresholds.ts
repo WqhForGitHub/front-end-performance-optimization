@@ -32,8 +32,7 @@ export const METRIC_DEFINITIONS: MetricDefinition[] = [
   {
     name: 'FP',
     fullName: 'First Paint（首次绘制）',
-    description:
-      '浏览器首次渲染任何像素（例如背景色）的时间点。属于 Paint Timing API。',
+    description: '浏览器首次渲染任何像素（例如背景色）的时间点。属于 Paint Timing API。',
     good: 1500,
     poor: 3000,
     api: "performance.getEntriesByType('paint') -> name === 'first-paint'",
@@ -82,11 +81,10 @@ export const METRIC_DEFINITIONS: MetricDefinition[] = [
   {
     name: 'TTFB',
     fullName: 'Time to First Byte（首字节时间）',
-    description:
-      '从发起请求到收到第一个字节的时间，反映服务端响应与网络耗时。',
+    description: '从发起请求到收到第一个字节的时间，反映服务端响应与网络耗时。',
     good: 800,
     poor: 1800,
-    api: "navigationTiming.responseStart - navigationTiming.requestStart",
+    api: 'navigationTiming.responseStart - navigationTiming.requestStart',
     status: 'complementary',
   },
 ]

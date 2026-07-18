@@ -2,9 +2,7 @@
 // 真实项目里来自 node_modules，会被归入 utils-vendor chunk。
 
 export function camelCase(s: string): string {
-  return s
-    .replace(/[-_\s]+(.)/g, (_, c) => c.toUpperCase())
-    .replace(/^(.)/, (c) => c.toLowerCase())
+  return s.replace(/[-_\s]+(.)/g, (_, c) => c.toUpperCase()).replace(/^(.)/, (c) => c.toLowerCase())
 }
 
 export function kebabCase(s: string): string {

@@ -61,7 +61,9 @@ export default function InjectedLinksPanel({ injectedLinks }: InjectedLinksPanel
       ) : (
         injectedLinks.map((link, idx) => (
           <div key={idx} style={itemStyle}>
-            <span style={tagStyle}>[{link.time}] rel="{link.rel}"</span>
+            <span style={tagStyle}>
+              [{link.time}] rel="{link.rel}"
+            </span>
             <span style={codeStyle}>{link.html}</span>
           </div>
         ))

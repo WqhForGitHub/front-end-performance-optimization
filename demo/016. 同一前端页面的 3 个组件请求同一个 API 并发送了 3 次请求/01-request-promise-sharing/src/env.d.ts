@@ -8,8 +8,16 @@ declare module 'react' {
   export type CSSProperties = Record<string, string | number | undefined>
   export type RefObject<T> = { current: T | null }
   export type ChangeEvent<T = HTMLInputElement> = { target: T & { value: string } }
-  export type MouseEvent<T = HTMLElement> = { preventDefault: () => void; currentTarget: T; target: T }
-  export type KeyboardEvent<T = HTMLElement> = { key: string; preventDefault: () => void; target: T }
+  export type MouseEvent<T = HTMLElement> = {
+    preventDefault: () => void
+    currentTarget: T
+    target: T
+  }
+  export type KeyboardEvent<T = HTMLElement> = {
+    key: string
+    preventDefault: () => void
+    target: T
+  }
   export type InputHTMLAttributes<T = HTMLElement> = Record<string, unknown> & {
     value?: string
     onChange?: (e: ChangeEvent<T>) => void
@@ -58,31 +66,51 @@ declare module 'react' {
   export function useEffect(effect: () => void | (() => void), deps?: ReadonlyArray<unknown>): void
   export function useRef<T>(initial: T): { current: T }
   export function useRef<T = undefined>(): { current: T | null }
-  export function useCallback<T extends (...args: any[]) => any>(callback: T, deps: ReadonlyArray<unknown>): T
+  export function useCallback<T extends (...args: any[]) => any>(
+    callback: T,
+    deps: ReadonlyArray<unknown>,
+  ): T
   export function useMemo<T>(factory: () => T, deps: ReadonlyArray<unknown>): T
   export function useContext<T>(context: Context<T>): T
   export function createContext<T>(defaultValue: T): Context<T>
-  export function useReducer<S, A>(reducer: (state: S, action: A) => S, initialState: S): [S, (action: A) => void]
+  export function useReducer<S, A>(
+    reducer: (state: S, action: A) => S,
+    initialState: S,
+  ): [S, (action: A) => void]
   export const Fragment: unknown
   export const StrictMode: FC<{ children?: ReactNode }>
   export function memo<P>(component: (props: P) => ReactNode): typeof component
   export const Suspense: FC<{ fallback?: ReactNode; children?: ReactNode }>
   export function lazy<T>(loader: () => Promise<{ default: T }>): T
   const React: {
-    createElement: (type: unknown, props?: Record<string, unknown>, ...children: ReactNode[]) => unknown
+    createElement: (
+      type: unknown,
+      props?: Record<string, unknown>,
+      ...children: ReactNode[]
+    ) => unknown
     Fragment: unknown
     StrictMode: FC<{ children?: ReactNode }>
   }
   export default React
 }
 declare module 'react/jsx-runtime' {
-  export function jsx(type: unknown, props: Record<string, unknown> | null, key?: string | number): unknown
-  export function jsxs(type: unknown, props: Record<string, unknown> | null, key?: string | number): unknown
+  export function jsx(
+    type: unknown,
+    props: Record<string, unknown> | null,
+    key?: string | number,
+  ): unknown
+  export function jsxs(
+    type: unknown,
+    props: Record<string, unknown> | null,
+    key?: string | number,
+  ): unknown
   export const Fragment: unknown
   export namespace JSX {
     type Element = any
     interface ElementClass {}
-    interface IntrinsicElements { [elemName: string]: any }
+    interface IntrinsicElements {
+      [elemName: string]: any
+    }
     type LibraryManagedAttributes<C, P> = P
   }
 }
@@ -103,12 +131,23 @@ declare module '*.module.css' {
   const classes: Record<string, string>
   export default classes
 }
-declare module '*.png' { const src: string; export default src }
-declare module '*.jpg' { const src: string; export default src }
-declare module '*.svg' { const src: string; export default src }
+declare module '*.png' {
+  const src: string
+  export default src
+}
+declare module '*.jpg' {
+  const src: string
+  export default src
+}
+declare module '*.svg' {
+  const src: string
+  export default src
+}
 declare namespace JSX {
   type Element = any
   interface ElementClass {}
-  interface IntrinsicElements { [elemName: string]: any }
+  interface IntrinsicElements {
+    [elemName: string]: any
+  }
   type LibraryManagedAttributes<C, P> = P
 }

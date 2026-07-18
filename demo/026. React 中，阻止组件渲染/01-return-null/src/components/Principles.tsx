@@ -9,8 +9,8 @@ export const Principles: FC = () => {
       title: '1. 早返回要放在所有 hooks 之后',
       body: (
         <span>
-          React 要求 hooks 调用顺序稳定。若 <code>if (cond) return null</code> 写在 <code>useState</code> 之前，
-          下次渲染条件变化会导致 hooks 数量不一致，触发报错。
+          React 要求 hooks 调用顺序稳定。若 <code>if (cond) return null</code> 写在{' '}
+          <code>useState</code> 之前， 下次渲染条件变化会导致 hooks 数量不一致，触发报错。
         </span>
       ),
     },
@@ -18,7 +18,8 @@ export const Principles: FC = () => {
       title: '2. 适合"判断逻辑简单"的场景',
       body: (
         <span>
-          单纯的存在性 / 权限 / 开关判断非常适合。如果判断前需要大量计算，应把计算放到 <code>useMemo</code> 或上移到父组件。
+          单纯的存在性 / 权限 / 开关判断非常适合。如果判断前需要大量计算，应把计算放到{' '}
+          <code>useMemo</code> 或上移到父组件。
         </span>
       ),
     },
@@ -26,8 +27,8 @@ export const Principles: FC = () => {
       title: '3. return null 仍会执行组件函数体',
       body: (
         <span>
-          组件函数本身、其中所有顶层 hooks（<code>useState</code>/<code>useEffect</code> 等）仍会执行，
-          只是最终不输出 DOM。不要用它跳过昂贵的副作用。
+          组件函数本身、其中所有顶层 hooks（<code>useState</code>/<code>useEffect</code>{' '}
+          等）仍会执行， 只是最终不输出 DOM。不要用它跳过昂贵的副作用。
         </span>
       ),
     },
@@ -35,7 +36,8 @@ export const Principles: FC = () => {
       title: '4. 优先于 CSS 隐藏（display:none）',
       body: (
         <span>
-          当"完全不渲染"语义正确时，<code>return null</code> 比 <code>display:none</code> 更干净：DOM 更小、副作用更少、更安全。
+          当"完全不渲染"语义正确时，<code>return null</code> 比 <code>display:none</code>{' '}
+          更干净：DOM 更小、副作用更少、更安全。
         </span>
       ),
     },
@@ -46,7 +48,8 @@ export const Principles: FC = () => {
       title: '1. 不要用它跳过 hooks 规则',
       body: (
         <span>
-          <code>if (cond) return null</code> 写在 hooks 调用之前会破坏 hooks 调用顺序，React 会在开发模式下抛错。
+          <code>if (cond) return null</code> 写在 hooks 调用之前会破坏 hooks 调用顺序，React
+          会在开发模式下抛错。
         </span>
       ),
     },
@@ -54,7 +57,8 @@ export const Principles: FC = () => {
       title: '2. 不要用它替代 memo / shouldComponentUpdate',
       body: (
         <span>
-          <code>return null</code> 仍会重算整个组件。<code>memo</code> / <code>shouldComponentUpdate</code> 才是"跳过重渲染"的工具。
+          <code>return null</code> 仍会重算整个组件。<code>memo</code> /{' '}
+          <code>shouldComponentUpdate</code> 才是"跳过重渲染"的工具。
         </span>
       ),
     },
@@ -62,7 +66,8 @@ export const Principles: FC = () => {
       title: '3. 不要在频繁切换的场景滥用',
       body: (
         <span>
-          频繁 <code>null</code> &lt;-&gt; 元素 切换会导致组件反复挂载/卸载，比 <code>display:none</code> 更昂贵（重建 DOM、副作用反复触发）。
+          频繁 <code>null</code> &lt;-&gt; 元素 切换会导致组件反复挂载/卸载，比{' '}
+          <code>display:none</code> 更昂贵（重建 DOM、副作用反复触发）。
         </span>
       ),
     },
@@ -70,7 +75,8 @@ export const Principles: FC = () => {
       title: '4. 不要混淆 return null 与 return undefined',
       body: (
         <span>
-          React 中两者行为一致（都不输出 DOM），但 <code>null</code> 语义是"明确不渲染"，<code>undefined</code> 常常是"忘了 return"，应该用 <code>null</code>。
+          React 中两者行为一致（都不输出 DOM），但 <code>null</code> 语义是"明确不渲染"，
+          <code>undefined</code> 常常是"忘了 return"，应该用 <code>null</code>。
         </span>
       ),
     },

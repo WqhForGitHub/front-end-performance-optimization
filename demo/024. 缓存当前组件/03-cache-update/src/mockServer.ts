@@ -47,9 +47,7 @@ export function fetchNews(category: Category): Promise<{ fetchedAt: string; item
     // 模拟 300ms 网络延迟
     setTimeout(() => {
       const filtered =
-        category === 'all'
-          ? newsPool
-          : newsPool.filter((n) => n.category === category)
+        category === 'all' ? newsPool : newsPool.filter((n) => n.category === category)
       // 随机打乱
       const shuffled = [...filtered].sort(() => Math.random() - 0.5).slice(0, 5)
       const items: NewsItem[] = shuffled.map((n) => ({

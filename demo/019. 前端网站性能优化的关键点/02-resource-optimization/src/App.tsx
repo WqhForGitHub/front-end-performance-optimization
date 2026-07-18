@@ -1,5 +1,11 @@
 import { useCallback, useState, CSSProperties } from 'react'
-import { techniques, withoutPreconnectTimeline, withPreconnectTimeline, withoutPreloadTimeline, withPreloadTimeline } from './data/techniques'
+import {
+  techniques,
+  withoutPreconnectTimeline,
+  withPreconnectTimeline,
+  withoutPreloadTimeline,
+  withPreloadTimeline,
+} from './data/techniques'
 import TechniqueCard from './components/TechniqueCard'
 import TimelineVisualization from './components/TimelineVisualization'
 import LazyImageGallery from './components/LazyImageGallery'
@@ -14,8 +20,14 @@ interface InjectedLink {
 /**
  * 各技术对应的真实 link 标签配置（用于注入 document.head）
  */
-const injectConfig: Record<string, { href: string; as?: string; crossorigin?: boolean; type?: string }> = {
-  preload: { href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap', as: 'style' },
+const injectConfig: Record<
+  string,
+  { href: string; as?: string; crossorigin?: boolean; type?: string }
+> = {
+  preload: {
+    href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap',
+    as: 'style',
+  },
   prefetch: { href: '/next-page.chunk.js', as: 'script' },
   'dns-prefetch': { href: '//cdn.example.com' },
   preconnect: { href: 'https://fonts.googleapis.com', crossorigin: true },
@@ -72,10 +84,7 @@ export default function App() {
 
     const now = new Date()
     const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
-    setInjectedLinks((prev) => [
-      ...prev,
-      { rel, html: buildLinkHtml(rel), time },
-    ])
+    setInjectedLinks((prev) => [...prev, { rel, html: buildLinkHtml(rel), time }])
   }, [])
 
   const pageStyle: CSSProperties = {
@@ -139,9 +148,10 @@ export default function App() {
       </div>
 
       <div style={noteStyle}>
-        <strong>核心思想：</strong>资源提示（Resource Hints）通过 &lt;link rel="..."&gt; 告诉浏览器「提前做某事」，
-        利用浏览器空闲时间和并行能力缩短关键路径。注意：preload 用于当前页关键资源；prefetch 用于下一页资源；
-        dns-prefetch / preconnect 用于提前建立到第三方源的连接。
+        <strong>核心思想：</strong>资源提示（Resource Hints）通过 &lt;link rel="..."&gt;
+        告诉浏览器「提前做某事」， 利用浏览器空闲时间和并行能力缩短关键路径。注意：preload
+        用于当前页关键资源；prefetch 用于下一页资源； dns-prefetch / preconnect
+        用于提前建立到第三方源的连接。
       </div>
 
       <div style={sectionStyle}>

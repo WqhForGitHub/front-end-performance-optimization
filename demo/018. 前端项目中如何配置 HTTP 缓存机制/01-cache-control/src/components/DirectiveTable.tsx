@@ -4,14 +4,14 @@ const categoryLabel: Record<DirectiveInfo['category'], string> = {
   freshness: '新鲜度',
   cacheability: '可缓存性',
   revalidation: '再校验',
-  misc: '其它'
+  misc: '其它',
 }
 
 const categoryColor: Record<DirectiveInfo['category'], string> = {
   freshness: '#16a34a',
   cacheability: '#2563eb',
   revalidation: '#ea580c',
-  misc: '#64748b'
+  misc: '#64748b',
 }
 
 export default function DirectiveTable() {
@@ -19,7 +19,10 @@ export default function DirectiveTable() {
     <section className="card">
       <div className="card-head">
         <h2>Cache-Control 指令速查表</h2>
-        <p>HTTP/1.1 定义的 Cache-Control 响应头由多个指令组成，用逗号分隔。下表列出前端常用的核心指令。</p>
+        <p>
+          HTTP/1.1 定义的 Cache-Control
+          响应头由多个指令组成，用逗号分隔。下表列出前端常用的核心指令。
+        </p>
       </div>
       <div className="table-wrap">
         <table className="data-table">
@@ -44,7 +47,10 @@ export default function DirectiveTable() {
                 <td>
                   <span
                     className="badge"
-                    style={{ background: categoryColor[d.category] + '22', color: categoryColor[d.category] }}
+                    style={{
+                      background: categoryColor[d.category] + '22',
+                      color: categoryColor[d.category],
+                    }}
                   >
                     {categoryLabel[d.category]}
                   </span>
@@ -63,7 +69,11 @@ export default function DirectiveTable() {
       <div className="legend-row">
         <span className="legend-title">分类图例：</span>
         {(Object.keys(categoryLabel) as DirectiveInfo['category'][]).map((k) => (
-          <span key={k} className="badge" style={{ background: categoryColor[k] + '22', color: categoryColor[k] }}>
+          <span
+            key={k}
+            className="badge"
+            style={{ background: categoryColor[k] + '22', color: categoryColor[k] }}
+          >
             {categoryLabel[k]}
           </span>
         ))}

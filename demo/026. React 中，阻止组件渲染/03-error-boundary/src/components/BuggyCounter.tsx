@@ -26,7 +26,7 @@ export const BuggyCounter: FC<BuggyCounterProps> = ({ threshold = 3 }) => {
   // render 阶段抛错：当 count 达到阈值时
   if (count >= threshold) {
     throw new Error(
-      `BuggyCounter 在 count=${count} 时崩溃了！这是一个渲染阶段的错误，会被 ErrorBoundary 捕获。`
+      `BuggyCounter 在 count=${count} 时崩溃了！这是一个渲染阶段的错误，会被 ErrorBoundary 捕获。`,
     )
   }
 

@@ -146,11 +146,7 @@ export function renderDefinitionsTable(): void {
       <td class="t-poor">> ${def.poor} ms</td>
       <td><code>${def.api}</code></td>
       <td><span class="status-tag status-${def.status}">${
-        def.status === 'recommended'
-          ? '推荐'
-          : def.status === 'deprecated'
-          ? '已废弃'
-          : '补充'
+        def.status === 'recommended' ? '推荐' : def.status === 'deprecated' ? '已废弃' : '补充'
       }</span></td>
     `
     tbody.appendChild(row)

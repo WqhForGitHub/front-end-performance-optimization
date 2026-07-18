@@ -24,7 +24,8 @@ export const techniques: Technique[] = [
     name: '预加载（preload）',
     purpose: '提前加载当前页面关键资源（字体、CSS、关键 JS、首屏图片），强制浏览器尽早请求。',
     scenario: '首屏关键资源：本页一定会用到、但对渲染至关重要的资源。',
-    example: '<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin>',
+    example:
+      '<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin>',
     color: '#1976d2',
     icon: 'P',
   },
