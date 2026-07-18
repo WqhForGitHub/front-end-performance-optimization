@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 资源预连接 -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <!-- 内联关键 CSS -->
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; }
+      .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+      @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    </style>
+    <title>SPA 首屏加载优化</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 骨架屏：React 挂载前显示 -->
+      <div id="skeleton" style="max-width: 960px; margin: 24px auto; padding: 0 16px;">
+        <div class="skeleton" style="height: 32px; width: 60%; margin-bottom: 16px;"></div>
+        <div class="skeleton" style="height: 16px; width: 80%; margin-bottom: 8px;"></div>
+        <div class="skeleton" style="height: 240px; margin-top: 20px;"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

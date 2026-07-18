@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 关键资源预连接：减少 DNS/TLS 握手时间 -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <!-- DNS 预解析 -->
+    <link rel="dns-prefetch" href="//cdn.example.com" />
+    <!-- 关键 CSS 内联：避免阻塞首屏渲染 -->
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; }
+      .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+      @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    </style>
+    <title>Vue3 - 网站首页加载速度优化</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 骨架屏：在 Vue 挂载前显示，避免白屏 -->
+      <div id="skeleton" style="max-width: 960px; margin: 24px auto; padding: 0 16px;">
+        <div class="skeleton" style="height: 32px; width: 60%; margin-bottom: 16px; border-radius: 4px;"></div>
+        <div class="skeleton" style="height: 16px; width: 80%; margin-bottom: 8px; border-radius: 4px;"></div>
+        <div class="skeleton" style="height: 200px; margin-top: 20px; border-radius: 8px;"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
